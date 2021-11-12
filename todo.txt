@@ -1,0 +1,9 @@
+and make the footer and header cells also editable in the form
+
+after being done with this create a mysql relation for the parts orders
+figure out what make a order unique and then what makes each part of that order unique (if even necessary)
+
+create a view that has a create new order, complete order, or view and edit old orders
+
+add a router if needed
+move on to the next tables

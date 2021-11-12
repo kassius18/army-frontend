@@ -1,6 +1,5 @@
-// function TableRow({
-// }) {
-function TableRow({ row }) {
+import { RiDeleteBack2Fill } from "react-icons/ri";
+function TableRow({ row, partialId, deleteRow, editRow }) {
   const {
     nameNumber,
     name,
@@ -9,174 +8,61 @@ function TableRow({ row }) {
     unitOfOrder,
     reasonOfOrder,
     priorityOfOrder,
+    observations,
   } = row;
+
   return (
-    <tr>
-      <td
-        style={{
-          borderTop: "1px solid #33cccc",
-          borderBottom: "1px solid #33cccc",
-          borderLeft: "1px solid #33cccc",
-          borderRight: "1px solid #33cccc",
-          valign: "middle",
-          height: "33",
-          align: "left",
+    <>
+      <tr
+        onChange={(event) => {
+          row[event.target.id] = event.target.value;
+          editRow(row, partialId);
         }}
       >
-        <br />
-      </td>
-      <td
-        style={{
-          borderTop: "1px solid #33cccc",
-          borderBottom: "1px solid #33cccc",
-          borderLeft: "1px solid #33cccc",
-          borderRight: "1px solid #33cccc",
-          align: "left",
-        }}
-      >
-        <font size="1" color="#000000">
-          {nameNumber}
-        </font>
-      </td>
-      <td
-        style={{
-          borderTop: "1px solid #33cccc",
-          borderBottom: "1px solid #33cccc",
-          borderLeft: "1px solid #33cccc",
-          borderRight: "1px solid #33cccc",
-          align: "left",
-        }}
-      >
-        <font size="1" color="#000000">
+        <td>
           <br />
-        </font>
-      </td>
-      <td
-        style={{
-          borderTop: "1px solid #33cccc",
-          borderBottom: "1px solid #33cccc",
-          borderLeft: "1px solid #33cccc",
-          borderRight: "1px solid #33cccc",
-          align: "left",
-        }}
-      >
-        <font size="1" color="#000000">
-          {name}
-        </font>
-      </td>
-      <td
-        style={{
-          borderTop: "1px solid #33cccc",
-          borderBottom: "1px solid #33cccc",
-          borderLeft: "1px solid #33cccc",
-          borderRight: "1px solid #33cccc",
-          align: "left",
-        }}
-      >
-        <font size="1" color="#000000">
-          {mainMaterial}
-        </font>
-      </td>
-      <td
-        style={{
-          borderTop: "1px solid #33cccc",
-          borderBottom: "1px solid #33cccc",
-          borderLeft: "1px solid #33cccc",
-          borderRight: "1px solid #33cccc",
-          sdval: "1",
-          sdnum: "1033",
-          align: "left",
-        }}
-      >
-        <font size="1" color="#000000">
-          {amountOfOrder}
-        </font>
-      </td>
-      <td
-        style={{
-          borderTop: "1px solid #33cccc",
-          borderBottom: "1px solid #33cccc",
-          borderLeft: "1px solid #33cccc",
-          borderRight: "1px solid #33cccc",
-          valign: "middle",
-          align: "left",
-        }}
-      >
-        <font size="1">
+        </td>
+        <td>
+          <input type="text" id="nameNumber" defaultValue={nameNumber} />
+        </td>
+        <td>
           <br />
-        </font>
-      </td>
-      <td
-        style={{
-          borderTop: "1px solid #33cccc",
-          borderBottom: "1px solid #33cccc",
-          borderLeft: "1px solid #33cccc",
-          borderRight: "1px solid #33cccc",
-          valign: "middle",
-          align: "left",
-        }}
-      >
-        <font size="1">{unitOfOrder}</font>
-      </td>
-      <td
-        style={{
-          borderTop: "1px solid #33cccc",
-          borderBottom: "1px solid #33cccc",
-          borderLeft: "1px solid #33cccc",
-          borderRight: "1px solid #33cccc",
-          sdnum: "1033",
-          valign: "middle",
-          align: "left",
-        }}
-      >
-        <font size="1">{reasonOfOrder}</font>
-      </td>
-      <td
-        style={{
-          borderTop: "1px solid #33cccc",
-          borderBottom: "1px solid #33cccc",
-          borderLeft: "1px solid #33cccc",
-          borderRight: "1px solid #33cccc",
-          sdnum: "1033",
-          valign: "middle",
-          align: "left",
-        }}
-      >
-        <font size="1">{priorityOfOrder}</font>
-      </td>
-      <td
-        style={{
-          borderTop: "1px solid #33cccc",
-          borderBottom: "1px solid #33cccc",
-          borderLeft: "1px solid #33cccc",
-          borderRight: "1px solid #33cccc",
-          valign: "middle",
-          align: "left",
-        }}
-      >
-        <font size="1">
+        </td>
+        <td>
+          <input type="text" id="nameNumber" defaultValue={name} />
+        </td>
+        <td>
+          <input type="text" id="nameNumber" defaultValue={mainMaterial} />
+        </td>
+        <td>
+          <input type="text" id="nameNumber" defaultValue={amountOfOrder} />
+        </td>
+        <td>
           <br />
-        </font>
-      </td>
-      <td
-        style={{
-          borderTop: "1px solid #33cccc",
-          borderBottom: "1px solid #33cccc",
-          borderLeft: "1px solid #33cccc",
-          borderRight: "1px solid #33cccc",
-          sdnum: "1033",
-          valign: "middle",
-          align: "left",
-        }}
-      >
-        <font size="1">
+        </td>
+        <td>
+          <input type="text" id="nameNumber" defaultValue={unitOfOrder} />
+        </td>
+        <td>
+          <input type="text" id="nameNumber" defaultValue={reasonOfOrder} />
+        </td>
+        <td>
+          <input type="text" id="nameNumber" defaultValue={priorityOfOrder} />
+        </td>
+        <td>
           <br />
-        </font>
-      </td>
-      <td align="left">
-        <br />
-      </td>
-    </tr>
+        </td>
+        <td>
+          <input type="text" id="nameNumber" defaultValue={observations} />
+        </td>
+        <td align="left">
+          <RiDeleteBack2Fill
+            onClick={() => deleteRow(partialId)}
+            style={{ color: "red" }}
+          />
+        </td>
+      </tr>
+    </>
   );
 }
 

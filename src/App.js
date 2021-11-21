@@ -1,12 +1,18 @@
-import ProtocolTable from "./protocol_table/TableStructure";
-import "./App.css";
+import ProtocolTableStructure from "./tables/protocol_table/TableStructure";
+import "./App.scss";
+import Protocol from "./pages/Protocol";
 
 //
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { useReactToPrint } from "react-to-print";
 //
+import { useRoutes } from "react-router-dom";
+import routes from "./routes";
+
+const ContextRows = React.createContext("test");
 
 function App() {
+  let routing = useRoutes(routes);
   let headerData = {
     militaryUnitMakingRequest: "96 TMXEΘ/ΔΡΙΑ",
     militaryUnitProviding: "96 TMXEΘ/ΔΡΙΑ",
@@ -20,7 +26,7 @@ function App() {
       unitOfOrder: "τεμ.",
       reasonOfOrder: "04",
       priorityOfOrder: "50",
-      observations: "as",
+      observations: "asdfasdf",
     },
     {
       nameNumber: "4J6064",
@@ -30,7 +36,7 @@ function App() {
       unitOfOrder: "τεμ.",
       reasonOfOrder: "04",
       priorityOfOrder: "50",
-      observations: "",
+      observations: "test",
     },
     {
       nameNumber: "4J6064",
@@ -53,7 +59,7 @@ function App() {
 
     return (
       <div>
-        <ProtocolTable
+        <ProtocolTableStructure
           ref={componentRef}
           headerData={headerData}
           rows={rows}
@@ -65,11 +71,20 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header"></header>
-      <PrintContent />
-    </div>
+    <ContextRows.Provider value={rows}>
+      <div className="App">
+        <header className="App-header"></header>
+        {
+          // <PrintContent />
+        }
+        {routing}
+      </div>
+    </ContextRows.Provider>
   );
 }
+
+export const useContextRows = () => {
+  return useContext(ContextRows);
+};
 
 export default App;

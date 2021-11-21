@@ -10,7 +10,7 @@ import TableRow from "./TableRow";
 import TableFoter from "./TableFooter";
 import { useState } from "react";
 
-const ProtocolTable = React.forwardRef(
+const ProtocolTableStructure = React.forwardRef(
   ({ headerData, rows, footerData }, ref) => {
     const [allRows, setRows] = useState(rows);
 
@@ -97,4 +97,4 @@ const ProtocolTable = React.forwardRef(
   }
 );
 
-export default ProtocolTable;
+export default ProtocolTableStructure;

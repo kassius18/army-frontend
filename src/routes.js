@@ -1,13 +1,13 @@
 import { Navigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
-import Protocol from "./pages/Protocol";
+import Request from "./pages/Request";
 
 const routes = [
   {
     path: "/",
     element: <MainLayout />,
     children: [
-      { path: "protocol", element: <Protocol /> },
+      { path: "request", element: <Request /> },
       // { path: "customers", element: <CustomerList /> },
       // { path: "dashboard", element: <Dashboard /> },
       // { path: "products", element: <ProductList /> },

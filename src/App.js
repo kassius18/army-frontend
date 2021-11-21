@@ -1,6 +1,6 @@
 import ProtocolTableStructure from "./tables/protocol_table/TableStructure";
 import "./App.scss";
-import Protocol from "./pages/Protocol";
+import Request from "./pages/Request";
 
 //
 import React, { useRef, useContext } from "react";

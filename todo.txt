@@ -3,7 +3,6 @@ check if the rows are empty, if the rows are empty then have a create new protoc
 add a date and a phi number to the create new protocol button
 commit
 
-work on the backend , first install a migrations and population plug in,
 create the protocol migration and then the applied view
 populate it with some data
 write tests

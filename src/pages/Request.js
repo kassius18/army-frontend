@@ -1,4 +1,4 @@
-import "./protocol.scss";
+import "./request.scss";
 import HiddenRows from "./HiddenRows";
 import { IoMdAdd } from "react-icons/io";
 import { AiOutlineClose } from "react-icons/ai";
@@ -8,7 +8,7 @@ import { FiDelete } from "react-icons/fi";
 import { useRef, useState } from "react";
 import { useContextRows } from "./../App";
 
-function Protocol({ initialTable }) {
+function Request({ initialTable }) {
   // todo this is for when the inputs for the table are loaded from the backend const [tableRows, setTableRows] = useState(initialTable);
   const modal = useRef(null);
   const context = useContextRows();
@@ -91,7 +91,7 @@ function Protocol({ initialTable }) {
   };
 
   return (
-    <div className="protocol">
+    <div className="request">
       <table className="table table-striped">
         <thead>
           <tr height="70px">
@@ -224,4 +224,4 @@ function Protocol({ initialTable }) {
   );
 }
 
-export default Protocol;
+export default Request;

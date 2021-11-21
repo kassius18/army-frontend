@@ -4,7 +4,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <nav className="sidebar__navbar">
-        <NavLink to="/protocol">Protocol</NavLink>
+        <NavLink to="/request">Request</NavLink>
         <NavLink to="/sv">View Two</NavLink>
         <NavLink to="/tv">View Three</NavLink>
         <NavLink to="/fov">View Four</NavLink>

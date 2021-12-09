@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Request from "./pages/Request";
+import NewRequest from "./pages/NewRequest";
 
 const routes = [
   {
@@ -8,6 +9,8 @@ const routes = [
     element: <MainLayout />,
     children: [
       { path: "request", element: <Request /> },
+      { path: "test", element: <NewRequest /> },
+
       // { path: "customers", element: <CustomerList /> },
       // { path: "dashboard", element: <Dashboard /> },
       // { path: "products", element: <ProductList /> },

@@ -9,22 +9,42 @@ import { useRef, useState } from "react";
 import { useContextRows } from "./../App";
 import axios from "axios";
 
-function Request({ initialTable }) {
+function NewRequest({ initialTable }) {
   // todo this is for when the inputs for the table are loaded from the backend const [tableRows, setTableRows] = useState(initialTable);
   const modal = useRef(null);
-  const context = useContextRows();
-  const [rows, setRows] = useState(context);
+  const [rows, setRows] = useState([]);
+  const [firstPartOfPhi, setFirstPartOfPhi] = useState("");
+  const [secondPartOfPhi, setSecondPartOfPhi] = useState("");
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
+  const [day, setDay] = useState("");
+  const [requestData, setRequestData] = useState({});
   const [initialValues, setInitialValues] = useState({});
 
   // const [indexOfRowBeingEdited, setIndexOfRowBeingEdited] = useState
   const makePostRequest = () => {
-    console.log("clicked");
-    console.log(rows);
+    const rowsWithPhiAndYear = rows.map((row) => {
+      row.firstPartOfPhi = firstPartOfPhi;
+      row.secondPartOfPhi = secondPartOfPhi;
+      row.year = year;
+      return row;
+    });
+
+    const request = {
+      requests: [
+        {
+          firstPartOfPhi: firstPartOfPhi,
+          secondPartOfPhi: secondPartOfPhi,
+          year: year,
+          month: month,
+          day: day,
+          entries: rowsWithPhiAndYear,
+        },
+      ],
+    };
     axios
       // .post("http://army-backend.com/requests", {
-      .post("http://localhost:8080/requests", {
-        requests: rows,
-      })
+      .post("http://localhost:8080/requests", request)
       .then(function (response) {
         console.log(response);
       })
@@ -39,8 +59,6 @@ function Request({ initialTable }) {
     setInitialValues(rowBeingEdited);
   };
 
-  console.log(rows);
-
   const deleteRow = (index) => {
     setRows(
       rows.filter((row) => {
@@ -53,7 +71,6 @@ function Request({ initialTable }) {
     const clickedRow = rows.find((row) => {
       return row.index === index;
     });
-    console.log(clickedRow);
     clickedRow.isHidden = !clickedRow.isHidden;
     setRows(
       rows.map((row) => {
@@ -74,15 +91,15 @@ function Request({ initialTable }) {
     event.preventDefault();
     const newRow = {
       nameNumber: event.target.nameNumber.value,
+      nameNumber: event.target.nameNumber.value,
       name: event.target.name.value,
       mainPart: event.target.mainPart.value,
-      amountOfOrder: event.target.amountOfOrder.value,
+      amountOfOrder: parseInt(event.target.amountOfOrder.value),
       unitOfOrder: event.target.unitOfOrder.value,
-      reasonOfOrder: event.target.reasonOfOrder.value,
-      priorityOfOrder: event.target.priorityOfOrder.value,
+      reasonOfOrder: parseInt(event.target.reasonOfOrder.value),
+      priorityOfOrder: parseInt(event.target.priorityOfOrder.value),
       observations: event.target.observations.value,
     };
-    console.log(initialValues === {});
     if (
       //checks if object is empty
       Object.keys(initialValues).length === 0 &&
@@ -169,20 +186,50 @@ function Request({ initialTable }) {
         <div className={"request__body"}>
           <div className={"request__data"}>
             <span>phi</span>
-            <span>15</span>
-            <span>25</span>
+            <input
+              type="number"
+              value={firstPartOfPhi}
+              onChange={(e) => {
+                setFirstPartOfPhi(parseInt(e.target.value));
+              }}
+            />
+            <input
+              type="number"
+              value={secondPartOfPhi}
+              onChange={(e) => {
+                setSecondPartOfPhi(parseInt(e.target.value));
+              }}
+            />
           </div>
           <div className={"request__data"}>
             <span>year</span>
-            <span>2021</span>
+            <input
+              type="number"
+              value={year}
+              onChange={(e) => {
+                setYear(parseInt(e.target.value));
+              }}
+            />
           </div>
           <div className={"request__data"}>
             <span>month</span>
-            <span>06</span>
+            <input
+              type="number"
+              value={month}
+              onChange={(e) => {
+                setMonth(parseInt(e.target.value));
+              }}
+            />
           </div>
           <div className={"request__data"}>
             <span>day</span>
-            <span>15</span>
+            <input
+              type="number"
+              value={day}
+              onChange={(e) => {
+                setDay(parseInt(e.target.value));
+              }}
+            />
           </div>
         </div>
       </div>
@@ -262,4 +309,4 @@ function Request({ initialTable }) {
   );
 }
 
-export default Request;
+export default NewRequest;

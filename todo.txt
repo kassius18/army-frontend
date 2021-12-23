@@ -1,8 +1,0 @@
-create the create new request path
-
-also need to create some way to update the context of the rows after its updated so that in the other views it also gets updated (do this with the context)
-check if the rows are empty, if the rows are empty then have a create new protocol view, otherwise render what is being rendered now,
-add a date and a phi number to the create new protocol button
-commit
-
-beautify

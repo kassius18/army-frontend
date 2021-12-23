@@ -15,6 +15,7 @@ p {
   font-family: "DejaVu sans";
   font-size: x-small;
 }
+
 a.comment-indicator:hover + comment {
   background: #ffd;
   position: absolute;
@@ -22,6 +23,7 @@ a.comment-indicator:hover + comment {
   border: 1px solid black;
   padding: 0.5em;
 }
+
 a.comment-indicator {
   background: red;
   display: inline-block;
@@ -29,6 +31,7 @@ a.comment-indicator {
   width: 0.5em;
   height: 0.5em;
 }
+
 comment {
   display: none;
 }
@@ -42,7 +45,7 @@ input {
   width: 100%;
 }
 
-.table_body td:not(:last-child) {
+.table_body td {
   border: 1px solid #33cccc;
   height: "33";
 }

@@ -1,15 +1,11 @@
-import ProtocolTableStructure from "./tables/protocol_table/TableStructure";
+import ProtocolTableStructure from "./tables/protocol_table/ProtocolTableStructure";
 import "./App.scss";
 import Request from "./pages/Request";
 
-//
 import React, { useRef, useContext } from "react";
 import { useReactToPrint } from "react-to-print";
-//
 import { useRoutes } from "react-router-dom";
 import routes from "./routes";
-
-const ContextRows = React.createContext("test");
 
 function App() {
   let routing = useRoutes(routes);
@@ -51,40 +47,45 @@ function App() {
   ];
   let footerData = {};
 
-  const PrintContent = () => {
-    const componentRef = useRef();
-    const handlePrint = useReactToPrint({
-      content: () => componentRef.current,
-    });
+  // const PrintContent = () => {
+  //   const componentRef = useRef();
+  //   const handlePrint = useReactToPrint({
+  //     content: () => componentRef.current,
+  //   });
 
-    return (
-      <div>
-        <ProtocolTableStructure
-          ref={componentRef}
-          headerData={headerData}
-          rows={rows}
-          footerData={footerData}
-        />
-        <button onClick={handlePrint}>Print this out!</button>
-      </div>
-    );
-  };
+  //   return (
+  //     <div>
+  //       <ProtocolTableStructure
+  //         ref={componentRef}
+  //         headerData={headerData}
+  //         rows={rows}
+  //         footerData={footerData}
+  //       />
+  //       <button onClick={handlePrint}>Print this out!</button>
+  //     </div>
+  //   );
+  // };
+  //
+  //
+  // return (
+  //   <div>
+  //     <ProtocolTableStructure
+  //       headerData={headerData}
+  //       rows={rows}
+  //       footerData={footerData}
+  //     />
+  //   </div>
+  // );
 
   return (
-    <ContextRows.Provider value={rows}>
-      <div className="App">
-        <header className="App-header"></header>
-        {
-          // <PrintContent />
-        }
-        {routing}
-      </div>
-    </ContextRows.Provider>
+    <div className="App">
+      <header className="App-header"></header>
+      {
+        // <PrintContent />
+      }
+      {routing}
+    </div>
   );
 }
-
-export const useContextRows = () => {
-  return useContext(ContextRows);
-};
 
 export default App;

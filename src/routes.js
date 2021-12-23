@@ -1,16 +1,18 @@
 import { Navigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
-import Request from "./pages/Request";
+import GetRequests from "./pages/GetRequests";
 import NewRequest from "./pages/NewRequest";
+import PrintRequest from "./pages/PrintRequest";
 
 const routes = [
   {
     path: "/",
     element: <MainLayout />,
     children: [
-      { path: "request", element: <Request /> },
-      { path: "test", element: <NewRequest /> },
-
+      // { path: "request", element: <Request /> },
+      { path: "request/new", element: <NewRequest /> },
+      { path: "request/", element: <GetRequests /> },
+      { path: "request/print", element: <PrintRequest /> },
       // { path: "customers", element: <CustomerList /> },
       // { path: "dashboard", element: <Dashboard /> },
       // { path: "products", element: <ProductList /> },

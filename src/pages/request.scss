@@ -54,7 +54,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: transparent;
   display: flex;
   justify-content: center;
@@ -148,5 +148,28 @@ a {
     :first-child {
       padding-right: 1.5rem;
     }
+  }
+
+  &__form {
+  }
+
+  &--footer {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &--date {
+    display: flex;
+    font-size: 2rem;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  &--phi {
+    display: flex;
+    font-size: 2rem;
+    justify-content: space-around;
+    width: 100%;
+    width: 100%;
   }
 }

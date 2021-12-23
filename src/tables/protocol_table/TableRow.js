@@ -1,9 +1,10 @@
-import { RiDeleteBack2Fill } from "react-icons/ri";
-function TableRow({ row, partialId, deleteRow, editRow }) {
+function TableRow({ row }) {
+  console.log("the rows are");
+  console.log(row);
   const {
     nameNumber,
     name,
-    mainMaterial,
+    mainPart,
     amountOfOrder,
     unitOfOrder,
     reasonOfOrder,
@@ -11,56 +12,40 @@ function TableRow({ row, partialId, deleteRow, editRow }) {
     observations,
   } = row;
 
+  console.log(
+    row.nameNumber,
+    name,
+    mainPart,
+    amountOfOrder,
+    unitOfOrder,
+    reasonOfOrder,
+    priorityOfOrder,
+    observations
+  );
+
   return (
     <>
-      <tr
-        onChange={(event) => {
-          row[event.target.id] = event.target.value;
-          editRow(row, partialId);
-        }}
-      >
+      <tr>
         <td>
           <br />
         </td>
-        <td>
-          <input type="text" id="nameNumber" defaultValue={nameNumber} />
-        </td>
+        <td>{nameNumber}</td>
         <td>
           <br />
         </td>
-        <td>
-          <input type="text" id="nameNumber" defaultValue={name} />
-        </td>
-        <td>
-          <input type="text" id="nameNumber" defaultValue={mainMaterial} />
-        </td>
-        <td>
-          <input type="text" id="nameNumber" defaultValue={amountOfOrder} />
-        </td>
+        <td> {name} </td>
+        <td> {mainPart} </td>
+        <td> {amountOfOrder} </td>
         <td>
           <br />
         </td>
-        <td>
-          <input type="text" id="nameNumber" defaultValue={unitOfOrder} />
-        </td>
-        <td>
-          <input type="text" id="nameNumber" defaultValue={reasonOfOrder} />
-        </td>
-        <td>
-          <input type="text" id="nameNumber" defaultValue={priorityOfOrder} />
-        </td>
+        <td> {unitOfOrder} </td>
+        <td> {reasonOfOrder} </td>
+        <td> {priorityOfOrder} </td>
         <td>
           <br />
         </td>
-        <td>
-          <input type="text" id="nameNumber" defaultValue={observations} />
-        </td>
-        <td align="left">
-          <RiDeleteBack2Fill
-            onClick={() => deleteRow(partialId)}
-            style={{ color: "red" }}
-          />
-        </td>
+        <td> {observations} </td>
       </tr>
     </>
   );

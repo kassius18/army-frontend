@@ -76,7 +76,6 @@ function NewRequest() {
     });
     axios
       .post("http://army-backend.com/requests", request)
-      // .post("http://localhost:8080/requests", request)
       .then(function (response) {
         console.log("sucess");
         console.log(response.data);

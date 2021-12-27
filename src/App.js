@@ -1,4 +1,4 @@
-import ProtocolTableStructure from "./tables/protocol_table/ProtocolTableStructure";
+import ProtocolTableStructure from "./tables/protocol_table/TableStructure";
 import "./App.scss";
 import Request from "./pages/Request";
 

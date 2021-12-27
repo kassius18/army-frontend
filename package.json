@@ -1,6 +1,6 @@
 {
-  "name": "frontend",
-  "home": "http://kassius18.github.io/army-frontend/",
+  "name": "army-frontend",
+  "homepage": "https://kassius18.github.io/army-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

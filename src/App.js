@@ -1,9 +1,6 @@
-import ProtocolTableStructure from "./tables/protocol_table/TableStructure";
 import "./App.scss";
-import Request from "./pages/Request";
 
-import React, { useRef, useContext } from "react";
-import { useReactToPrint } from "react-to-print";
+import React from "react";
 import { useRoutes } from "react-router-dom";
 import routes from "./routes";
 

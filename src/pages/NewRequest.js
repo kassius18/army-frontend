@@ -1,13 +1,21 @@
 import "./request.scss";
-import axios from "axios";
+
 import RequestHeader from "./RequestHeader";
+import Test from "./Test";
+
+import axios from "axios";
 import Entry from "./Entry";
 import Modal from "./Modal";
-import { useState } from "react";
 import uuid from "react-uuid";
+import { useState } from "react";
 
 function NewRequest() {
+  // const url = "https://dentoid-gleam.000webhostapp.com/requests";
+  // const url = "http://army-backend.com/requests";
+  const url = "https://TEST.com";
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [postRequestState, setPostRequestState] = useState(null);
+  console.log("postRequestState", postRequestState);
   const [request, setRequest] = useState({
     firstPartOfPhi: "",
     secondPartOfPhi: "",
@@ -64,6 +72,7 @@ function NewRequest() {
 
   const makePostRequest = (event) => {
     event.preventDefault();
+    setPostRequestState("loading");
     setRequest((prevRequest) => {
       return {
         ...prevRequest,
@@ -74,17 +83,20 @@ function NewRequest() {
         day: parseInt(event.target.day.value),
       };
     });
+    console.log(request);
     axios
-      .post("http://army-backend.com/requests", request)
+      .post(url, request, { timeout: 20000 })
       .then(function (response) {
         console.log("sucess");
         console.log(response.data);
         console.log(response);
         console.log(request);
+        setPostRequestState("sucess");
       })
       .catch(function (error) {
         console.log("didnt go through");
         console.log(error);
+        setPostRequestState("failure");
       });
   };
 
@@ -106,7 +118,11 @@ function NewRequest() {
             })}
           </tbody>
         </table>
-        <form onSubmit={makePostRequest} className={"requestForm"}>
+        <form
+          onSubmit={makePostRequest}
+          className={"requestForm"}
+          id="requestForm"
+        >
           <div className={"request__body"}>
             <div className={"request__data"}>
               <span>phi</span>
@@ -125,8 +141,11 @@ function NewRequest() {
               <span>day</span>
               <input type="number" name="day" />
             </div>
-            <button type="submit">Submit</button>
           </div>
+          <button type="submit" form="requestForm">
+            <Test postRequestState={postRequestState} />
+            Submit
+          </button>
         </form>
         <Modal
           addEntry={addEntry}

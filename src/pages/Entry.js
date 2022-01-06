@@ -1,6 +1,6 @@
 import "./request.scss";
 
-import { MdModeEditOutline, MdOutlineExpandMore } from "react-icons/md";
+import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 
 function Entry({ entry, editEntry, deleteEntry }) {

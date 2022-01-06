@@ -1,11 +1,11 @@
-import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./getRequests.scss";
 
-function GetRequests({ getHttpRequest }) {
-  const [requests, setRequests] = useState([]);
+function GetRequests() {
   const navigate = useNavigate();
+  const url = "https://dentoid-gleam.000webhostapp.com/requests/";
+  // const url = "http://army-backend.com/requests/";
 
   const findByDate = (event) => {
     event.preventDefault();
@@ -19,20 +19,16 @@ function GetRequests({ getHttpRequest }) {
     getHttpRequestParams.findBy = "date";
 
     axios
-      .get("http://army-backend.com/requests/", {
+      .get(url, {
         params: {
           ...getHttpRequestParams,
         },
       })
       .then(function (response) {
         console.log(response.data);
-        navigate(
-          "/request/print",
-          {
-            state: response.data,
-          }
-          // requests: requests,
-        );
+        navigate("/request/print", {
+          state: response.data,
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -61,7 +57,9 @@ function GetRequests({ getHttpRequest }) {
         },
       })
       .then(function (response) {
-        setRequests(response);
+        navigate("/request/print", {
+          state: response.data,
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -74,7 +72,11 @@ function GetRequests({ getHttpRequest }) {
   return (
     <>
       <main className={"requests"}>
-        <form onSubmit={findByDate} className={"requests--byDate"}>
+        <form
+          onSubmit={findByDate}
+          className={"requests--byDate"}
+          id={"requests--byPhi"}
+        >
           <h1>Find By Date</h1>
           <label htmlFor="startYear">Start Year</label>
           <input type="number" name="startYear" />
@@ -88,9 +90,15 @@ function GetRequests({ getHttpRequest }) {
           <input type="number" name="endMonth" />
           <label htmlFor="endDay">End Day</label>
           <input type="number" name="endDay" />
-          <button type="submit">Submit</button>
         </form>
-        <form onSubmit={findByPhi} className={"requests--byPhi"}>
+        <button type="submit" form={"requests--backend"}>
+          Submit
+        </button>
+        <form
+          onSubmit={findByPhi}
+          className={"requests--byPhi"}
+          id={"requests--byPhi"}
+        >
           <h1>Find By Phi</h1>
           <label htmlFor="firstPartOfPhi">First Part Of Phi</label>
           <input type="number" name="firstPartOfPhi" />
@@ -98,8 +106,10 @@ function GetRequests({ getHttpRequest }) {
           <input type="number" name="secondPartOfPhi" />
           <label htmlFor="year">Year</label>
           <input type="number" name="year" />
-          <button type="submit">Submit</button>
         </form>
+        <button type="submit" form={"requests--backend"}>
+          Submit
+        </button>
       </main>
     </>
   );

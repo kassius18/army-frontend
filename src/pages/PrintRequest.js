@@ -13,9 +13,6 @@ function PrintRequest() {
     setIsPrintClicked(true);
   };
 
-  console.log("requsts are");
-  console.log(requests);
-
   return (
     <>
       {!isPrintClicked
@@ -23,8 +20,6 @@ function PrintRequest() {
             return <Request request={request} key={uuid()} />;
           })
         : requests.map((request) => {
-            console.log("loop");
-            console.log(request);
             return (
               <ProtocolTableStructure
                 headerData={""}

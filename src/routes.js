@@ -1,4 +1,3 @@
-import { Navigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import GetRequests from "./pages/GetRequests";
 import NewRequest from "./pages/NewRequest";

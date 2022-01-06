@@ -4,8 +4,10 @@ import RequestFooter from "./RequestFooter";
 import Entry from "./Entry";
 
 function Request({ request }) {
-  console.log("inside Request");
-  console.log(request);
+  const print = () => {
+    return null;
+  };
+
   return (
     <>
       <div className="request">
@@ -18,6 +20,8 @@ function Request({ request }) {
           </tbody>
         </table>
         <RequestFooter request={request} />
+        <button onClick={print}>Print</button>
+        <button onClick={print}>Edit</button>
       </div>
     </>
   );

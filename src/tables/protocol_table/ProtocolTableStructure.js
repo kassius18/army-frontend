@@ -7,8 +7,6 @@ import TableFoter from "./TableFooter";
 import uuid from "react-uuid";
 
 function ProtocolTableStructure({ headerData, request, footerData }) {
-  console.log("requests are");
-  console.log(request);
   return (
     <div>
       <table cellSpacing="0" border="0">

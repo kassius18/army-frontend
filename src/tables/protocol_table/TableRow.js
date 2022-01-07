@@ -1,6 +1,4 @@
 function TableRow({ row }) {
-  console.log("the rows are");
-  console.log(row);
   const {
     nameNumber,
     name,
@@ -11,17 +9,6 @@ function TableRow({ row }) {
     priorityOfOrder,
     observations,
   } = row;
-
-  console.log(
-    row.nameNumber,
-    name,
-    mainPart,
-    amountOfOrder,
-    unitOfOrder,
-    reasonOfOrder,
-    priorityOfOrder,
-    observations
-  );
 
   return (
     <>

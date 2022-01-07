@@ -1,6 +1,6 @@
 import MainLayout from "./layouts/MainLayout";
 import GetRequests from "./pages/GetRequests";
-import NewRequest from "./pages/NewRequest";
+import Request from "./pages/Request";
 import PrintRequest from "./pages/PrintRequest";
 
 const routes = [
@@ -9,7 +9,7 @@ const routes = [
     element: <MainLayout />,
     children: [
       // { path: "request", element: <Request /> },
-      { path: "request/new", element: <NewRequest /> },
+      { path: "request/new", element: <Request /> },
       { path: "request/", element: <GetRequests /> },
       { path: "request/print", element: <PrintRequest /> },
       // { path: "customers", element: <CustomerList /> },

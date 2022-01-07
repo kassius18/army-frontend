@@ -75,7 +75,7 @@ function GetRequests() {
         <form
           onSubmit={findByDate}
           className={"requests--byDate"}
-          id={"requests--byPhi"}
+          id={"requests--byDate"}
         >
           <h1>Find By Date</h1>
           <label htmlFor="startYear">Start Year</label>
@@ -90,10 +90,8 @@ function GetRequests() {
           <input type="number" name="endMonth" />
           <label htmlFor="endDay">End Day</label>
           <input type="number" name="endDay" />
+          <button type="submit"> Submit </button>
         </form>
-        <button type="submit" form={"requests--backend"}>
-          Submit
-        </button>
         <form
           onSubmit={findByPhi}
           className={"requests--byPhi"}
@@ -106,10 +104,8 @@ function GetRequests() {
           <input type="number" name="secondPartOfPhi" />
           <label htmlFor="year">Year</label>
           <input type="number" name="year" />
+          <button type="submit">Submit</button>
         </form>
-        <button type="submit" form={"requests--backend"}>
-          Submit
-        </button>
       </main>
     </>
   );

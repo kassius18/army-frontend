@@ -1,15 +1,15 @@
+import axios from "axios";
+import uuid from "react-uuid";
+
 import "./request.scss";
-import RequestHeader from "./RequestHeader";
-import RequestBody from "./RequestBody";
-import RequestFooter from "./RequestFooter";
+import RequestHeader from "./components/RequestHeader";
+import RequestBody from "./components/RequestBody";
+import RequestFooter from "./components/RequestFooter";
 import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState } from "react";
-import ProtocolTableStructure from "../tables/protocol_table/ProtocolTableStructure";
-import Test from "./Test";
-
-import axios from "axios";
-import Modal from "./Modal";
-import uuid from "react-uuid";
+import ProtocolTableStructure from "../../tables/protocol_table/ProtocolTableStructure";
+import ApiCallState from "../common/ApiCallState";
+import Modal from "../common/Modal";
 
 function Request(props) {
   const comRef = useRef();
@@ -143,7 +143,7 @@ function Request(props) {
             </div>
           </div>
           <button type="submit" form="requestForm">
-            <Test postRequestState={postRequestState} />
+            <ApiCallState postRequestState={postRequestState} />
           </button>
         </form>
         <Modal

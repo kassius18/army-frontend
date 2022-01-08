@@ -1,5 +1,3 @@
-import "./request.scss";
-
 function RequestHeader() {
   return (
     <thead>

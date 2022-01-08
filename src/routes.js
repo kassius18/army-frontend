@@ -1,7 +1,7 @@
 import MainLayout from "./layouts/MainLayout";
-import GetRequests from "./pages/GetRequests";
-import Request from "./pages/Request";
-import PrintRequest from "./pages/PrintRequest";
+import GetRequests from "./pages/request/components/GetRequests";
+import Request from "./pages/request/Request";
+import PrintRequest from "./pages/request/components/PrintRequest";
 
 const routes = [
   {

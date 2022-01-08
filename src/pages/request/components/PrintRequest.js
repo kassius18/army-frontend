@@ -1,8 +1,8 @@
 import { useLocation } from "react-router-dom";
-import Request from "./Request";
 import uuid from "react-uuid";
 import { useState } from "react";
-import ProtocolTableStructure from "../tables/protocol_table/ProtocolTableStructure";
+import ProtocolTableStructure from "../../../tables/protocol_table/ProtocolTableStructure";
+import Request from "../Request";
 
 function PrintRequest() {
   const { state } = useLocation();

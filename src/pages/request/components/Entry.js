@@ -1,5 +1,3 @@
-import "./request.scss";
-
 import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 

@@ -1,9 +1,8 @@
-import "./button.scss";
 import ClipLoader from "react-spinners/ClipLoader";
 import { BsCheckLg } from "react-icons/bs";
 import { VscError } from "react-icons/vsc";
 
-function Test({ postRequestState }) {
+function ApiCallState({ postRequestState }) {
   switch (postRequestState) {
     case "loading":
       return <ClipLoader />;
@@ -15,4 +14,4 @@ function Test({ postRequestState }) {
       return null;
   }
 }
-export default Test;
+export default ApiCallState;

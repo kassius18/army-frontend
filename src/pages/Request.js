@@ -3,7 +3,7 @@ import RequestHeader from "./RequestHeader";
 import RequestBody from "./RequestBody";
 import RequestFooter from "./RequestFooter";
 import { useReactToPrint } from "react-to-print";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProtocolTableStructure from "../tables/protocol_table/ProtocolTableStructure";
 import Test from "./Test";
 
@@ -21,6 +21,20 @@ function Request(props) {
   const url = "http://army-backend.com/requests";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [postRequestState, setPostRequestState] = useState(null);
+
+  useEffect(() => {
+    if (postRequestState === "loading") {
+      console.log(request);
+      axios
+        .post(url, request, { timeout: 20000 })
+        .then(function (response) {
+          setPostRequestState("sucess");
+        })
+        .catch(function (error) {
+          setPostRequestState("failure");
+        });
+    }
+  }, [postRequestState]);
 
   const [request, setRequest] = useState(() => {
     return props.request
@@ -70,7 +84,6 @@ function Request(props) {
 
   const makePostRequest = (event) => {
     event.preventDefault();
-    setPostRequestState("loading");
     setRequest((prevRequest) => {
       return {
         ...prevRequest,
@@ -81,14 +94,7 @@ function Request(props) {
         day: parseInt(event.target.day.value),
       };
     });
-    axios
-      .post(url, request, { timeout: 20000 })
-      .then(function (response) {
-        setPostRequestState("sucess");
-      })
-      .catch(function (error) {
-        setPostRequestState("failure");
-      });
+    setPostRequestState("loading");
   };
 
   return (
@@ -137,10 +143,7 @@ function Request(props) {
             </div>
           </div>
           <button type="submit" form="requestForm">
-            {
-              // <Test postRequestState={postRequestState} />
-            }
-            Submit
+            <Test postRequestState={postRequestState} />
           </button>
         </form>
         <Modal

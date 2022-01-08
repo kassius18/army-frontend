@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import uuid from "react-uuid";
 import { useState } from "react";
-import ProtocolTableStructure from "../../../tables/protocol_table/ProtocolTableStructure";
+import RequestTable from "../../../tables/request_table/RequestTable";
 import Request from "../Request";
 
 function PrintRequest() {
@@ -21,11 +21,7 @@ function PrintRequest() {
           })
         : requests.map((request) => {
             return (
-              <ProtocolTableStructure
-                headerData={""}
-                request={request}
-                footerData={""}
-              />
+              <RequestTable headerData={""} request={request} footerData={""} />
             );
           })}
       <button onClick={printRequest}>Print</button>

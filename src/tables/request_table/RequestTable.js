@@ -6,7 +6,7 @@ import TableRow from "./TableRow";
 import TableFoter from "./TableFooter";
 import uuid from "react-uuid";
 
-function ProtocolTableStructure({ headerData, request, footerData }) {
+function RequestTable({ headerData, request, footerData }) {
   return (
     <div>
       <table cellSpacing="0" border="0">
@@ -41,4 +41,4 @@ function ProtocolTableStructure({ headerData, request, footerData }) {
   );
 }
 
-export default ProtocolTableStructure;
+export default RequestTable;

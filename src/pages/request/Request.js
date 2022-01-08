@@ -7,7 +7,7 @@ import RequestBody from "./components/RequestBody";
 import RequestFooter from "./components/RequestFooter";
 import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState } from "react";
-import RequestTable from "../../tables/request_table/RequestTable";
+import RequestTable from "tables/request_table/RequestTable";
 import ApiCallState from "../common/ApiCallState";
 import Modal from "../common/Modal";
 

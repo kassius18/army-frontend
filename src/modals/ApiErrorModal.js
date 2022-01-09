@@ -1,7 +1,6 @@
 import Modal from "react-modal";
 
 function ApiErrorModal({ isModalOpen, closeModal, error }) {
-  console.log("error", error);
   return (
     <Modal
       isOpen={isModalOpen}

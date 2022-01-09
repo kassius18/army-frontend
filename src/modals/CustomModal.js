@@ -9,7 +9,13 @@ import "./modal.scss";
 
 Modal.setAppElement("#root");
 
-function CustomModal({ isModalOpen, closeModal, addEntry, content }) {
+function CustomModal({
+  isModalOpen,
+  closeModal,
+  addEntry,
+  content,
+  editEntry,
+}) {
   switch (content.modalName) {
     case "ApiErrorModal":
       return (
@@ -34,6 +40,8 @@ function CustomModal({ isModalOpen, closeModal, addEntry, content }) {
           isModalOpen={isModalOpen}
           closeModal={closeModal}
           addEntry={addEntry}
+          editEntry={editEntry}
+          initialValues={content.initialValues}
         />
       );
     default:

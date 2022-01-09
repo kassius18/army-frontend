@@ -23,8 +23,16 @@ function Request(props) {
   const [modalContent, setModalContent] = useState({ modalName: "EntryModal" });
   const [postRequestState, setPostRequestState] = useState(null);
 
-  const openEntryModal = () => {
-    setModalContent({ modalName: "EntryModal" });
+  const openEntryModal = (id = null) => {
+    if (id === null) {
+      setModalContent({ modalName: "EntryModal" });
+    } else {
+      const initialValues = request.entries.find((entry) => entry.id === id);
+      setModalContent({
+        modalName: "EntryModal",
+        initialValues: initialValues,
+      });
+    }
     setIsModalOpen(true);
   };
 
@@ -54,7 +62,6 @@ function Request(props) {
           setPostRequestState("failure");
         });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postRequestState]);
 
   const [request, setRequest] = useState(() => {
@@ -70,11 +77,17 @@ function Request(props) {
         };
   });
 
-  // const editEntry = (id) => {
-  //   setIsModalOpen(true);
-  //   // const rowBeingEdited = rows[index];
-  //   // setInitialValues(rowBeingEdited);
-  // };
+  const editEntry = (id, changedEntry) => {
+    setRequest((prevRequest) => {
+      const changedEntries = prevRequest.entries.map((entry) => {
+        if (entry.id === id) {
+          return changedEntry;
+        }
+        return entry;
+      });
+      return { ...prevRequest, entries: changedEntries };
+    });
+  };
 
   const deleteEntry = (id) => {
     setRequest((prevRequest) => {
@@ -111,7 +124,11 @@ function Request(props) {
       <div className="request">
         <table className="table table-striped">
           <RequestHeader />
-          <RequestBody entries={request.entries} deleteEntry={deleteEntry} />
+          <RequestBody
+            entries={request.entries}
+            deleteEntry={deleteEntry}
+            openEntryModal={openEntryModal}
+          />
         </table>
         {
           //<RequestFooter request={request} />
@@ -157,6 +174,7 @@ function Request(props) {
           isModalOpen={isModalOpen}
           closeModal={closeModal}
           addEntry={addEntry}
+          editEntry={editEntry}
           content={modalContent}
         />
       </div>

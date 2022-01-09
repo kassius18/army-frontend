@@ -1,13 +1,13 @@
 import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 
-function Entry({ entry, editEntry, deleteEntry }) {
-  const deleteEntryOnClick = () => {
+function Entry({ entry, deleteEntry, openEntryModal }) {
+  const deleteClickedEntry = () => {
     deleteEntry(entry.id);
   };
 
-  const editEntryOnClick = () => {
-    deleteEntry(entry.id);
+  const editClickedEntry = () => {
+    openEntryModal(entry.id);
   };
 
   return (
@@ -21,8 +21,8 @@ function Entry({ entry, editEntry, deleteEntry }) {
       <td>{entry.priorityOfOrder}</td>
       <td>{entry.observations}</td>
       <td className="edit">
-        <MdModeEditOutline onClick={editEntryOnClick} />
-        <FiDelete className="table__button" onClick={deleteEntryOnClick} />
+        <MdModeEditOutline onClick={editClickedEntry} />
+        <FiDelete className="table__button" onClick={deleteClickedEntry} />
       </td>
     </tr>
   );

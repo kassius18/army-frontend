@@ -1,15 +1,15 @@
 import axios from "axios";
-import uuid from "react-uuid";
+import { IoMdAdd } from "react-icons/io";
 
 import "./request.scss";
 import RequestHeader from "./components/RequestHeader";
 import RequestBody from "./components/RequestBody";
-import RequestFooter from "./components/RequestFooter";
+// import RequestFooter from "./components/RequestFooter";
 import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState } from "react";
 import RequestTable from "tables/request_table/RequestTable";
 import ApiCallState from "../common/ApiCallState";
-import Modal from "../common/Modal";
+import CustomModal from "modals/CustomModal";
 
 function Request(props) {
   const comRef = useRef();
@@ -22,9 +22,16 @@ function Request(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [postRequestState, setPostRequestState] = useState(null);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
     if (postRequestState === "loading") {
-      console.log(request);
       axios
         .post(url, request, { timeout: 20000 })
         .then(function (response) {
@@ -34,6 +41,7 @@ function Request(props) {
           setPostRequestState("failure");
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postRequestState]);
 
   const [request, setRequest] = useState(() => {
@@ -49,11 +57,11 @@ function Request(props) {
         };
   });
 
-  const editEntry = (id) => {
-    setIsModalOpen(true);
-    // const rowBeingEdited = rows[index];
-    // setInitialValues(rowBeingEdited);
-  };
+  // const editEntry = (id) => {
+  //   setIsModalOpen(true);
+  //   // const rowBeingEdited = rows[index];
+  //   // setInitialValues(rowBeingEdited);
+  // };
 
   const deleteEntry = (id) => {
     setRequest((prevRequest) => {
@@ -64,19 +72,7 @@ function Request(props) {
     });
   };
 
-  const addEntry = (event) => {
-    event.preventDefault();
-    const newEntry = {
-      id: uuid(),
-      nameNumber: event.target.nameNumber.value,
-      name: event.target.name.value,
-      mainPart: event.target.mainPart.value,
-      amountOfOrder: parseInt(event.target.amountOfOrder.value),
-      unitOfOrder: event.target.unitOfOrder.value,
-      reasonOfOrder: parseInt(event.target.reasonOfOrder.value),
-      priorityOfOrder: parseInt(event.target.priorityOfOrder.value),
-      observations: event.target.observations.value,
-    };
+  const addEntry = (newEntry) => {
     setRequest((prevRequest) => {
       return { ...prevRequest, entries: [...prevRequest.entries, newEntry] };
     });
@@ -140,12 +136,15 @@ function Request(props) {
           </div>
           <button type="submit" form="requestForm">
             <ApiCallState postRequestState={postRequestState} />
+            Create
           </button>
         </form>
-        <Modal
-          addEntry={addEntry}
-          setIsModalOpen={setIsModalOpen}
+        <IoMdAdd className="table__button addRow" onClick={openModal} />
+        <CustomModal
           isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          addEntry={addEntry}
+          content={""}
         />
       </div>
     </>

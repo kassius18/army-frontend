@@ -20,9 +20,21 @@ function Request(props) {
   // const url = "https://dentoid-gleam.000webhostapp.com/requests";
   const url = "http://army-backend.com/requests";
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState({ modalName: "EntryModal" });
   const [postRequestState, setPostRequestState] = useState(null);
 
-  const openModal = () => {
+  const openEntryModal = () => {
+    setModalContent({ modalName: "EntryModal" });
+    setIsModalOpen(true);
+  };
+
+  const openApiErrorModal = (error) => {
+    setModalContent({ modalName: "ApiErrorModal", error: error });
+    setIsModalOpen(true);
+  };
+
+  const openPartsRecievedModal = () => {
+    setModalContent("PartsRecievedModal");
     setIsModalOpen(true);
   };
 
@@ -38,6 +50,7 @@ function Request(props) {
           setPostRequestState("sucess");
         })
         .catch(function (error) {
+          openApiErrorModal(error.toJSON());
           setPostRequestState("failure");
         });
     }
@@ -139,12 +152,12 @@ function Request(props) {
             Create
           </button>
         </form>
-        <IoMdAdd className="table__button addRow" onClick={openModal} />
+        <IoMdAdd className="table__button addRow" onClick={openEntryModal} />
         <CustomModal
           isModalOpen={isModalOpen}
           closeModal={closeModal}
           addEntry={addEntry}
-          content={""}
+          content={modalContent}
         />
       </div>
     </>

@@ -99,6 +99,7 @@ function Request(props) {
   };
 
   const addEntry = (newEntry) => {
+    newEntry.partsRecieved = [];
     setRequest((prevRequest) => {
       return { ...prevRequest, entries: [...prevRequest.entries, newEntry] };
     });

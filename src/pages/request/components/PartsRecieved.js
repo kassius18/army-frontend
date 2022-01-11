@@ -10,7 +10,6 @@ function PartsRecieved({ parts, isHidden }) {
       <div>Ημερομηνια</div>
       <div>Π αρ</div>
       <div>Χωρηγησεις</div>
-      <div>Χωρηγησεις</div>
       <div>Καρτελα εργασιας</div>
       <div>Παρατηρησεις</div>
       {parts.map((part) => {
@@ -24,6 +23,7 @@ function PartsRecieved({ parts, isHidden }) {
           </>
         );
       })}
+      <button>Add</button>
     </div>
   );
 }

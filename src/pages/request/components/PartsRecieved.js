@@ -1,27 +1,30 @@
 function PartsRecieved({ parts, isHidden }) {
+  console.log("isHidden", isHidden);
   return (
-    <>
-      {isHidden === true && (
-        <tr>
-          <th scope="col">Ημερομηνια</th>
-          <th scope="col">Π αρ</th>
-          <th scope="col">Χωρηγησεις</th>
-          <th scope="col">Καρτελα εργασιας</th>
-          <th scope="col">Παρατηρησεις</th>
-        </tr>
-      )}
+    <div
+      className={
+        "request__parts-recieved request__parts-recieved__header " +
+        (isHidden ? "hidden" : "")
+      }
+    >
+      <div>Ημερομηνια</div>
+      <div>Π αρ</div>
+      <div>Χωρηγησεις</div>
+      <div>Χωρηγησεις</div>
+      <div>Καρτελα εργασιας</div>
+      <div>Παρατηρησεις</div>
       {parts.map((part) => {
         return (
-          <tr>
-            <td>date</td>
-            <td>p nu</td>
-            <td>amount recieved</td>
-            <td>tab </td>
-            <td>observation or vehicle</td>
-          </tr>
+          <>
+            <div>part.date</div>
+            <div>part.pieNum nu</div>
+            <div>part.amountRecieved</div>
+            <div>tab </div>
+            <div>part.observation</div>
+          </>
         );
       })}
-    </>
+    </div>
   );
 }
 export default PartsRecieved;

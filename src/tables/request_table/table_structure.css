@@ -2,16 +2,7 @@
   box-sizing: border-box;
 }
 
-body,
-div,
-table,
-thead,
-tbody,
-tfoot,
-tr,
-th,
-td,
-p {
+.request__table * {
   font-family: "DejaVu sans";
   font-size: x-small;
 }

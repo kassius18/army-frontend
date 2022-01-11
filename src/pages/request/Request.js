@@ -122,22 +122,22 @@ function Request(props) {
 
   return (
     <>
-      <div className="request">
-        <table className="table table-striped">
+      <div>
+        <div className="request">
           <RequestHeader />
           <RequestBody
             entries={request.entries}
             deleteEntry={deleteEntry}
             openEntryModal={openEntryModal}
           />
-        </table>
-        {
-          //<RequestFooter request={request} />
-        }
-        <button onClick={handlePrint}>Print</button>
-        <div style={{ display: "none" }}>
-          <div ref={comRef}>
-            <RequestTable headerData={""} footerData={""} request={request} />
+          {
+            //<RequestFooter request={request} />
+          }
+          <button onClick={handlePrint}>Print</button>
+          <div style={{ display: "none" }}>
+            <div ref={comRef}>
+              <RequestTable headerData={""} footerData={""} request={request} />
+            </div>
           </div>
         </div>
 

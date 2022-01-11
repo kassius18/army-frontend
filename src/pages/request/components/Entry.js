@@ -22,16 +22,16 @@ function Entry({ entry, deleteEntry, openEntryModal }) {
 
   return (
     <>
-      <tr height="70px">
-        <td>{entry.nameNumber}</td>
-        <td>{entry.name}</td>
-        <td>{entry.mainPart}</td>
-        <td>{entry.amountOfOrder}</td>
-        <td>{entry.unitOfOrder}</td>
-        <td>{entry.reasonOfOrder}</td>
-        <td>{entry.priorityOfOrder}</td>
-        <td>{entry.observations}</td>
-        <td className="edit">
+      <div className="request__entry">
+        <div>{entry.nameNumber}</div>
+        <div>{entry.name}</div>
+        <div>{entry.mainPart}</div>
+        <div>{entry.amountOfOrder}</div>
+        <div>{entry.unitOfOrder}</div>
+        <div>{entry.reasonOfOrder}</div>
+        <div>{entry.priorityOfOrder}</div>
+        <div>{entry.observations}</div>
+        <div className="edit">
           <MdModeEditOutline
             className="table__button"
             onClick={editClickedEntry}
@@ -41,9 +41,10 @@ function Entry({ entry, deleteEntry, openEntryModal }) {
             className="table__button"
             onClick={togglePartsVisibility}
           />
-        </td>
-      </tr>
+        </div>
+      </div>
       <PartsRecieved parts={entry.partsRecieved} isHidden={isPartsHidden} />
+      <div className="grid-border-line"></div>
     </>
   );
 }

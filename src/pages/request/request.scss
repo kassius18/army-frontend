@@ -6,12 +6,6 @@
   box-sizing: border-box;
 }
 
-.request {
-  width: 100%;
-  height: 100%;
-  display: relative;
-}
-
 .table {
   background-color: #181a1b;
   border: 3px solid #545b5e;
@@ -71,49 +65,93 @@ a {
 }
 
 .request {
-  &__body {
-    margin-top: 4rem;
-    display: flex;
-    justify-content: flex-end;
-  }
+  border: 3px solid red;
+  padding: 2rem;
+  width: 100%;
+  font-size: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  column-gap: 1rem;
 
-  &__data {
-    margin-right: 2.5rem;
-    font-size: 1.5rem;
-    input {
-      font-size: 1.5rem;
-      margin: 1rem;
-      color: black;
-    }
-    :first-child {
-      padding-right: 1.5rem;
-    }
-  }
-
-  &__form {
-  }
-
-  &--footer {
-    display: flex;
-    justify-content: space-evenly;
-  }
-
-  &--date {
-    display: flex;
+  &__header {
+    display: contents;
     font-size: 2rem;
-    justify-content: space-around;
-    width: 100%;
   }
 
-  &--phi {
-    display: flex;
-    font-size: 2rem;
-    justify-content: space-around;
-    width: 100%;
-    width: 100%;
+  &__entry {
+    display: contents;
   }
 
-  button {
+  &__parts-recieved {
+    grid-column: span 9;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border: 2px solid teal;
+    margin: 2rem 4rem;
+    background-color: white;
     color: black;
+    height: 70px;
+    transition: height 0.4s ease-in-out;
   }
+
+  // height: 100%;
+  // display: relative;
+
+  // &__body {
+  //   margin-top: 4rem;
+  //   display: flex;
+  //   justify-content: flex-end;
+  // }
+
+  // &__data {
+  //   margin-right: 2.5rem;
+  //   font-size: 1.5rem;
+  //   input {
+  //     font-size: 1.5rem;
+  //     margin: 1rem;
+  //     color: black;
+  //   }
+  //   :first-child {
+  //     padding-right: 1.5rem;
+  //   }
+  // }
+
+  // &__form {
+  // }
+
+  // &--footer {
+  //   display: flex;
+  //   justify-content: space-evenly;
+  // }
+
+  // &--date {
+  //   display: flex;
+  //   font-size: 2rem;
+  //   justify-content: space-around;
+  //   width: 100%;
+  // }
+
+  // &--phi {
+  //   display: flex;
+  //   font-size: 2rem;
+  //   justify-content: space-around;
+  //   width: 100%;
+  //   width: 100%;
+  // }
+
+  // button {
+  //   color: black;
+  // }
+}
+.grid-border-line {
+  grid-column: 1 / -1;
+  height: 0;
+  border-top: 3px solid red;
+  margin: 1rem 0;
+}
+
+.hidden {
+  height: 0;
+  overflow: hidden;
+  border: none;
 }

@@ -2,7 +2,7 @@ import Entry from "./Entry";
 
 function RequestBody({ entries, deleteEntry, openEntryModal }) {
   return (
-    <tbody>
+    <>
       {entries.map((entry) => {
         return (
           <Entry
@@ -13,7 +13,7 @@ function RequestBody({ entries, deleteEntry, openEntryModal }) {
           />
         );
       })}
-    </tbody>
+    </>
   );
 }
 

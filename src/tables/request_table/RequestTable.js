@@ -8,7 +8,7 @@ import uuid from "react-uuid";
 
 function RequestTable({ headerData, request, footerData }) {
   return (
-    <div>
+    <div className="request__table">
       <table cellSpacing="0" border="0">
         <colgroup>
           <col width="92"></col>

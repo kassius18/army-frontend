@@ -91,7 +91,7 @@ a {
     background-color: white;
     color: black;
     height: 70px;
-    transition: height 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
   }
 
   // height: 100%;
@@ -154,4 +154,5 @@ a {
   height: 0;
   overflow: hidden;
   border: none;
+  margin: 0;
 }

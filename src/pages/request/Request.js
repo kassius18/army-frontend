@@ -15,6 +15,7 @@ function Request(props) {
   const comRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => comRef.current,
+    pageStyle: `@page { margin: 0.5in 0.5in 0.5in 0.5in !important; }`,
   });
 
   // const url = "https://dentoid-gleam.000webhostapp.com/requests";

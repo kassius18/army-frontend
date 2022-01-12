@@ -28,7 +28,7 @@ function RequestTable({ headerData, request, footerData }) {
         <tbody>
           <TableHeader headerData={headerData} />
         </tbody>
-        <tbody className="table_body">
+        <tbody className="table__body">
           {request.entries.map((entry) => {
             return <TableRow row={entry} key={uuid()} />;
           })}

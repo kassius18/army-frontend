@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import uuid from "react-uuid";
 import { useState } from "react";
-import RequestTable from "../../../tables/request_table/RequestTable";
+import RequestTable from "../../../tables/request/RequestTable";
 import Request from "../Request";
 
 function PrintRequest() {

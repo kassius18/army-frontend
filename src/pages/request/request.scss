@@ -92,6 +92,10 @@ a {
     color: black;
     max-height: 100000px;
     transition: all 0.4s ease-in-out;
+
+    &__header {
+      display: contents;
+    }
   }
 
   // height: 100%;

@@ -7,14 +7,21 @@ import RequestBody from "./components/RequestBody";
 // import RequestFooter from "./components/RequestFooter";
 import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState } from "react";
-import RequestTable from "tables/request_table/RequestTable";
+import RequestTable from "tables/request/RequestTable";
+import ProtocolTable from "tables/protocol/ProtocolTable";
 import ApiCallState from "../common/ApiCallState";
 import CustomModal from "modals/CustomModal";
 
 function Request(props) {
-  const comRef = useRef();
-  const handlePrint = useReactToPrint({
-    content: () => comRef.current,
+  const requestRef = useRef();
+  const protocolRef = useRef();
+  const handlePrintRequest = useReactToPrint({
+    content: () => requestRef.current,
+    pageStyle: `@page { margin: 0.5in 0.5in 0.5in 0.5in !important; }`,
+  });
+
+  const handlePrintProtocol = useReactToPrint({
+    content: () => protocolRef.current,
     pageStyle: `@page { margin: 0.5in 0.5in 0.5in 0.5in !important; }`,
   });
 
@@ -148,10 +155,18 @@ function Request(props) {
           {
             //<RequestFooter request={request} />
           }
-          <button onClick={handlePrint}>Print</button>
+          <button onClick={handlePrintRequest}>Print Request</button>
+          <button onClick={handlePrintProtocol}>Print Protocol</button>
           <div style={{ display: "none" }}>
-            <div ref={comRef}>
+            <div ref={requestRef}>
               <RequestTable headerData={""} footerData={""} request={request} />
+            </div>
+            <div ref={protocolRef}>
+              <ProtocolTable
+                headerData={""}
+                footerData={""}
+                request={request}
+              />
             </div>
           </div>
         </div>

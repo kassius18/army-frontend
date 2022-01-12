@@ -13,6 +13,7 @@ function CustomModal({
   isModalOpen,
   closeModal,
   addEntry,
+  addPartRecieved,
   content,
   editEntry,
 }) {
@@ -31,7 +32,8 @@ function CustomModal({
         <PartsRecievedModal
           isModalOpen={isModalOpen}
           closeModal={closeModal}
-          addEntry={addEntry}
+          addPartRecieved={addPartRecieved}
+          entryId={content.entryId}
         />
       );
     case "EntryModal":

@@ -1,6 +1,11 @@
 import Entry from "./Entry";
 
-function RequestBody({ entries, deleteEntry, openEntryModal }) {
+function RequestBody({
+  entries,
+  deleteEntry,
+  openEntryModal,
+  openPartsRecievedModal,
+}) {
   return (
     <>
       {entries.map((entry) => {
@@ -10,6 +15,7 @@ function RequestBody({ entries, deleteEntry, openEntryModal }) {
             key={entry.id}
             deleteEntry={deleteEntry}
             openEntryModal={openEntryModal}
+            openPartsRecievedModal={openPartsRecievedModal}
           />
         );
       })}

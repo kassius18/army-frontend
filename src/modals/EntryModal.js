@@ -44,7 +44,11 @@ function EntryModal({
           }
         >
           <form className="modal__inputs" onSubmit={submitForm}>
-            <AiOutlineClose className="modal__cancel" onClick={closeModal} />
+            <AiOutlineClose
+              style={{ color: "red" }}
+              className="modal__cancel"
+              onClick={closeModal}
+            />
             <div className="modal__inputs-nameNumber">
               <label htmlFor="nameNumber">Name Number</label>
               <input
@@ -94,7 +98,7 @@ function EntryModal({
               />
             </div>
             <div className="modal__inputs-unitOfOrder">
-              <label htmlFor="modal__inputs-unitOfOrder">Units Of Order</label>
+              <label htmlFor="unitOfOrder">Units Of Order</label>
               <input
                 name="unitOfOrder"
                 type="text"
@@ -106,9 +110,7 @@ function EntryModal({
               />
             </div>
             <div className="modal__inputs-reasonOfOrder">
-              <label htmlFor="modal__inputs-reasonOfOrder">
-                Reason Of Order
-              </label>
+              <label htmlFor="reasonOfOrder">Reason Of Order</label>
               <input
                 name="reasonOfOrder"
                 type="text"
@@ -120,9 +122,7 @@ function EntryModal({
               />
             </div>
             <div className="modal__inputs-priorityOfOrder">
-              <label htmlFor="modal__inputs-priorityOfOrder">
-                Priority Of Order
-              </label>
+              <label htmlFor="priorityOfOrder">Priority Of Order</label>
               <input
                 name="priorityOfOrder"
                 type="text"
@@ -134,7 +134,7 @@ function EntryModal({
               />
             </div>
             <div className="modal__inputs-observations">
-              <label htmlFor="modal__inputs-observations">Observations</label>
+              <label htmlFor="observations">Observations</label>
               <input
                 name="observations"
                 type="text"

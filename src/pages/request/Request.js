@@ -42,8 +42,8 @@ function Request(props) {
     setIsModalOpen(true);
   };
 
-  const openPartsRecievedModal = () => {
-    setModalContent("PartsRecievedModal");
+  const openPartsRecievedModal = (entryId) => {
+    setModalContent({ modalName: "PartsRecievedModal", entryId: entryId });
     setIsModalOpen(true);
   };
 
@@ -106,6 +106,19 @@ function Request(props) {
     });
   };
 
+  const addPartRecieved = (newPart, entryId) => {
+    const entriesUpdated = request.entries.map((entry) => {
+      if (entry.id === entryId) {
+        entry.partsRecieved = [...entry.partsRecieved, newPart];
+        return entry;
+      }
+      return entry;
+    });
+    setRequest((prevRequest) => {
+      return { prevRequest, entries: entriesUpdated };
+    });
+  };
+
   const makePostRequest = (event) => {
     event.preventDefault();
     setRequest((prevRequest) => {
@@ -130,6 +143,7 @@ function Request(props) {
             entries={request.entries}
             deleteEntry={deleteEntry}
             openEntryModal={openEntryModal}
+            openPartsRecievedModal={openPartsRecievedModal}
           />
           {
             //<RequestFooter request={request} />
@@ -176,6 +190,7 @@ function Request(props) {
           isModalOpen={isModalOpen}
           closeModal={closeModal}
           addEntry={addEntry}
+          addPartRecieved={addPartRecieved}
           editEntry={editEntry}
           content={modalContent}
         />

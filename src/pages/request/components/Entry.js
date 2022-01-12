@@ -5,8 +5,8 @@ import { FiDelete } from "react-icons/fi";
 import { AiOutlineDown } from "react-icons/ai";
 import { useState } from "react";
 
-function Entry({ entry, deleteEntry, openEntryModal }) {
-  const [isPartsHidden, setIsPartsHidden] = useState(false);
+function Entry({ entry, deleteEntry, openEntryModal, openPartsRecievedModal }) {
+  const [isPartsHidden, setIsPartsHidden] = useState(true);
 
   const deleteClickedEntry = () => {
     deleteEntry(entry.id);
@@ -18,6 +18,10 @@ function Entry({ entry, deleteEntry, openEntryModal }) {
 
   const togglePartsVisibility = () => {
     setIsPartsHidden(!isPartsHidden);
+  };
+
+  const addPart = () => {
+    openPartsRecievedModal(entry.id);
   };
 
   return (
@@ -43,7 +47,11 @@ function Entry({ entry, deleteEntry, openEntryModal }) {
           />
         </div>
       </div>
-      <PartsRecieved parts={entry.partsRecieved} isHidden={isPartsHidden} />
+      <PartsRecieved
+        parts={entry.partsRecieved}
+        isHidden={isPartsHidden}
+        addPart={addPart}
+      />
       <div className="grid-border-line"></div>
     </>
   );

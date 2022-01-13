@@ -7,7 +7,6 @@ import TableRow from "./TableRow";
 function ProtocolTable({ request }) {
   const firstPartOfPhi = request.firstPartOfPhi;
   const date = request.year;
-  const entries = request.entries;
 
   return (
     <table className="protocol__table">

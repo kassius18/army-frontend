@@ -23,8 +23,22 @@ export default function Context({ children }) {
     setIsModalOpen(true);
   };
 
-  const openPartsRecievedModal = (entryId) => {
-    setModalContent({ modalName: "PartsRecievedModal", entryId: entryId });
+  const openPartsRecievedModal = (entryId, partId = null) => {
+    if (partId === null) {
+      setModalContent({ modalName: "PartsRecievedModal", entryId: entryId });
+    } else {
+      const entryClicked = request.entries.find((entry) => {
+        return entry.id === entryId;
+      });
+      const initialPartValues = entryClicked.partsRecieved.find(
+        (part) => part.id === partId
+      );
+      setModalContent({
+        modalName: "PartsRecievedModal",
+        entryId: entryId,
+        initialPartValues: initialPartValues,
+      });
+    }
     openModal();
   };
 
@@ -46,6 +60,55 @@ export default function Context({ children }) {
     openModal();
   };
 
+  const editPart = (entryId, partId, changedPart) => {
+    setRequest((prevRequest) => {
+      const entryHoldingPart = prevRequest.entries.find(
+        (entry) => entry.id === entryId
+      );
+
+      const editedEntry = {
+        ...entryHoldingPart,
+        partsRecieved: entryHoldingPart.partsRecieved.map((part) => {
+          if (part.id === partId) {
+            return changedPart;
+          }
+          return part;
+        }),
+      };
+
+      const allEntries = prevRequest.entries.map((entry) => {
+        if (entry.id === entryId) {
+          return editedEntry;
+        }
+        return entry;
+      });
+      return {
+        ...prevRequest,
+        entries: allEntries,
+      };
+    });
+  };
+
+  const deletePart = (entryId, partId) => {
+    setRequest((prevRequest) => {
+      const entryHoldingPart = prevRequest.entries.find(
+        (entry) => entry.id === entryId
+      );
+
+      const changedParts = entryHoldingPart.partsRecieved.filter((part) => {
+        return part.id !== partId;
+      });
+
+      const allEntries = prevRequest.entries.map((entry) => {
+        if (entry.id === entryId) {
+          return { ...entry, partsRecieved: changedParts };
+        }
+        return entry;
+      });
+      return { ...prevRequest, entries: allEntries };
+    });
+  };
+
   const context = {
     request: request,
     setRequest: setRequest,
@@ -56,6 +119,8 @@ export default function Context({ children }) {
     openApiErrorModal: openApiErrorModal,
     openEntryModal: openEntryModal,
     openPartsRecievedModal: openPartsRecievedModal,
+    editPart: editPart,
+    deletePart: deletePart,
   };
 
   return (

@@ -23,7 +23,7 @@ function TableRow({ entry, firstColumnContent }) {
             if (index > 2) {
               return null;
             }
-            return <p>{part.date}</p>;
+            return <p key={part.id}>{part.date}</p>;
           })}
         </td>
         <td></td>

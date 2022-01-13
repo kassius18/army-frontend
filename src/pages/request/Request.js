@@ -23,6 +23,10 @@ function Request(props) {
     openEntryModal,
   } = useContext(RequestContext);
 
+  if (props.request) {
+    setRequest(props.request);
+  }
+
   const requestRef = useRef();
   const protocolRef = useRef();
 
@@ -54,10 +58,6 @@ function Request(props) {
         });
     }
   }, [postRequestState]);
-
-  if (props.request) {
-    setRequest(props.request);
-  }
 
   const editEntry = (id, changedEntry) => {
     setRequest((prevRequest) => {

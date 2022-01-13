@@ -4,7 +4,7 @@ export default function PartsRecievedBody({ parts }) {
   return (
     <>
       {parts.map((part) => {
-        return <OnePartRecieved part={part} />;
+        return <OnePartRecieved part={part} key={part.id} />;
       })}
     </>
   );

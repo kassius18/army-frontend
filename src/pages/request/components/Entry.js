@@ -1,4 +1,5 @@
 import PartsRecieved from "./PartsRecieved";
+import Context from "context/EntryContext";
 
 import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
@@ -28,7 +29,7 @@ function Entry({ entry, deleteEntry }) {
   };
 
   return (
-    <>
+    <Context entryId={entry.id}>
       <div className="request__entry">
         <div>{entry.nameNumber}</div>
         <div>{entry.name}</div>
@@ -56,7 +57,7 @@ function Entry({ entry, deleteEntry }) {
         addPart={addPart}
       />
       <div className="grid-border-line"></div>
-    </>
+    </Context>
   );
 }
 

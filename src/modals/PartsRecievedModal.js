@@ -19,16 +19,14 @@ function PartsRecievedModal({
       pieNumber: event.target.pieNumber.value,
       amountRecieved: event.target.amountRecieved.value,
       tab: event.target.tab.value,
-      observations: event.target.observations.value,
+      observation: event.target.observation.value,
       consumable: event.target.consumable.value,
     };
     if (Object.keys(initialValues).length === 0) {
       addPartRecieved(newPart, entryId);
     } else {
-      // editEntry(initialValues.id, newEntry);
-      throw Error;
+      editPart(entryId, initialValues.id, newPart);
     }
-    return null;
   };
 
   return (
@@ -98,20 +96,20 @@ function PartsRecievedModal({
                 }
               />
             </div>
-            <div className="modal__inputs-observations">
-              <label htmlFor="modal__inputs-observations">Units Of Order</label>
+            <div className="modal__inputs-observation">
+              <label htmlFor="modal__inputs-observation">Observations</label>
               <input
-                name="observations"
+                name="observation"
                 type="text"
                 defaultValue={
-                  initialValues.observations !== undefined
-                    ? initialValues.observations
+                  initialValues.observation !== undefined
+                    ? initialValues.observation
                     : undefined
                 }
               />
             </div>
             <div className="modal__inputs-consumable">
-              <label htmlFor="consumable">Reason Of Order</label>
+              <label htmlFor="consumable">Consumable</label>
               <input
                 name="consumable"
                 type="text"

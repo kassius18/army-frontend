@@ -1,13 +1,7 @@
 import PartsRecievedHeader from "./PartsRecievedHeader";
 import PartsRecievedBody from "./PartsRecievedBody";
 
-function PartsRecieved({ parts, isHidden, addPart, editPart }) {
-  const getPartId = (partId) => {
-    editPart(partId);
-    console.log("the part being edited is:" + partId);
-    return null;
-  };
-
+function PartsRecieved({ parts, isHidden, addPart }) {
   return (
     <div
       className="parts-recieved"

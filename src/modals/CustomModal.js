@@ -31,6 +31,8 @@ function CustomModal({ addEntry, addPartRecieved, content, editEntry }) {
           closeModal={context.closeModal}
           addPartRecieved={addPartRecieved}
           entryId={content.entryId}
+          editPart={context.editPart}
+          initialValues={content.initialPartValues}
         />
       );
     case "EntryModal":

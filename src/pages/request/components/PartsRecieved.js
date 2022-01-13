@@ -5,28 +5,32 @@ function PartsRecieved({ parts, isHidden, addPart }) {
 
   return (
     <div
-      className="request__parts-recieved"
+      className="parts-recieved"
       style={{ height: isHidden ? "0" : (parts.length + 2) * 60 }}
     >
-      <div className={"request__parts-recieved__header"} ref={wrapperDiv}>
+      <div className={"parts-recieved__header"} ref={wrapperDiv}>
         <div>Ημερομηνια</div>
         <div>Π αρ</div>
         <div>Χωρηγησεις</div>
         <div>Καρτελα εργασιας</div>
         <div>Παρατηρησεις</div>
-        {parts.map((part) => {
-          return (
-            <div key={part.id} style={{ display: "contents" }}>
-              <div>{part.date}</div>
-              <div>{part.pieNumber}</div>
-              <div>{part.amountRecieved}</div>
-              <div>{part.tab}</div>
-              <div>{part.observation}</div>
-            </div>
-          );
-        })}
-        <button onClick={addPart}>Add</button>
       </div>
+      {parts.map((part) => {
+        return (
+          <div
+            key={part.id}
+            style={{ display: "contents" }}
+            className="parts-recieved__row"
+          >
+            <div>{part.date}</div>
+            <div>{part.pieNumber}</div>
+            <div>{part.amountRecieved}</div>
+            <div>{part.tab}</div>
+            <div>{part.observation}</div>
+          </div>
+        );
+      })}
+      <button onClick={addPart}>Add</button>
     </div>
   );
 }

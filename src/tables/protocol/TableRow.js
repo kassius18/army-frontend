@@ -1,5 +1,4 @@
 function TableRow({ entry, firstColumnContent }) {
-  console.log("entry");
   const {
     nameNumber,
     name,

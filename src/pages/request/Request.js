@@ -6,15 +6,26 @@ import RequestHeader from "./components/RequestHeader";
 import RequestBody from "./components/RequestBody";
 // import RequestFooter from "./components/RequestFooter";
 import { useReactToPrint } from "react-to-print";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import RequestTable from "tables/request/RequestTable";
 import ProtocolTable from "tables/protocol/ProtocolTable";
 import ApiCallState from "../common/ApiCallState";
 import CustomModal from "modals/CustomModal";
 
+import { RequestContext } from "context/RequestContext";
+
 function Request(props) {
+  const {
+    request,
+    setRequest,
+    modalContent,
+    openApiErrorModal,
+    openEntryModal,
+  } = useContext(RequestContext);
+
   const requestRef = useRef();
   const protocolRef = useRef();
+
   const handlePrintRequest = useReactToPrint({
     content: () => requestRef.current,
     pageStyle: `@page { margin: 0.5in 0.5in 0.5in 0.5in !important; }`,
@@ -27,36 +38,8 @@ function Request(props) {
 
   // const url = "https://dentoid-gleam.000webhostapp.com/requests";
   const url = "http://army-backend.com/requests";
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState({ modalName: "EntryModal" });
+
   const [postRequestState, setPostRequestState] = useState(null);
-
-  const openEntryModal = (id = null) => {
-    if (id === null) {
-      setModalContent({ modalName: "EntryModal" });
-    } else {
-      const initialValues = request.entries.find((entry) => entry.id === id);
-      setModalContent({
-        modalName: "EntryModal",
-        initialValues: initialValues,
-      });
-    }
-    setIsModalOpen(true);
-  };
-
-  const openApiErrorModal = (error) => {
-    setModalContent({ modalName: "ApiErrorModal", error: error });
-    setIsModalOpen(true);
-  };
-
-  const openPartsRecievedModal = (entryId) => {
-    setModalContent({ modalName: "PartsRecievedModal", entryId: entryId });
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   useEffect(() => {
     if (postRequestState === "loading") {
@@ -72,18 +55,9 @@ function Request(props) {
     }
   }, [postRequestState]);
 
-  const [request, setRequest] = useState(() => {
-    return props.request
-      ? props.request
-      : {
-          firstPartOfPhi: "",
-          secondPartOfPhi: "",
-          year: "",
-          month: "",
-          day: "",
-          entries: [],
-        };
-  });
+  if (props.request) {
+    setRequest(props.request);
+  }
 
   const editEntry = (id, changedEntry) => {
     setRequest((prevRequest) => {
@@ -146,12 +120,7 @@ function Request(props) {
       <div>
         <div className="request">
           <RequestHeader />
-          <RequestBody
-            entries={request.entries}
-            deleteEntry={deleteEntry}
-            openEntryModal={openEntryModal}
-            openPartsRecievedModal={openPartsRecievedModal}
-          />
+          <RequestBody entries={request.entries} deleteEntry={deleteEntry} />
           {
             //<RequestFooter request={request} />
           }
@@ -202,8 +171,6 @@ function Request(props) {
         </form>
         <IoMdAdd className="table__button addRow" onClick={openEntryModal} />
         <CustomModal
-          isModalOpen={isModalOpen}
-          closeModal={closeModal}
           addEntry={addEntry}
           addPartRecieved={addPartRecieved}
           editEntry={editEntry}

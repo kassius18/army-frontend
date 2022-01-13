@@ -3,9 +3,12 @@ import PartsRecieved from "./PartsRecieved";
 import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 import { AiOutlineDown } from "react-icons/ai";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { RequestContext } from "context/RequestContext";
 
-function Entry({ entry, deleteEntry, openEntryModal, openPartsRecievedModal }) {
+function Entry({ entry, deleteEntry }) {
+  const context = useContext(RequestContext);
+
   const [isPartsHidden, setIsPartsHidden] = useState(true);
 
   const deleteClickedEntry = () => {
@@ -13,7 +16,7 @@ function Entry({ entry, deleteEntry, openEntryModal, openPartsRecievedModal }) {
   };
 
   const editClickedEntry = () => {
-    openEntryModal(entry.id);
+    context.openEntryModal(entry.id);
   };
 
   const togglePartsVisibility = () => {
@@ -21,7 +24,7 @@ function Entry({ entry, deleteEntry, openEntryModal, openPartsRecievedModal }) {
   };
 
   const addPart = () => {
-    openPartsRecievedModal(entry.id);
+    context.openPartsRecievedModal(entry.id);
   };
 
   return (

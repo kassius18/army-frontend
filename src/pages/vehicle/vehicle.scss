@@ -1,0 +1,81 @@
+.vehicle__all {
+  width: 100%;
+  height: 100%;
+
+  & > button {
+    color: black;
+    font-size: 1.5rem;
+    border-radius: 0.2rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+.vehicle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  width: 50%;
+  border-radius: 0.2rem;
+  margin: auto auto;
+  background-color: grey;
+
+  &__body {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__buttons {
+    margin-top: 5rem;
+    & > button {
+      color: black;
+      border-radius: 0.4rem;
+      font-size: 1.5rem;
+      margin: 1.5rem;
+      padding: 0.2rem 0.5rem;
+    }
+  }
+
+  &__list {
+    margin: 2rem 0;
+    background-color: grey;
+    width: 50%;
+    // height: 80%;
+    margin: auto auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0;
+
+    &-item {
+      display: contents;
+      background-color: teal;
+
+      &:hover {
+        .vehicle__list-item > div {
+        }
+
+        & > div {
+          background-color: blue;
+          cursor: pointer;
+        }
+      }
+
+      & > div {
+        color: red;
+        height: 30px;
+      }
+    }
+
+    &-header {
+      display: contents;
+      font-size: 1.5rem;
+      & > div {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}

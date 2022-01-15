@@ -8,7 +8,6 @@ export default function VehicleModal({
   closeModal,
   addVehicle,
   editVehicle,
-  vehicleId,
   initialValues = {},
 }) {
   const submitForm = (event) => {
@@ -16,12 +15,12 @@ export default function VehicleModal({
     closeModal();
     const newVehicle = {
       plate: event.target.plate.value,
-      carVehicle: event.target.cartType.value,
+      vehicleType: event.target.vehicleType.value,
     };
     if (Object.keys(initialValues).length === 0) {
-      addVehicle(newVehicle, vehicleId);
+      addVehicle(newVehicle);
     } else {
-      editVehicle(vehicleId, initialValues.id, newVehicle);
+      editVehicle(newVehicle);
     }
   };
 

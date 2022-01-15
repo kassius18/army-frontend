@@ -6,46 +6,65 @@ import VehicleModal from "modals/vehicle/VehicleModal";
 export default function OneVehicle() {
   const { state } = useLocation();
   const vehicle = state.vehicle;
-  const [initialValues, setInitialValues] = useState({});
+  const [modalContent, setModalContent] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const url = `http://army-backend.com/vehicles/${vehicle.id}`;
+  const initialValues = vehicle;
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
   const openModal = () => {
-    setInitialValues(vehicle);
     setIsModalOpen(true);
+  };
+
+  const openEditModal = () => {
+    setModalContent({
+      modalName: "AddEditVehicleModal",
+      initialValues: initialValues,
+      editVehicle: editVehicle,
+    });
+    setIsModalOpen(true);
+    openModal();
   };
 
   const deleteVehicle = () => {
     axios
       .delete(url)
-      .then((response) => {
-        console.log("deleted");
-        //open the modal here that says deletion sucessful or smth
+      .then(() => {
+        setModalContent({
+          modalName: "ApiSuccesModal",
+          message: "Deleted sucessfuly",
+        });
+        openModal();
       })
-      .catch((message) => {
-        console.log("failed to delete ");
+      .catch(() => {
+        setModalContent({
+          modalName: "ApiErrorModal",
+          message: "Couldn't delete",
+        });
+        openModal();
       });
   };
 
   const editVehicle = (newVehicle) => {
     axios
       .put(url, newVehicle)
-      .then((response) => {
-        console.log("changed vehicle");
+      .then(() => {
+        setModalContent({
+          modalName: "ApiSuccesModal",
+          message: "Edited sucessfuly",
+        });
+        openModal();
       })
-      .catch((message) => {
-        console.log("couldnt add vehicle");
+      .catch(() => {
+        setModalContent({
+          modalName: "ApiErrorModal",
+          message: "Couldn't edit",
+        });
+        openModal();
       });
   };
-
-  console.log(axios["get"]);
-
-  const makeApiCall = useCallback((url, method) => {}, []);
-
-  // useEffect(effect);
 
   return (
     <div className="vehicle">
@@ -54,13 +73,13 @@ export default function OneVehicle() {
         <h1 className="vehicle__type">Car : {vehicle.vehicleType}</h1>
       </div>
       <div className="vehicle__buttons">
-        <button onClick={openModal}>Edit</button>
+        <button onClick={openEditModal}>Edit</button>
         <button onClick={deleteVehicle}>Delete</button>
       </div>
       <VehicleModal
         isModalOpen={isModalOpen}
         closeModal={closeModal}
-        editVehicle={editVehicle}
+        content={modalContent}
         initialValues={initialValues}
       />
     </div>

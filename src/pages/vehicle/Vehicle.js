@@ -43,10 +43,13 @@ export default function Vehicle() {
       });
   }, []);
 
-  console.log(vehicles);
-
   const navigateToVehicle = (vehicle) => {
     navigate(`/vehicles/${vehicle.id}`, { state: { vehicle: vehicle } });
+  };
+
+  const modalContent = {
+    modalName: "AddEditVehicleModal",
+    addVehicle: addVehicle,
   };
 
   return (
@@ -77,7 +80,7 @@ export default function Vehicle() {
       <VehicleModal
         isModalOpen={isModalOpen}
         closeModal={closeModal}
-        addVehicle={addVehicle}
+        content={modalContent}
       />
     </>
   );

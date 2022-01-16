@@ -27,6 +27,8 @@ function Request(props) {
     setRequest(props.request);
   }
 
+  console.log(request);
+
   const requestRef = useRef();
   const protocolRef = useRef();
 
@@ -48,7 +50,7 @@ function Request(props) {
   useEffect(() => {
     if (postRequestState === "loading") {
       axios
-        .post(url, request, { timeout: 20000 })
+        .post(url, request, { timeout: 750 })
         .then(function (response) {
           setPostRequestState("sucess");
         })
@@ -63,6 +65,7 @@ function Request(props) {
     setRequest((prevRequest) => {
       const changedEntries = prevRequest.entries.map((entry) => {
         if (entry.id === id) {
+          changedEntry.partsRecieved = entry.partsRecieved;
           return changedEntry;
         }
         return entry;

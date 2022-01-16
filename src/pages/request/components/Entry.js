@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 import { RequestContext } from "context/RequestContext";
 
 function Entry({ entry, deleteEntry }) {
+  console.log("entry is", entry);
   const context = useContext(RequestContext);
 
   const [isPartsHidden, setIsPartsHidden] = useState(true);

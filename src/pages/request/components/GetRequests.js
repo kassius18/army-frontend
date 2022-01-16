@@ -4,8 +4,8 @@ import "./getRequests.scss";
 
 function GetRequests() {
   const navigate = useNavigate();
-  const url = "https://dentoid-gleam.000webhostapp.com/requests/";
-  // const url = "http://army-backend.com/requests/";
+  // const url = "https://dentoid-gleam.000webhostapp.com/requests/";
+  const url = "http://army-backend.com/requests/";
 
   const findByDate = (event) => {
     event.preventDefault();
@@ -30,12 +30,7 @@ function GetRequests() {
           state: response.data,
         });
       })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
+      .catch(function (error) {});
   };
 
   const findByPhi = (event) => {

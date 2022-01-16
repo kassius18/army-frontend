@@ -1,6 +1,7 @@
 import OnePartRecieved from "./OnePartRecieved";
 
 export default function PartsRecievedBody({ parts }) {
+  console.log("parts", parts);
   return (
     <>
       {parts.map((part) => {

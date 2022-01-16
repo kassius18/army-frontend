@@ -8,6 +8,7 @@ function EntryModal({
   addEntry,
   editEntry,
   initialValues = {},
+  vehicles,
 }) {
   const submitForm = (event) => {
     event.preventDefault();
@@ -135,7 +136,7 @@ function EntryModal({
             </div>
             <div className="modal__inputs-observations">
               <label htmlFor="observations">Observations</label>
-              <input
+              <select
                 name="observations"
                 type="text"
                 defaultValue={
@@ -143,7 +144,15 @@ function EntryModal({
                     ? initialValues.observations
                     : undefined
                 }
-              />
+              >
+                {vehicles.map((vehicle) => {
+                  return (
+                    <option key={vehicle.id} value={vehicle.plate}>
+                      {vehicle.plate}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
             <button type="submit" className="modal__button">
               {Object.keys(initialValues).length === 0 ? "Add" : "Edit"}

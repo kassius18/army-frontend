@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import axios from "axios";
 
 export const RequestContext = createContext();
 
@@ -11,6 +12,13 @@ export default function Context({ children }) {
     day: "",
     entries: [],
   });
+
+  const [vehicles, setVehicles] = useState([]);
+  useEffect(() => {
+    axios.get("http://army-backend.com/vehicles").then((response) => {
+      setVehicles(response.data);
+    });
+  }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState({ modalName: "EntryModal" });
@@ -121,6 +129,7 @@ export default function Context({ children }) {
     openPartsRecievedModal: openPartsRecievedModal,
     editPart: editPart,
     deletePart: deletePart,
+    vehicles: vehicles,
   };
 
   return (

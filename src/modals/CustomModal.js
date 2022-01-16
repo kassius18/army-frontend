@@ -43,6 +43,7 @@ function CustomModal({ addEntry, addPartRecieved, content, editEntry }) {
           addEntry={addEntry}
           editEntry={editEntry}
           initialValues={content.initialValues}
+          vehicles={context.vehicles}
         />
       );
     default:

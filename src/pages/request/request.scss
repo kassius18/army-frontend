@@ -51,30 +51,13 @@
   }
 }
 
-html,
-body,
-textarea,
-select {
-  border-color: #736b5e;
-  color: #e8e6e3;
-}
-
-input,
-button {
-  color: black;
-}
-
-a {
-  color: #3391ff;
-}
-
 .request {
   border: 3px solid red;
   padding: 2rem;
   width: 100%;
   font-size: 1.5rem;
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   column-gap: 1rem;
 
   &__header {
@@ -89,12 +72,29 @@ a {
   & button {
     color: black;
   }
+
+  &__form {
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    font-size: 1.5rem;
+    grid-gap: 1rem;
+    padding: 2rem;
+  }
+
+  &__data {
+    & > input {
+      height: 2rem;
+    }
+  }
 }
 
 .parts-recieved {
-  grid-column: span 9;
+  grid-column: span 10;
   display: grid;
-  grid-template-columns: repeat(5, 1fr) 0.2fr;
+  grid-template-columns: repeat(7, 1fr) 0.2fr;
   margin: 0 4rem;
   background-color: white;
   color: black;
@@ -119,4 +119,53 @@ a {
   overflow: hidden;
   border: none;
   margin: 0;
+}
+
+//
+.request {
+  &__body {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__data {
+    margin-right: 2.5rem;
+    font-size: 1.5rem;
+    input {
+      font-size: 1.5rem;
+      margin: 1rem;
+      // color: black;
+    }
+    :first-child {
+      padding-right: 1.5rem;
+    }
+  }
+
+  &__form {
+  }
+
+  &--footer {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &--date {
+    display: flex;
+    font-size: 2rem;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  &--phi {
+    display: flex;
+    font-size: 2rem;
+    justify-content: space-around;
+    width: 100%;
+    width: 100%;
+  }
+
+  button {
+    color: black;
+  }
 }

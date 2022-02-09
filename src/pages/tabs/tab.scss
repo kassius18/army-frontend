@@ -1,0 +1,21 @@
+.tab {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+
+  &__properties {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 4rem 0rem;
+    background-color: teal;
+    gap: 2rem;
+  }
+
+  &.header {
+    font-size: 1.5rem;
+    padding: 2rem 0rem;
+  }
+  &.row {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+  }
+}

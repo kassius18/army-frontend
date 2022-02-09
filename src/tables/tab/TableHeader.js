@@ -1,7 +1,7 @@
 function TableHeader() {
   return (
     <tr className="protocol__table-header">
-      <td>Α/Α Αίτησης Ημερομηνία</td>
+      <td>Α/Α Αίτησης Ημερομηνία</td>
       <td>Αριθμός Ονομαστικού</td>
       <td>Serial Number</td>
       <td>Ονομασία Υλικού</td>

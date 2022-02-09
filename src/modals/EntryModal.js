@@ -1,18 +1,59 @@
-import Modal from "react-modal";
+import Modal from "./Modal";
 import { AiOutlineClose } from "react-icons/ai";
 import uuid from "react-uuid";
+import entryApi from "apis/entryApi";
+import { useContext, useState } from "react";
+import { AppContext } from "context/AppContext";
 
 function EntryModal({
-  isModalOpen,
+  isOpen,
   closeModal,
+  initialValues = {},
   addEntry,
   editEntry,
-  initialValues = {},
-  vehicles,
+  request,
 }) {
+  const { vehicles, tabs } = useContext(AppContext);
+
+  const [apiResponse, setApiResponse] = useState({ sucess: true });
+
+  const createEntry = (newEntry, request) => {
+    entryApi
+      .createEntry(newEntry, request.firstPartOfPhi, request.year)
+      .then((response) => {
+        if (response.success === true && Object.keys(response.entries) !== 0) {
+          closeModal();
+          addEntry(...response.entries);
+          if (apiResponse.sucess !== true) {
+            setApiResponse(response);
+          }
+        } else {
+          setApiResponse(response);
+        }
+      });
+  };
+
+  const updateEntry = (newEntry, entryId) => {
+    entryApi.updateEntry(newEntry, entryId).then((response) => {
+      if (response.success === true) {
+        closeModal();
+        editEntry(newEntry, entryId);
+        if (apiResponse.sucess !== true) {
+          setApiResponse(response);
+        }
+      } else {
+        setApiResponse(response);
+      }
+    });
+  };
+
+  const closeModalAndResetContent = () => {
+    closeModal();
+    setApiResponse({ sucess: true });
+  };
+
   const submitForm = (event) => {
     event.preventDefault();
-    closeModal();
     const newEntry = {
       id: uuid(),
       nameNumber: event.target.nameNumber.value,
@@ -22,35 +63,32 @@ function EntryModal({
       unitOfOrder: event.target.unitOfOrder.value,
       reasonOfOrder: parseInt(event.target.reasonOfOrder.value),
       priorityOfOrder: parseInt(event.target.priorityOfOrder.value),
+      consumableId: event.target.consumableId.value,
       observations: event.target.observations.value,
     };
     if (Object.keys(initialValues).length === 0) {
-      addEntry(newEntry);
+      createEntry(newEntry, request);
     } else {
-      editEntry(initialValues.id, newEntry);
+      updateEntry(newEntry, initialValues.id);
     }
   };
 
   return (
     <div>
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        // style={customStyles}
-        contentLabel="Entry Modal"
-      >
-        <div
-          className={
-            "modal " + (isModalOpen ? "modal-active" : "modal-inactive")
-          }
-        >
-          <form className="modal__inputs" onSubmit={submitForm}>
-            <AiOutlineClose
-              style={{ color: "red" }}
-              className="modal__cancel"
-              onClick={closeModal}
-            />
-            <div className="modal__inputs-nameNumber">
+      <Modal isOpen={isOpen} closeModal={closeModalAndResetContent}>
+        <AiOutlineClose
+          style={{ color: "red" }}
+          className="modal__cancel"
+          onClick={closeModal}
+        />
+
+        {apiResponse.sucess ? (
+          <form
+            className="modal__inputs"
+            onSubmit={submitForm}
+            id="entry__form"
+          >
+            <div className="modal__input">
               <label htmlFor="nameNumber">Name Number</label>
               <input
                 name="nameNumber"
@@ -62,7 +100,7 @@ function EntryModal({
                 }
               />
             </div>
-            <div className="modal__inputs-name">
+            <div className="modal__input">
               <label htmlFor="name">Name</label>
               <input
                 name="name"
@@ -74,7 +112,7 @@ function EntryModal({
                 }
               />
             </div>
-            <div className="modal__inputs-mainPart">
+            <div className="modal__input">
               <label htmlFor="mainPart">Main Material</label>
               <input
                 name="mainPart"
@@ -86,7 +124,7 @@ function EntryModal({
                 }
               />
             </div>
-            <div className="modal__inputs-amountOfOrder">
+            <div className="modal__input">
               <label htmlFor="amountOfOrder">Amount Of Order</label>
               <input
                 name="amountOfOrder"
@@ -98,7 +136,7 @@ function EntryModal({
                 }
               />
             </div>
-            <div className="modal__inputs-unitOfOrder">
+            <div className="modal__input">
               <label htmlFor="unitOfOrder">Units Of Order</label>
               <input
                 name="unitOfOrder"
@@ -110,7 +148,7 @@ function EntryModal({
                 }
               />
             </div>
-            <div className="modal__inputs-reasonOfOrder">
+            <div className="modal__input">
               <label htmlFor="reasonOfOrder">Reason Of Order</label>
               <input
                 name="reasonOfOrder"
@@ -122,7 +160,7 @@ function EntryModal({
                 }
               />
             </div>
-            <div className="modal__inputs-priorityOfOrder">
+            <div className="modal__input">
               <label htmlFor="priorityOfOrder">Priority Of Order</label>
               <input
                 name="priorityOfOrder"
@@ -134,31 +172,55 @@ function EntryModal({
                 }
               />
             </div>
-            <div className="modal__inputs-observations">
+            <div className="modal__input">
               <label htmlFor="observations">Observations</label>
               <select
                 name="observations"
                 type="text"
                 defaultValue={
-                  initialValues.observations !== undefined
+                  Object.keys(initialValues).length !== 0
                     ? initialValues.observations
-                    : undefined
+                    : ""
                 }
               >
                 {vehicles.map((vehicle) => {
                   return (
-                    <option key={vehicle.id} value={vehicle.plate}>
+                    <option key={vehicle.id} value={vehicles.plate}>
                       {vehicle.plate}
                     </option>
                   );
                 })}
+                <option value={""}>none</option>
               </select>
             </div>
-            <button type="submit" className="modal__button">
-              {Object.keys(initialValues).length === 0 ? "Add" : "Edit"}
-            </button>
+            <div className="modal__input">
+              <label htmlFor="consumableId">Consumable</label>
+              <select
+                name="consumableId"
+                type="text"
+                defaultValue={
+                  Object.keys(initialValues).length !== 0
+                    ? initialValues.consumableId
+                    : ""
+                }
+              >
+                {tabs.map((tab) => {
+                  return (
+                    <option key={tab.id} value={tab.id}>
+                      {tab.name}
+                    </option>
+                  );
+                })}
+                <option value={""}>none</option>
+              </select>
+            </div>
           </form>
-        </div>
+        ) : (
+          <h1>Error connecting to server</h1>
+        )}
+        <button type="submit" className="modal__button" form="entry__form">
+          {Object.keys(initialValues).length === 0 ? "Add" : "Edit"}
+        </button>
       </Modal>
     </div>
   );

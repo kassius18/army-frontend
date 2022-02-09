@@ -1,14 +1,14 @@
-import Modal from "react-modal";
+import Modal from "modals/Modal";
 
-function ApiErrorModal({ isModalOpen, closeModal, error }) {
+function ApiErrorModal({
+  isModalOpen,
+  closeModal,
+  error = { message: "", code: "" },
+}) {
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onRequestClose={closeModal}
-      // style={customStyles}
-      contentLabel="Entry Modal"
-    >
-      <h1>{error.status}</h1>
+    <Modal isOpen={isModalOpen} closeModal={closeModal}>
+      <h1>Open</h1>
+      <h1>{error.code}</h1>
       <p>{error.message}</p>
     </Modal>
   );

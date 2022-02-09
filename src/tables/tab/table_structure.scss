@@ -1,0 +1,149 @@
+// html,
+// .App {
+//   background-color: white !important;
+// }
+
+.tab__table__layout {
+  max-width: 290mm;
+  font-family: "DejaVu sans";
+}
+
+.tab__table {
+  border: 2px solid black;
+}
+
+.header__cell {
+  padding-bottom: 1.2rem;
+}
+
+.wrapper-1fr-header {
+  text-align: center;
+  font-weight: 900;
+  color: black;
+  padding-bottom: 0.5rem;
+  &.text-left {
+    text-align: right;
+  }
+}
+
+.wrapper-1-7 {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr 1fr;
+}
+
+.wrapper-1-7 {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr 1fr;
+}
+.wrapper-8-11 {
+  display: grid;
+  grid-template-columns: 2.1fr 2fr 1fr 1fr;
+}
+.wrapper-12-15 {
+  display: grid;
+  grid-template-columns: 1.78fr 1fr 1.2fr 1.2fr;
+}
+.wrapper-16-18 {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+}
+.wrapper-19 {
+  display: grid;
+  grid-template-columns: 1.2fr 1.1fr 1.1fr 1.1fr;
+}
+.wrapper-20-21 {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+}
+
+.wrapper-9fr {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  & > div {
+    padding: 0.5rem 1rem;
+  }
+}
+.wrapper-9fr-empty {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  & > div {
+    min-height: 1rem;
+  }
+}
+.wrapper-8fr {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) 1.5fr repeat(4, 2fr) 3.32fr;
+  & > div {
+    padding: 0.5rem 1rem;
+  }
+  &.row {
+    min-height: 1.5rem;
+  }
+}
+.wrapper-1fr {
+  display: grid;
+  grid-template-columns: 1fr;
+  & > div {
+    padding: 0.5rem 1rem;
+  }
+}
+
+.wrapper-end {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-height: 1.2rem;
+
+  & > div {
+    min-height: 0.4rem;
+    border: red;
+  }
+  & > .lined {
+    border: 2px solid red;
+    min-height: 0rem;
+  }
+}
+
+.wrapper-start {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.wrapper-13fr {
+  display: grid;
+  grid-template-columns: 5fr repeat(12, 1fr);
+  & > div {
+    padding: 0.5rem 1rem;
+  }
+}
+
+.table__cell {
+  font-size: 1.1rem;
+  text-align: left;
+  border: 1px solid black;
+  color: black;
+
+  &.center {
+    text-align: center;
+  }
+  &.border-left-none {
+    border-left: none;
+  }
+  &.border-right-none {
+    border-right: none;
+  }
+  &.border-top-none {
+    border-top: none;
+  }
+  &.border-bottom-none {
+    border-bottom: none;
+  }
+
+  &.text-vertical {
+    // writing-mode: vertical-rl;
+    // transform: rotate(180deg);
+  }
+}
+
+.span-3 {
+  grid-row: 1/4;
+}

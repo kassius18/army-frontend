@@ -1,121 +1,48 @@
-.ReactModal__Content * {
-  color: black;
-  // background-color: black;
-}
-
 .modal {
-  height: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(100, 100, 100, 0.8);
+  text-align: center;
+  z-index: 2;
+
+  &__content {
+    position: fixed;
+    background-color: red;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+    border-radius: 15px;
+  }
+
+  &__close {
+    cursor: pointer;
+  }
+
   &__inputs {
-    height: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    position: relative;
-    background-color: black;
-
-    div {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding-bottom: 2rem;
-    }
-    label {
-      font-size: 2rem;
-      color: white;
-    }
-    input {
-      width: 70%;
-      height: 2.5rem;
-      border-radius: 5px;
-      font-size: 1.5rem;
-      padding: 0.5rem;
-    }
+    grid-gap: 2rem;
+    margin: 2rem;
   }
 
-  &__cancel {
-    position: absolute;
-    right: 0.4rem;
-    top: 0.4rem;
+  &__input {
     font-size: 1.5rem;
-    fill: red;
-  }
-
-  &__button {
-    height: 1.5rem;
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 9rem;
-    border: 1px teal solid;
-    height: 2rem;
-    border-radius: 3px;
-  }
-}
-
-html,
-body,
-input,
-textarea,
-select,
-button {
-  border-color: #736b5e;
-}
-button {
-  color: black;
-}
-a {
-  color: #3391ff;
-}
-
-.request {
-  &__body {
-    margin-top: 4rem;
     display: flex;
-    justify-content: flex-end;
-  }
-
-  &__data {
-    margin-right: 2.5rem;
-    font-size: 1.5rem;
-    input {
+    flex-direction: column;
+    justify-content: space-between;
+    & > input {
       font-size: 1.5rem;
-      margin: 1rem;
-      color: black;
+      height: 2rem;
     }
-    :first-child {
-      padding-right: 1.5rem;
+    & > select {
+      font-size: 1.5rem;
+      height: 2rem;
+      width: 100%;
+      border: none;
     }
-  }
-
-  &__form {
-  }
-
-  &--footer {
-    display: flex;
-    justify-content: space-evenly;
-  }
-
-  &--date {
-    display: flex;
-    font-size: 2rem;
-    justify-content: space-around;
-    width: 100%;
-  }
-
-  &--phi {
-    display: flex;
-    font-size: 2rem;
-    justify-content: space-around;
-    width: 100%;
-    width: 100%;
-  }
-
-  button {
-    color: black;
   }
 }

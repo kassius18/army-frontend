@@ -6,7 +6,8 @@ import TableRow from "./TableRow";
 
 function ProtocolTable({ request }) {
   const firstPartOfPhi = request.firstPartOfPhi;
-  const date = request.year;
+  const date = `${request.day}/${request.month}/${request.year}`;
+  const entries = request.entries || [];
 
   return (
     <table className="protocol__table">
@@ -23,9 +24,9 @@ function ProtocolTable({ request }) {
         <col width="73" />
         <col width="126" />
       </colgroup>
-      <tbody>
+      <tbody className="table__body">
         <TableHeader />
-        {request.entries.map((entry, index) => {
+        {entries.map((entry, index) => {
           if (index === 0) {
             return (
               <TableRow

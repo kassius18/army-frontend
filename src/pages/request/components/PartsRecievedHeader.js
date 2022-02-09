@@ -6,6 +6,8 @@ export default function PartsRecievedHeader() {
       <div>Χωρηγησεις</div>
       <div>Καρτελα εργασιας</div>
       <div>Παρατηρησεις</div>
+      <div>Ημερομηνια Χρ</div>
+      <div>Ποσοτητηα Χρ</div>
       <div></div>
     </div>
   );

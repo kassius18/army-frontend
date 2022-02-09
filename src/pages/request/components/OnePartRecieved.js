@@ -1,17 +1,19 @@
 import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
-import { EntryContext } from "context/EntryContext";
-import { RequestContext } from "context/RequestContext";
-import { useContext } from "react";
 
-export default function OnePartRecieved({ part }) {
-  const { entryId } = useContext(EntryContext);
-  const { openPartsRecievedModal, deletePart } = useContext(RequestContext);
+export default function OnePartRecieved({
+  part,
+  setInitialValues,
+  openModal,
+  deletePart,
+}) {
   const editClickedPart = () => {
-    openPartsRecievedModal(entryId, part.id);
+    setInitialValues(part);
+    openModal();
   };
+
   const deleteClickedPart = () => {
-    deletePart(entryId, part.id);
+    deletePart(part.id);
   };
   return (
     <div
@@ -19,11 +21,13 @@ export default function OnePartRecieved({ part }) {
       style={{ display: "contents" }}
       className="parts-recieved__row"
     >
-      <div>{part.date}</div>
+      <div>{part.dateRecieved}</div>
       <div>{part.pieNumber}</div>
       <div>{part.amountRecieved}</div>
       <div>{part.tab}</div>
       <div>{part.observation}</div>
+      <div>{part.dateUsed}</div>
+      <div>{part.amountUsed}</div>
       <div
         style={{
           display: "flex",

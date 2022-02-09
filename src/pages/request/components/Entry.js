@@ -1,36 +1,46 @@
 import PartsRecieved from "./PartsRecieved";
-import Context from "context/EntryContext";
 
 import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 import { AiOutlineDown } from "react-icons/ai";
-import { useContext, useState } from "react";
-import { RequestContext } from "context/RequestContext";
+import { useEffect, useState } from "react";
 
-function Entry({ entry, deleteEntry }) {
-  console.log("entry is", entry);
-  const context = useContext(RequestContext);
-
+function Entry({
+  entry,
+  setInitialValues,
+  openModal,
+  deleteEntry,
+  setEntries,
+  entries,
+}) {
+  const [parts, setParts] = useState(entry.parts);
   const [isPartsHidden, setIsPartsHidden] = useState(true);
+
+  useEffect(() => {
+    setEntries(
+      entries.map((oldEntry) => {
+        if (oldEntry.id === entry.id) {
+          return { ...entry, parts: parts };
+        }
+        return oldEntry;
+      })
+    );
+  }, [parts]);
 
   const deleteClickedEntry = () => {
     deleteEntry(entry.id);
   };
 
   const editClickedEntry = () => {
-    context.openEntryModal(entry.id);
+    setInitialValues(entry);
+    openModal();
   };
 
   const togglePartsVisibility = () => {
     setIsPartsHidden(!isPartsHidden);
   };
-
-  const addPart = () => {
-    context.openPartsRecievedModal(entry.id);
-  };
-
   return (
-    <Context entryId={entry.id}>
+    <>
       <div className="request__entry">
         <div>{entry.nameNumber}</div>
         <div>{entry.name}</div>
@@ -39,6 +49,7 @@ function Entry({ entry, deleteEntry }) {
         <div>{entry.unitOfOrder}</div>
         <div>{entry.reasonOfOrder}</div>
         <div>{entry.priorityOfOrder}</div>
+        <div>{entry.consumableId}</div>
         <div>{entry.observations}</div>
         <div className="edit">
           <MdModeEditOutline
@@ -53,12 +64,13 @@ function Entry({ entry, deleteEntry }) {
         </div>
       </div>
       <PartsRecieved
-        parts={entry.partsRecieved}
+        parts={entry.parts}
         isHidden={isPartsHidden}
-        addPart={addPart}
+        entryId={entry.id}
+        setEntriesParts={setParts}
       />
       <div className="grid-border-line"></div>
-    </Context>
+    </>
   );
 }
 

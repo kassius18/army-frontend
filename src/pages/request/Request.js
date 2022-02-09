@@ -1,184 +1,139 @@
-import axios from "axios";
-import { IoMdAdd } from "react-icons/io";
-
 import "./request.scss";
 import RequestHeader from "./components/RequestHeader";
 import RequestBody from "./components/RequestBody";
-// import RequestFooter from "./components/RequestFooter";
 import { useReactToPrint } from "react-to-print";
-import { useContext, useEffect, useRef, useState } from "react";
-import RequestTable from "tables/request/RequestTable";
+import { useEffect, useRef, useState } from "react";
 import ProtocolTable from "tables/protocol/ProtocolTable";
-import ApiCallState from "../common/ApiCallState";
-import CustomModal from "modals/CustomModal";
+import RequestTable from "tables/request/RequestTable";
+import { useLocation, useNavigate } from "react-router";
 
-import { RequestContext } from "context/RequestContext";
+function Request({
+  requestProp,
+  openModal,
+  deleteRequest,
+  setInitialValues,
+  setRequests,
+  requests,
+}) {
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const [request, setRequest] = useState(requestProp || []);
+  const [hasChanged, setHasChanged] = useState(false);
+  const [entries, setEntries] = useState(request.entries);
 
-function Request(props) {
-  const {
-    request,
-    setRequest,
-    modalContent,
-    openApiErrorModal,
-    openEntryModal,
-  } = useContext(RequestContext);
+  useEffect(() => {
+    setRequest(requestProp);
+    setEntries(requestProp.entries);
+  }, [requestProp]);
 
-  if (props.request) {
-    setRequest(props.request);
-  }
+  useEffect(() => {
+    if (hasChanged) {
+      setHasChanged(false);
+      setRequests(
+        requests.map((oldRequest) => {
+          if (oldRequest.id === request.id) {
+            return request;
+          }
+          return oldRequest;
+        })
+      );
 
-  console.log(request);
+      navigate("", {
+        state: state.map((requestFromState) => {
+          if (requestFromState.id === request.id) {
+            return request;
+          }
+          return requestFromState;
+        }),
+      });
+    }
+  }, [hasChanged]);
+  useEffect(() => {
+    setRequest({ ...request, entries: entries });
+    setHasChanged(true);
+  }, [entries]);
 
+  const printRef = useRef();
   const requestRef = useRef();
   const protocolRef = useRef();
 
   const handlePrintRequest = useReactToPrint({
     content: () => requestRef.current,
-    pageStyle: `@page { margin: 0.5in 0.5in 0.5in 0.5in !important; }`,
+    pageStyle: `@page {
+    margin: 0.5in 0.5in 0.5in 0.5in !important; 
+    size: landscape;
+  }`,
   });
-
   const handlePrintProtocol = useReactToPrint({
     content: () => protocolRef.current,
-    pageStyle: `@page { margin: 0.5in 0.5in 0.5in 0.5in !important; }`,
+    onBeforePrint: () => {
+      console.log("content is");
+      printRef.current.style.display = "block";
+      console.log(protocolRef.current.clientHeight);
+      printRef.current.style.zIndex = "-100";
+      printRef.current.style.position = "absolute";
+    },
+    pageStyle: `@page {
+    margin: 0.5in 0.5in 0.5in 0.5in !important;
+    size: landscape;
+  }`,
   });
 
-  // const url = "https://dentoid-gleam.000webhostapp.com/requests";
-  const url = "http://army-backend.com/requests";
-
-  const [postRequestState, setPostRequestState] = useState(null);
-
-  useEffect(() => {
-    if (postRequestState === "loading") {
-      axios
-        .post(url, request, { timeout: 750 })
-        .then(function (response) {
-          setPostRequestState("sucess");
-        })
-        .catch(function (error) {
-          openApiErrorModal(error.toJSON());
-          setPostRequestState("failure");
-        });
-    }
-  }, [postRequestState]);
-
-  const editEntry = (id, changedEntry) => {
-    setRequest((prevRequest) => {
-      const changedEntries = prevRequest.entries.map((entry) => {
-        if (entry.id === id) {
-          changedEntry.partsRecieved = entry.partsRecieved;
-          return changedEntry;
-        }
-        return entry;
-      });
-      return { ...prevRequest, entries: changedEntries };
-    });
+  const editClickedRequest = () => {
+    setInitialValues(request);
+    openModal();
   };
 
-  const deleteEntry = (id) => {
-    setRequest((prevRequest) => {
-      const filteredEntries = prevRequest.entries.filter((entry) => {
-        return entry.id !== id;
-      });
-      return { ...prevRequest, entries: filteredEntries };
-    });
-  };
-
-  const addEntry = (newEntry) => {
-    newEntry.partsRecieved = [];
-    setRequest((prevRequest) => {
-      return { ...prevRequest, entries: [...prevRequest.entries, newEntry] };
-    });
-  };
-
-  const addPartRecieved = (newPart, entryId) => {
-    const entriesUpdated = request.entries.map((entry) => {
-      if (entry.id === entryId) {
-        entry.partsRecieved = [...entry.partsRecieved, newPart];
-        return entry;
-      }
-      return entry;
-    });
-    setRequest((prevRequest) => {
-      return { prevRequest, entries: entriesUpdated };
-    });
-  };
-
-  const makePostRequest = (event) => {
-    event.preventDefault();
-    setRequest((prevRequest) => {
-      return {
-        ...prevRequest,
-        firstPartOfPhi: parseInt(event.target.firstPartOfPhi.value),
-        secondPartOfPhi: parseInt(event.target.secondPartOfPhi.value),
-        year: parseInt(event.target.year.value),
-        month: parseInt(event.target.month.value),
-        day: parseInt(event.target.day.value),
-      };
-    });
-    setPostRequestState("loading");
+  const deleteClickedRequest = () => {
+    deleteRequest(request.id);
   };
 
   return (
     <>
       <div>
+        <div
+          ref={printRef}
+          style={{
+            // display: "none",
+            visibility: "hidden",
+            position: "absolute",
+            zIndex: "-100",
+          }}
+        >
+          <div ref={requestRef}>{<RequestTable request={request} />}</div>
+          <div ref={protocolRef}>{<ProtocolTable request={request} />}</div>
+        </div>
         <div className="request">
           <RequestHeader />
-          <RequestBody entries={request.entries} deleteEntry={deleteEntry} />
-          {
-            //<RequestFooter request={request} />
-          }
+          <RequestBody
+            entriesProp={entries}
+            request={request}
+            setRequestEntries={setEntries}
+          />
           <button onClick={handlePrintRequest}>Print Request</button>
           <button onClick={handlePrintProtocol}>Print Protocol</button>
-          <div style={{ display: "none" }}>
-            <div ref={requestRef}>
-              <RequestTable headerData={""} footerData={""} request={request} />
-            </div>
-            <div ref={protocolRef}>
-              <ProtocolTable
-                headerData={""}
-                footerData={""}
-                request={request}
-              />
-            </div>
+        </div>
+        <div className={"request__body"}>
+          <div className={"request__data"}>
+            <span>phi</span>
+            <span>{request.firstPartOfPhi}</span>
+            <span>{request.secondPartOfPhi}</span>
+          </div>
+          <div className={"request__data"}>
+            <span>year</span>
+            <span>{request.year}</span>
+          </div>
+          <div className={"request__data"}>
+            <span>month</span>
+            <span>{request.month}</span>
+          </div>
+          <div className={"request__data"}>
+            <span>day</span>
+            <span>{request.day}</span>
           </div>
         </div>
-
-        <form
-          onSubmit={makePostRequest}
-          className={"requestForm"}
-          id="requestForm"
-        >
-          <div className={"request__body"}>
-            <div className={"request__data"}>
-              <span>phi</span>
-              <input type="number" name="firstPartOfPhi" />
-              <input type="number" name="secondPartOfPhi" />
-            </div>
-            <div className={"request__data"}>
-              <span>year</span>
-              <input type="number" name="year" />
-            </div>
-            <div className={"request__data"}>
-              <span>month</span>
-              <input type="number" name="month" />
-            </div>
-            <div className={"request__data"}>
-              <span>day</span>
-              <input type="number" name="day" />
-            </div>
-          </div>
-          <button type="submit" form="requestForm">
-            <ApiCallState postRequestState={postRequestState} />
-            Create
-          </button>
-        </form>
-        <IoMdAdd className="table__button addRow" onClick={openEntryModal} />
-        <CustomModal
-          addEntry={addEntry}
-          addPartRecieved={addPartRecieved}
-          editEntry={editEntry}
-          content={modalContent}
-        />
+        <button onClick={deleteClickedRequest}>Delete Request</button>
+        <button onClick={editClickedRequest}>Update Request</button>
       </div>
     </>
   );

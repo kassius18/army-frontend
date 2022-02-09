@@ -1,0 +1,26 @@
+html,
+.App {
+  background-color: white !important;
+}
+* {
+  box-sizing: border-box;
+}
+
+.request__table {
+  max-width: 290mm;
+  overflow: hidden;
+  & * {
+    font-family: "DejaVu sans";
+    font-size: x-small;
+    empty-cells: show;
+  }
+}
+
+.table__body {
+  & td {
+    border: 1px solid #33cccc;
+    height: 7mm;
+    text-align: center;
+    word-break: word;
+  }
+}

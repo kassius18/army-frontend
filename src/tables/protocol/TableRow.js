@@ -5,7 +5,7 @@ function TableRow({ entry, firstColumnContent }) {
     mainPart,
     amountOfOrder,
     observations,
-    partsRecieved = [],
+    parts = [],
   } = entry;
 
   return (
@@ -19,11 +19,11 @@ function TableRow({ entry, firstColumnContent }) {
         <td>{amountOfOrder}</td>
         <td>{observations}</td>
         <td>
-          {partsRecieved.map((part, index) => {
+          {parts.map((part, index) => {
             if (index > 2) {
               return null;
             }
-            return <p key={part.id}>{part.date}</p>;
+            return <p key={part.id}>it exists {part.date}</p>;
           })}
         </td>
         <td></td>

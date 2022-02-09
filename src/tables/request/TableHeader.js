@@ -1,8 +1,9 @@
-function TableHeader({ headerData }) {
-  const { militaryUnitMakingRequest, militaryUnitProviding } = headerData;
+import React from "react";
+
+function TableHeader() {
   return (
     <>
-      <tr>
+      <tr className="request__table header">
         <td height="17" bgcolor="#CCFFFF" align="left">
           ΑΙΤΟΥΣΑ ΜΟΝΑΔΑ
         </td>
@@ -10,7 +11,7 @@ function TableHeader({ headerData }) {
           <br />
         </td>
         <td bgcolor="#CCFFFF" align="left">
-          {militaryUnitMakingRequest}
+          96ΤΜΧΕΘ/ΔΡΙΑ
         </td>
         <td bgcolor="#CCFFFF" align="left">
           <br />
@@ -39,9 +40,6 @@ function TableHeader({ headerData }) {
           </font>
         </td>
         <td bgcolor="#CCFFFF" align="left">
-          <br />
-        </td>
-        <td align="left">
           <br />
         </td>
       </tr>
@@ -84,9 +82,6 @@ function TableHeader({ headerData }) {
         <td bgcolor="#CCFFFF" align="left">
           <br />
         </td>
-        <td align="left">
-          <br />
-        </td>
       </tr>
       <tr>
         <td height="17" bgcolor="#CCFFFF" align="left">
@@ -96,7 +91,7 @@ function TableHeader({ headerData }) {
           <br />
         </td>
         <td bgcolor="#CCFFFF" align="left">
-          {militaryUnitProviding}
+          96 ΤΥΠΕΘ ΛΥΠ
         </td>
         <td bgcolor="#CCFFFF" align="left">
           <br />
@@ -130,13 +125,6 @@ function TableHeader({ headerData }) {
             <br />
           </font>
         </td>
-
-        <td align="left">
-          <br />
-        </td>
-        <td align="left">
-          <br />
-        </td>
       </tr>
       <tr>
         <td height="17" bgcolor="#CCFFFF" align="left">
@@ -175,9 +163,6 @@ function TableHeader({ headerData }) {
           </font>
         </td>
         <td bgcolor="#CCFFFF" align="left">
-          <br />
-        </td>
-        <td align="left">
           <br />
         </td>
       </tr>
@@ -216,9 +201,6 @@ function TableHeader({ headerData }) {
           <font size="1">
             <br />
           </font>
-        </td>
-        <td align="left">
-          <br />
         </td>
         <td align="left">
           <br />
@@ -429,9 +411,6 @@ function TableHeader({ headerData }) {
               ΠΑΡΑΤΗΡΗΣΕΙΣ
             </font>
           </b>
-        </td>
-        <td valign="middle" align="center">
-          <br />
         </td>
       </tr>
     </>

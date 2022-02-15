@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./table_structure.scss";
 
 import TableHeader from "./TableHeader";
+import TableFooter from "./TableFooter";
 import TableRow from "./TableRow";
 import TableRowWithEnd from "./TableRowWithEnd";
 
@@ -11,9 +12,13 @@ function TabTable({
   startingYear = 0,
   endingYear = 9999,
 }) {
+  const [shouldRerender, setShouldRerender] = useState(0);
+
+  useEffect(() => {
+    setShouldRerender(shouldRerender + 1);
+  }, [startingYear, endingYear]);
+
   let localTotal = startingTotal;
-  console.log(startingYear);
-  console.log(endingYear);
   return (
     <div className="tab__table__layout">
       <div className="wrapper-1fr-header text-left">
@@ -166,7 +171,6 @@ function TabTable({
               );
             } else {
               let difference = year - previousYear + 1;
-              console.log("difference is", difference);
               const differenceArray = Array(difference).fill(difference);
               return differenceArray.map(() => {
                 if (index === parts.length - 1 && difference === 1) {
@@ -213,69 +217,7 @@ function TabTable({
             <TableRow part={part} key={part.id} currentTotal={localTotal} />
           );
         })}
-        <div className="wrapper-1fr">
-          <div className="table__cell">ΣΕ ΜΕΤΑΦΟΡΑ</div>
-        </div>
-        <div className="wrapper-13fr">
-          <div className="table__cell">30. ΤΜΗΜΑΤΑ</div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-        </div>
-        <div className="wrapper-13fr">
-          <div className="table__cell">31. ΠΡΟΒΛΕΠΟΜΕΝΑ</div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-        </div>
-        <div className="wrapper-13fr">
-          <div className="table__cell">32. ΥΠΑΡΧΟΝΤΑ</div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-        </div>
-        <div className="wrapper-13fr">
-          <div className="table__cell">33. ΔΙΑΦΟΡΑ</div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-          <div className="table__cell"></div>
-        </div>
+        <TableFooter shouldRerender={shouldRerender} />
       </div>
     </div>
   );

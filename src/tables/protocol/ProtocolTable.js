@@ -3,6 +3,7 @@ import "./table_structure.scss";
 
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
+import TableFooter from "./TableFooter";
 
 function ProtocolTable({ request }) {
   const firstPartOfPhi = request.firstPartOfPhi;
@@ -47,6 +48,7 @@ function ProtocolTable({ request }) {
           return <TableRow entry={entry} key={entry.id} />;
         })}
       </tbody>
+      <TableFooter />
     </table>
   );
 }

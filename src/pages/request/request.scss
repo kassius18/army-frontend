@@ -85,6 +85,9 @@
   }
 
   &__data {
+    & > .firstPartOfPhi {
+      margin: 0 2rem;
+    }
     & > input {
       height: 2rem;
     }

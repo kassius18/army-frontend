@@ -57,8 +57,9 @@ export default function OneTab() {
 
   const handlePrintTab = useReactToPrint({
     content: () => tabRef.current,
-    pageStyle: `@page { margin: 0.5in 0.5in 0.5in 0.5in !important; 
-    size: portrait;
+    pageStyle: `@page {
+    margin: 0.5in 0.5in 0.5in 0.5in !important; 
+    size: portrait !important;
     }`,
   });
 
@@ -119,13 +120,6 @@ export default function OneTab() {
     setNewTotal(localTotal);
   }, [minYear, maxYear]);
 
-  // useEffect(() => {
-  //   tabApi.getPartsByTabId(tab.id).then((response) => {
-  //     setAllParts(...response.parts);
-  //     setPartsToBePrinted(...response.parts);
-  //   });
-  // }, []);
-
   let localTotal = newTotal;
   const render = () =>
     partsToBePrinted.sort(compareFn).map((part) => {
@@ -165,11 +159,21 @@ export default function OneTab() {
       <div>{render()}</div>
       <div
         style={{
-          display: "none",
+          // display: "none",
+          visibility: "hidden",
+          position: "absolute",
+          zIndex: "-100",
         }}
       >
         <div ref={tabRef}>
-          {<TabTable parts={partsToBePrinted} startingTotal={total} />}
+          {
+            <TabTable
+              parts={partsToBePrinted}
+              startingTotal={total}
+              startingYear={minYear || 0}
+              endingYear={maxYear || 9999}
+            />
+          }
         </div>
       </div>
       <TabModal

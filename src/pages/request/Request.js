@@ -115,7 +115,7 @@ function Request({
         <div className={"request__body"}>
           <div className={"request__data"}>
             <span>phi</span>
-            <span>{request.firstPartOfPhi}</span>
+            <span className="firstPartOfPhi">{request.firstPartOfPhi}</span>
             <span>{request.secondPartOfPhi}</span>
           </div>
           <div className={"request__data"}>

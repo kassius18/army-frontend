@@ -10,12 +10,11 @@ function RequestBody({ entriesProp, request, setRequestEntries }) {
   const [initialValues, setInitialValues] = useState({});
   const [apiResponse, setApiResponse] = useState({ success: true });
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setRequestEntries(entries);
   }, [entries]);
-
-  const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
     setIsOpen(true);

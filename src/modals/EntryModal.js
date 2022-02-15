@@ -15,7 +15,7 @@ function EntryModal({
 }) {
   const { vehicles, tabs } = useContext(AppContext);
 
-  const [apiResponse, setApiResponse] = useState({ sucess: true });
+  const [apiResponse, setApiResponse] = useState({ success: true });
 
   const createEntry = (newEntry, request) => {
     entryApi
@@ -24,7 +24,7 @@ function EntryModal({
         if (response.success === true && Object.keys(response.entries) !== 0) {
           closeModal();
           addEntry(...response.entries);
-          if (apiResponse.sucess !== true) {
+          if (apiResponse.success !== true) {
             setApiResponse(response);
           }
         } else {
@@ -38,7 +38,7 @@ function EntryModal({
       if (response.success === true) {
         closeModal();
         editEntry(newEntry, entryId);
-        if (apiResponse.sucess !== true) {
+        if (apiResponse.success !== true) {
           setApiResponse(response);
         }
       } else {
@@ -49,7 +49,7 @@ function EntryModal({
 
   const closeModalAndResetContent = () => {
     closeModal();
-    setApiResponse({ sucess: true });
+    setApiResponse({ success: true });
   };
 
   const submitForm = (event) => {
@@ -76,18 +76,18 @@ function EntryModal({
   return (
     <div>
       <Modal isOpen={isOpen} closeModal={closeModalAndResetContent}>
-        <AiOutlineClose
-          style={{ color: "red" }}
-          className="modal__cancel"
-          onClick={closeModal}
-        />
-
-        {apiResponse.sucess ? (
+        {apiResponse.success ? (
           <form
             className="modal__inputs"
             onSubmit={submitForm}
             id="entry__form"
           >
+            <AiOutlineClose
+              style={{ color: "red" }}
+              className="modal__cancel"
+              onClick={closeModal}
+            />
+
             <div className="modal__input">
               <label htmlFor="nameNumber">Name Number</label>
               <input

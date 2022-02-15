@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./table_structure.scss";
 
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 import TableRowWithEnd from "./TableRowWithEnd";
 
-function TabTable({ parts, startingTotal, currentYear }) {
+function TabTable({
+  parts,
+  startingTotal,
+  startingYear = 0,
+  endingYear = 9999,
+}) {
   let localTotal = startingTotal;
+  console.log(startingYear);
+  console.log(endingYear);
   return (
     <div className="tab__table__layout">
       <div className="wrapper-1fr-header text-left">
@@ -137,18 +144,29 @@ function TabTable({ parts, startingTotal, currentYear }) {
         </div>
         {parts.map((part, index) => {
           localTotal = localTotal + part.amountRecieved - part.amountUsed;
-          console.log("new localTotal", localTotal);
           if (index > 0) {
-            const yearRecieved = parseInt(part.dateRecieved.split("-")[2]);
-            const previousYearRecieved = parseInt(
-              parts[index - 1].dateRecieved.split("-")[2]
-            );
-            if (yearRecieved === previousYearRecieved) {
+            const year = part.dateRecieved
+              ? parseInt(part.dateRecieved.split("-")[2])
+              : parseInt(part.dateUsed.split("-")[2]);
+            const previousYear = parts[index - 1].dateRecieved
+              ? parseInt(parts[index - 1].dateRecieved.split("-")[2])
+              : parseInt(parts[index - 1].dateUsed.split("-")[2]);
+
+            if (year < startingYear || year > endingYear) {
+              return null;
+            }
+
+            if (
+              year === previousYear ||
+              previousYear < startingYear ||
+              previousYear > endingYear
+            ) {
               return (
                 <TableRow part={part} key={part.id} currentTotal={localTotal} />
               );
             } else {
-              let difference = yearRecieved - previousYearRecieved + 1;
+              let difference = year - previousYear + 1;
+              console.log("difference is", difference);
               const differenceArray = Array(difference).fill(difference);
               return differenceArray.map(() => {
                 if (index === parts.length - 1 && difference === 1) {
@@ -156,7 +174,7 @@ function TabTable({ parts, startingTotal, currentYear }) {
                     <TableRowWithEnd
                       part={part}
                       key={part.id}
-                      yearRecieved={yearRecieved}
+                      year={year}
                       currentTotal={localTotal}
                     />
                   );
@@ -180,9 +198,9 @@ function TabTable({ parts, startingTotal, currentYear }) {
                     </div>
                     <div className="wrapper-start">
                       <div className="table__cell center">
-                        ΚΛΕΙΝΕΤΑΙ ΓΙΑ ΤΟ ΕΤΟΣ {yearRecieved - difference}
+                        ΚΛΕΙΝΕΤΑΙ ΓΙΑ ΤΟ ΕΤΟΣ {year - difference}
                         <div className="table__cell center">
-                          ΕΤΟΣ {yearRecieved - difference + 1}
+                          ΕΤΟΣ {year - difference + 1}
                         </div>
                       </div>
                     </div>

@@ -1,11 +1,11 @@
 import TableRow from "./TableRow";
-function TableRowWithEnd({ part, yearRecieved, currentTotal }) {
+function TableRowWithEnd({ part, year, currentTotal }) {
   return (
     <>
       <TableRow
         part={part}
         key={part.id}
-        yearRecieved={yearRecieved}
+        yearRecieved={year}
         currentTotal={currentTotal}
       />
       <div className="wrapper-end">
@@ -14,9 +14,7 @@ function TableRowWithEnd({ part, yearRecieved, currentTotal }) {
         <div className="table__cell"></div>
       </div>
       <div className="wrapper-start">
-        <div className="table__cell center">
-          ΚΛΕΙΝΕΤΑΙ ΓΙΑ ΤΟ ΕΤΟΣ {yearRecieved}
-        </div>
+        <div className="table__cell center">ΚΛΕΙΝΕΤΑΙ ΓΙΑ ΤΟ ΕΤΟΣ {year}</div>
       </div>
     </>
   );

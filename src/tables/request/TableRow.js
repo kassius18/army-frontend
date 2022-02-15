@@ -1,18 +1,39 @@
 import { useEffect, useState, useRef } from "react";
 
-function TableRow({ row }) {
+function TableRow({ row, countOfPages, setCountOfPages }) {
   const paperHeight = 697;
   const rowRef = useRef(-1);
   const [createHeader, setCreateHeader] = useState(false);
 
-  useEffect(() => {
-    const remainder = Math.abs(
-      (rowRef.current.offsetTop % paperHeight) - paperHeight
-    );
-    if (remainder < rowRef.current.offsetHeight) {
-      setCreateHeader(true);
-    }
-  }, []);
+  //useEffect(() => {
+  //  const numberOfPagesToThisPoint = Math.ceil(
+  //    rowRef.current.offsetTop / paperHeight
+  //  );
+
+  //  const offsetTop =
+  //    rowRef.current.offsetTop + (numberOfPagesToThisPoint - 1) * 28;
+
+  //  const remainder = Math.abs((offsetTop % paperHeight) - paperHeight);
+
+  //  // const offsetTop = rowRef.current.offsetTop + (countOfPages - 1) * 28;
+  //  // const remainder = Math.abs((offsetTop % paperHeight) - paperHeight);
+
+  //  // const remainder = Math.abs(
+  //  //   (rowRef.current.offsetTop % paperHeight) - paperHeight
+  //  // );
+  //  //
+  //  console.log("reimainder is", remainder);
+  //  console.log("current offset is", rowRef.current.offsetTop);
+  //  console.log("calculated offset tio is", offsetTop);
+  //  console.log("and height is  ", rowRef.current.offsetHeight);
+  //  console.log("number of pages", numberOfPagesToThisPoint);
+
+  //  if (remainder < rowRef.current.offsetHeight || remainder === 0) {
+  //    console.log(offsetTop);
+  //    console.log(rowRef.current.offsetTop);
+  //    setCreateHeader(true);
+  //  }
+  //}, []);
 
   const {
     nameNumber,
@@ -241,7 +262,12 @@ function TableRow({ row }) {
       )}
       <tr ref={rowRef}>
         <td>
-          <br />
+          {
+            rowRef.current.offsetTop !== undefined
+              ? rowRef.current.offsetTop
+              : null
+            //<br />
+          }
         </td>
         <td>{nameNumber}</td>
         <td>

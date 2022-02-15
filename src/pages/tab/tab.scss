@@ -1,10 +1,23 @@
 .tab {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+  &__view {
+    margin: 0 auto;
+    width: 60%;
+    margin-top: 7rem;
+  }
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin: 2rem 0;
+    background-color: teal;
+    cursor: pointer;
+    color: black;
+  }
 
   &__properties {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     margin: 4rem 0rem;
     background-color: teal;
     gap: 2rem;

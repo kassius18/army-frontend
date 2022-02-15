@@ -1,55 +1,36 @@
 import VehicleModal from "modals/vehicle/VehicleModal";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router";
-import axios from "axios";
+import vehicleApi from "apis/vehicleApi";
 import "./vehicle.scss";
 
 export default function Vehicle() {
   const navigate = useNavigate();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [vehicles, setVehicles] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsOpen(false);
   };
   const openModal = () => {
-    setIsModalOpen(true);
+    setIsOpen(true);
   };
-
-  const url = "http://army-backend.com/vehicles";
 
   const addVehicle = (newVehicle) => {
-    axios
-      .post(url, newVehicle)
-      .then((response) => {
-        console.log("added vehicle");
-      })
-      .catch((message) => {
-        console.log("couldnt add vehicle");
-      });
+    setVehicles([...vehicles, newVehicle]);
   };
 
-  const [vehicles, setVehicles] = useState([]);
-
   useEffect(() => {
-    axios
-      .get(url)
-      .then((response) => {
-        console.log(response.data);
-        setVehicles(response.data);
-      })
-      .catch((message) => {
-        console.log(message);
-      });
+    vehicleApi.getAllVehicles().then((response) => {
+      if (response.success === true) {
+        setVehicles(response.vehicles);
+      } else setVehicles([]);
+    });
   }, []);
 
   const navigateToVehicle = (vehicle) => {
     navigate(`/vehicles/${vehicle.id}`, { state: { vehicle: vehicle } });
-  };
-
-  const modalContent = {
-    modalName: "AddEditVehicleModal",
-    addVehicle: addVehicle,
   };
 
   return (
@@ -57,6 +38,7 @@ export default function Vehicle() {
       <div className="vehicle__all">
         <div className="vehicle__list">
           <div className="vehicle__list-header">
+            <div>Vehicle Id</div>
             <div>Vehicle Plate</div>
             <div>Vehicle Type</div>
           </div>
@@ -69,6 +51,7 @@ export default function Vehicle() {
                   navigateToVehicle(vehicle);
                 }}
               >
+                <div className="vehicle__list-id">{vehicle.id}</div>
                 <div className="vehicle__list-plate">{vehicle.plate}</div>
                 <div className="vehicle__list-car">{vehicle.vehicleType}</div>
               </div>
@@ -78,9 +61,9 @@ export default function Vehicle() {
         <button onClick={openModal}>Add Vehicle</button>
       </div>
       <VehicleModal
-        isModalOpen={isModalOpen}
+        addVehicle={addVehicle}
+        isOpen={isOpen}
         closeModal={closeModal}
-        content={modalContent}
       />
     </>
   );

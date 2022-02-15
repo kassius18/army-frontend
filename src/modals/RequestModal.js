@@ -17,7 +17,7 @@ function RequestModal({
       if (response.success === true) {
         closeModal();
         addRequest(...response.requests);
-        if (apiResponse.sucess !== true) {
+        if (apiResponse.success !== true) {
           setApiResponse(response);
         }
       } else {

@@ -19,18 +19,48 @@ function GetRequests() {
     setIsOpen(true);
   };
 
-  const findByPhiYear = () => {};
+  const findByPhiYear = (event) => {
+    event.preventDefault();
+    const year = parseInt(event.target.year.value) || null;
+    const phi = parseInt(event.target.phi.value) || null;
+
+    requestApi.getRequestByPhiYear(year, phi).then((response) => {
+      if (response.success) {
+        if (Object.keys(response.requests).length) {
+          navigate("/requests/list", { state: [response.requests] });
+        }
+      } else {
+        setError(response.error);
+        openModal();
+      }
+    });
+  };
 
   const findByDate = (event) => {
     event.preventDefault();
     const getHttpRequestParams = {};
-    getHttpRequestParams.startYear = parseInt(event.target.startYear.value);
-    getHttpRequestParams.startMonth = parseInt(event.target.startMonth.value);
-    getHttpRequestParams.startDay = parseInt(event.target.startDay.value);
-    getHttpRequestParams.endYear = parseInt(event.target.endYear.value);
-    getHttpRequestParams.endMonth = parseInt(event.target.endMonth.value);
-    getHttpRequestParams.endDay = parseInt(event.target.endDay.value);
+    getHttpRequestParams.startYear =
+      parseInt(event.target.startYear.value) || null;
+    getHttpRequestParams.startMonth =
+      parseInt(event.target.startMonth.value) || null;
+    getHttpRequestParams.startDay =
+      parseInt(event.target.startDay.value) || null;
+    getHttpRequestParams.endYear = parseInt(event.target.endYear.value) || null;
+    getHttpRequestParams.endMonth =
+      parseInt(event.target.endMonth.value) || null;
+    getHttpRequestParams.endDay = parseInt(event.target.endDay.value) || null;
     getHttpRequestParams.findBy = "date";
+
+    requestApi
+      .getRequestByDateInterval(getHttpRequestParams)
+      .then((response) => {
+        if (response.success) {
+          navigate("/requests/list", { state: response.requests });
+        } else {
+          setError(response.error);
+          openModal();
+        }
+      });
   };
 
   const findByPhi = (event) => {
@@ -95,8 +125,8 @@ function GetRequests() {
             id={"requests--byPhi"}
           >
             <h1>Find One By Phi and Year</h1>
-            <label htmlFor="firstPartOfPhi">First Part Of Phi</label>
-            <input type="number" name="firstPartOfPhi" />
+            <label htmlFor="phi">First Part Of Phi</label>
+            <input type="number" name="phi" />
             <label htmlFor="year">Year</label>
             <input type="number" name="year" />
             <button type="submit">Submit</button>

@@ -22,11 +22,17 @@ function ListRequests() {
 
   const handlePrintRequests = useReactToPrint({
     content: () => requestRef.current,
-    pageStyle: `@page { margin: 0.5in 0.5in 0.5in 0.5in !important; }`,
+    pageStyle: `@page {
+    margin: 0.5in 0.5in 0.5in 0.5in !important; 
+    size: landscape;
+  }`,
   });
   const handlePrintProtocols = useReactToPrint({
     content: () => protocolRef.current,
-    pageStyle: `@page { margin: 0.5in 0.5in 0.5in 0.5in !important; }`,
+    pageStyle: `@page {
+    margin: 0.5in 0.5in 0.5in 0.5in !important; 
+    size: landscape;
+  }`,
   });
 
   useEffect(() => {
@@ -110,17 +116,41 @@ function ListRequests() {
       />
       <div
         style={{
-          display: "none",
+          visibility: "hidden",
+          position: "absolute",
+          zIndex: "-100",
         }}
       >
-        <div ref={requestRef}>
+        <div
+          ref={requestRef}
+          className="print-container"
+          style={{ margin: 0, paddign: 0 }}
+        >
           {requests.map((request) => {
-            return <RequestTable key={request.id} request={request} />;
+            return (
+              <>
+                <div>
+                  <RequestTable key={request.id} request={request} />
+                </div>
+                <div className="page-break" />
+              </>
+            );
           })}
         </div>
-        <div ref={protocolRef}>
+        <div
+          ref={protocolRef}
+          className="print-container"
+          style={{ margin: 0, paddign: 0 }}
+        >
           {requests.map((request) => {
-            return <ProtocolTable key={request.id} request={request} />;
+            return (
+              <>
+                <div>
+                  <ProtocolTable key={request.id} request={request} />
+                </div>
+                <div className="page-break" />
+              </>
+            );
           })}
         </div>
       </div>

@@ -1,22 +1,22 @@
-import Modal from "modals/Modal";
+import Modal from "./Modal";
 import { AiOutlineClose } from "react-icons/ai";
-import vehicleApi from "apis/vehicleApi";
+import tabApi from "apis/tabApi";
 import { useState } from "react";
 
-export default function VehicleModal({
+export default function TabModal({
   isOpen,
   closeModal,
-  addVehicle,
-  editVehicle,
+  addTab,
+  editTab,
   initialValues = {},
 }) {
   const [apiResponse, setApiResponse] = useState({ success: true });
 
-  const createVehicle = (newVehicle) => {
-    vehicleApi.createVehicle(newVehicle).then((response) => {
-      if (response.success === true && Object.keys(response.vehicles) !== 0) {
+  const createTab = (newTab) => {
+    tabApi.createTab(newTab).then((response) => {
+      if (response.success === true && Object.keys(response.tabs) !== 0) {
         closeModal();
-        addVehicle(...response.vehicles);
+        addTab(...response.tabs);
         if (apiResponse.success !== true) {
           setApiResponse(response);
         }
@@ -27,11 +27,11 @@ export default function VehicleModal({
     });
   };
 
-  const updateVehicle = (newVehicle, vehicleId) => {
-    vehicleApi.updateVehicle(newVehicle, vehicleId).then((response) => {
+  const updateTab = (newTab, tabId) => {
+    tabApi.updateTab(newTab, tabId).then((response) => {
       if (response.success === true) {
         closeModal();
-        editVehicle(newVehicle, vehicleId);
+        editTab(newTab, tabId);
         if (apiResponse.success !== true) {
           setApiResponse(response);
         }
@@ -48,15 +48,17 @@ export default function VehicleModal({
 
   const submitForm = (event) => {
     event.preventDefault();
-    const newVehicle = {
+    const newTab = {
       id: event.target.id.value,
-      plate: event.target.plate.value,
-      vehicleType: event.target.vehicleType.value,
+      name: event.target.name.value,
+      startingTotal: event.target.startingTotal.value,
+      usage: event.target.usage.value,
+      observations: event.target.observations.value,
     };
     if (Object.keys(initialValues).length === 0) {
-      createVehicle(newVehicle);
+      createTab(newTab);
     } else {
-      updateVehicle(newVehicle, initialValues.id);
+      updateTab(newTab, initialValues.id);
     }
   };
 
@@ -80,26 +82,50 @@ export default function VehicleModal({
                 }
               />
             </div>
-            <div className="modal__inputs-plate">
-              <label htmlFor="plate">Plate</label>
+            <div className="modal__inputs-name">
+              <label htmlFor="plate">Name</label>
               <input
-                name="plate"
+                name="name"
                 type="text"
                 defaultValue={
-                  initialValues.plate !== undefined
-                    ? initialValues.plate
+                  initialValues.name !== undefined
+                    ? initialValues.name
                     : undefined
                 }
               />
             </div>
-            <div className="modal__inputs-vehicleType">
-              <label htmlFor="vehicleType">Vehicle Type</label>
+            <div className="modal__inputs-startingTotal">
+              <label htmlFor="tabType">Starting Total</label>
               <input
-                name="vehicleType"
+                name="startingTotal"
                 type="text"
                 defaultValue={
-                  initialValues.vehicleType !== undefined
-                    ? initialValues.vehicleType
+                  initialValues.startingTotal !== undefined
+                    ? initialValues.startingTotal
+                    : undefined
+                }
+              />
+            </div>
+            <div className="modal__inputs-usage">
+              <label htmlFor="usage">Usage</label>
+              <input
+                name="usage"
+                type="text"
+                defaultValue={
+                  initialValues.usage !== undefined
+                    ? initialValues.usage
+                    : undefined
+                }
+              />
+            </div>
+            <div className="modal__inputs-observations">
+              <label htmlFor="observations">Observations</label>
+              <input
+                name="observations"
+                type="text"
+                defaultValue={
+                  initialValues.observations !== undefined
+                    ? initialValues.observations
                     : undefined
                 }
               />

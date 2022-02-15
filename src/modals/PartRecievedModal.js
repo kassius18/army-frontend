@@ -13,6 +13,7 @@ function PartRecievedModal({
   initialValues = {},
 }) {
   const [apiResponse, setApiResponse] = useState({ sucess: true });
+  const [validationPasses, setValidationPasses] = useState(true);
 
   const createPart = (newPart, entryId) => {
     partApi.createPart(newPart, entryId).then((response) => {
@@ -43,38 +44,78 @@ function PartRecievedModal({
   };
 
   const closeModalAndResetContent = () => {
+    setValidationPasses(true);
     closeModal();
     setApiResponse({ sucess: true });
   };
 
   const submitForm = (event) => {
     event.preventDefault();
-    closeModal();
-    const newPart = {
-      id: uuid(),
-      dateRecieved:
-        event.target.dayRecieved.value +
-        "-" +
-        event.target.monthRecieved.value +
-        "-" +
-        event.target.yearRecieved.value,
-      amountUsed: parseInt(event.target.amountUsed.value),
-      pieNumber: event.target.pieNumber.value,
-      amountRecieved: parseInt(event.target.amountRecieved.value),
-      tabUsed: event.target.tabUsed.value,
-      observation: event.target.observation.value,
-      dateUsed:
-        event.target.dayUsed.value +
-        "-" +
-        event.target.monthUsed.value +
-        "-" +
-        event.target.yearUsed.value,
-      amountUsed: parseInt(event.target.amountUsed.value),
-    };
-    if (Object.keys(initialValues).length === 0) {
-      createPart(newPart, entryId);
+
+    console.log("clicked");
+    console.log(
+      event.target.amountRecieved.value,
+      event.target.amountUsed.value
+    );
+    if (
+      event.target.amountRecieved.value === "" &&
+      event.target.amountUsed.value === ""
+    ) {
+      setValidationPasses(1);
+    } else if (
+      event.target.amountRecieved.value !== "" &&
+      (event.target.dayRecieved.value === "" ||
+        event.target.monthRecieved.value === "" ||
+        event.target.yearRecieved.value === "")
+    ) {
+      setValidationPasses(2);
+    } else if (
+      event.target.amountUsed.value !== "" &&
+      (event.target.dayUsed.value === "" ||
+        event.target.monthUsed.value === "" ||
+        event.target.yearUsed.value === "")
+    ) {
+      setValidationPasses(3);
     } else {
-      updatePart(newPart, initialValues.id);
+      setValidationPasses(false);
+      closeModal();
+
+      console.log(event.target.monthUsed.value);
+
+      const newPart = {
+        id: uuid(),
+        dateRecieved:
+          event.target.dayRecieved.value &&
+          event.target.monthRecieved.value &&
+          event.target.yearRecieved.value
+            ? event.target.dayRecieved.value +
+              "-" +
+              event.target.monthRecieved.value +
+              "-" +
+              event.target.yearRecieved.value
+            : "",
+        amountUsed: parseInt(event.target.amountUsed.value),
+        pieNumber: event.target.pieNumber.value,
+        amountRecieved: parseInt(event.target.amountRecieved.value),
+        tabUsed: event.target.tabUsed.value,
+        observation: event.target.observation.value,
+        dateUsed:
+          event.target.dayUsed.value &&
+          event.target.monthUsed.value &&
+          event.target.yearUsed.value
+            ? event.target.dayUsed.value +
+              "-" +
+              event.target.monthUsed.value +
+              "-" +
+              event.target.yearUsed.value
+            : "",
+        amountUsed: parseInt(event.target.amountUsed.value) || "",
+      };
+      if (Object.keys(initialValues).length === 0) {
+        createPart(newPart, entryId);
+      } else {
+        updatePart(newPart, initialValues.id);
+      }
     }
   };
 
@@ -89,34 +130,52 @@ function PartRecievedModal({
         {apiResponse.sucess ? (
           <form className="modal__inputs" onSubmit={submitForm} id="part__form">
             <div className="modal__inputs-dateRecieved">
-              <label htmlFor="dayRecieved">Day Used</label>
+              {validationPasses === 3 ? (
+                <div>Date cannot be empty if amount used is set</div>
+              ) : null}
+              <label htmlFor="dayRecieved">Day Recieved</label>
               <input
                 name="dayRecieved"
-                type="text"
+                type="number"
                 defaultValue={
                   initialValues.dateRecieved !== undefined
-                    ? initialValues.dateRecieved.split("-")[0]
-                    : undefined
+                    ? parseInt(initialValues.dateRecieved.split("-")[0])
+                    : ""
                 }
               />
               <label htmlFor="monthRecieved">Month Recieved</label>
               <input
                 name="monthRecieved"
-                type="text"
+                type="number"
                 defaultValue={
                   initialValues.dateRecieved !== undefined
-                    ? initialValues.dateRecieved.split("-")[1]
-                    : undefined
+                    ? parseInt(initialValues.dateRecieved.split("-")[1])
+                    : ""
                 }
               />
               <label htmlFor="yearRecieved">Date Recieved</label>
               <input
                 name="yearRecieved"
-                type="text"
+                type="number"
                 defaultValue={
                   initialValues.dateRecieved !== undefined
-                    ? initialValues.dateRecieved.split("-")[2]
-                    : undefined
+                    ? parseInt(initialValues.dateRecieved.split("-")[2])
+                    : ""
+                }
+              />
+            </div>
+            <div className="modal__inputs-amountRecieved">
+              {validationPasses === 1 ? (
+                <div>One of these fields must be filled</div>
+              ) : null}
+              <label htmlFor="amountRecieved">Amount Recieved</label>
+              <input
+                name="amountRecieved"
+                type="number"
+                defaultValue={
+                  initialValues.amountRecieved !== undefined
+                    ? initialValues.amountRecieved
+                    : ""
                 }
               />
             </div>
@@ -128,18 +187,6 @@ function PartRecievedModal({
                 defaultValue={
                   initialValues.pieNumber !== undefined
                     ? initialValues.pieNumber
-                    : undefined
-                }
-              />
-            </div>
-            <div className="modal__inputs-amountRecieved">
-              <label htmlFor="amountRecieved">Amount Recieved</label>
-              <input
-                name="amountRecieved"
-                type="number"
-                defaultValue={
-                  initialValues.amountRecieved !== undefined
-                    ? initialValues.amountRecieved
                     : undefined
                 }
               />
@@ -157,46 +204,52 @@ function PartRecievedModal({
               />
             </div>
             <div className="modal__inputs-dateUsed">
+              {validationPasses === 2 ? (
+                <div>Date cannot be empty if amount used is set</div>
+              ) : null}
               <label htmlFor="dayUsed">Day Used</label>
               <input
                 name="dayUsed"
-                type="text"
+                type="number"
                 defaultValue={
                   initialValues.dateUsed !== undefined
-                    ? initialValues.dateUsed.split("-")[0]
-                    : undefined
+                    ? parseInt(initialValues.dateUsed.split("-")[0])
+                    : ""
                 }
               />
               <label htmlFor="monthUsed">Month Used</label>
               <input
                 name="monthUsed"
-                type="text"
+                type="number"
                 defaultValue={
                   initialValues.dateUsed !== undefined
-                    ? initialValues.dateUsed.split("-")[1]
-                    : undefined
+                    ? parseInt(initialValues.dateUsed.split("-")[1])
+                    : ""
                 }
               />
               <label htmlFor="yearUsed">Date Used</label>
               <input
                 name="yearUsed"
-                type="text"
+                type="number"
                 defaultValue={
                   initialValues.dateUsed !== undefined
-                    ? initialValues.dateUsed.split("-")[2]
-                    : undefined
+                    ? parseInt(initialValues.dateUsed.split("-")[2])
+                    : ""
                 }
               />
             </div>
             <div className="modal__inputs-amountUsed">
+              {validationPasses === 1 ? (
+                <div>One of these fields must be filled</div>
+              ) : null}
               <label htmlFor="modal__inputs-amountUsed">Amount Used</label>
               <input
                 name="amountUsed"
                 type="number"
                 defaultValue={
                   initialValues.amountUsed !== undefined
-                    ? initialValues.amountUsed
-                    : undefined
+                    ? parseInt(initialValues.amountUsed)
+                    : ""
                 }
               />
             </div>
@@ -212,10 +265,6 @@ function PartRecievedModal({
                 }
               />
             </div>
-
-            <button type="submit" className="modal__button">
-              {Object.keys(initialValues).length === 0 ? "Add" : "Edit"}
-            </button>
           </form>
         ) : (
           <h1>Error connecting to server</h1>

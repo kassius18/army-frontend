@@ -7,9 +7,9 @@ import TableFoter from "./TableFooter";
 import uuid from "react-uuid";
 
 function RequestTable({ request }) {
-  const [contentSpace, setContentSapce] = useState(0);
   const headerRef = useRef(0);
   const [numOfEmptyRows, setNumOfEmptyRows] = useState(0);
+  const [countOfPages, setCountOfPages] = useState(1);
   const paperHeight = 697;
   const emptyRowHeight = 26.45;
   const entries = request.entries || [];
@@ -22,11 +22,6 @@ function RequestTable({ request }) {
       setNumOfEmptyRows(Math.floor(blankSpace / emptyRowHeight));
     }
   }, [request]);
-
-  let iterationArray = [];
-  if (numOfEmptyRows) {
-    iterationArray = Array(numOfEmptyRows).fill(numOfEmptyRows);
-  }
 
   return (
     <div className="request__table">
@@ -50,7 +45,8 @@ function RequestTable({ request }) {
         </tbody>
         <tbody className="table__body rows">
           {entries.map((entry) => {
-            return <TableRow row={entry} key={uuid()} />;
+            const page = 1;
+            return <TableRow row={entry} key={uuid()} page={page} />;
           })}
         </tbody>
         <TableFoter headerRef={headerRef} request={request} />

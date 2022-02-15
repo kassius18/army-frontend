@@ -1,86 +1,68 @@
 import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
+import vehicleApi from "apis/vehicleApi";
 import { useLocation, useNavigate } from "react-router";
 import VehicleModal from "modals/vehicle/VehicleModal";
+import ApiErrorModal from "modals/ApiErrorModal";
 
 export default function OneVehicle() {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const vehicle = state.vehicle;
-  const [modalContent, setModalContent] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const url = `http://army-backend.com/vehicles/${vehicle.id}`;
+  const [apiResponse, setApiResponse] = useState({ success: true });
+  const [isOpen, setIsOpen] = useState(false);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const initialValues = vehicle;
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsOpen(false);
   };
   const openModal = () => {
-    setIsModalOpen(true);
+    setIsOpen(true);
   };
 
-  const openEditModal = () => {
-    setModalContent({
-      modalName: "AddEditVehicleModal",
-      initialValues: initialValues,
-      editVehicle: editVehicle,
-    });
-    setIsModalOpen(true);
-    openModal();
+  const openErrorModal = () => {
+    setIsErrorModalOpen(true);
+  };
+  const closeErrorModal = () => {
+    setIsErrorModalOpen(false);
   };
 
   const deleteVehicle = () => {
-    axios
-      .delete(url)
-      .then(() => {
-        setModalContent({
-          modalName: "ApiSuccesModal",
-          message: "Deleted sucessfuly",
-        });
-        openModal();
-      })
-      .catch(() => {
-        setModalContent({
-          modalName: "ApiErrorModal",
-          message: "Couldn't delete",
-        });
-        openModal();
-      });
+    vehicleApi.deleteVehicle(vehicle.id).then((response) => {
+      if (response.success === true) {
+        navigate("/vehicles");
+      } else {
+        setApiResponse(response);
+        openErrorModal();
+      }
+    });
   };
 
   const editVehicle = (newVehicle) => {
-    axios
-      .put(url, newVehicle)
-      .then(() => {
-        setModalContent({
-          modalName: "ApiSuccesModal",
-          message: "Edited sucessfuly",
-        });
-        openModal();
-      })
-      .catch(() => {
-        setModalContent({
-          modalName: "ApiErrorModal",
-          message: "Couldn't edit",
-        });
-        openModal();
-      });
+    navigate(`/vehicles/${newVehicle.id}`, { state: { vehicle: newVehicle } });
   };
 
   return (
     <div className="vehicle">
       <div className="vehicle__body">
+        <h1 className="vehicle__id"> Id : {vehicle.id}</h1>
         <h1 className="vehicle__plate"> Plate : {vehicle.plate}</h1>
         <h1 className="vehicle__type">Car : {vehicle.vehicleType}</h1>
       </div>
       <div className="vehicle__buttons">
-        <button onClick={openEditModal}>Edit</button>
+        <button onClick={openModal}>Edit</button>
         <button onClick={deleteVehicle}>Delete</button>
       </div>
       <VehicleModal
-        isModalOpen={isModalOpen}
+        editVehicle={editVehicle}
+        isOpen={isOpen}
         closeModal={closeModal}
-        content={modalContent}
         initialValues={initialValues}
+      />
+      <ApiErrorModal
+        isModalOpen={isErrorModalOpen}
+        closeModal={closeErrorModal}
+        error={apiResponse.error}
       />
     </div>
   );

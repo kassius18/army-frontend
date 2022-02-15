@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import tabApi from "apis/tabApi";
-import vehiclesApi from "apis/vehiclesApi";
+import vehicleApi from "apis/vehicleApi";
 
 export const AppContext = createContext();
 
@@ -16,7 +16,7 @@ export default function Context({ children }) {
           setTabs(response.tabs);
         } else setTabs([]);
       });
-      vehiclesApi.getAllVehicles().then((response) => {
+      vehicleApi.getAllVehicles().then((response) => {
         if (response.success === true) {
           setVehicles(response.vehicles);
         } else setVehicles([]);

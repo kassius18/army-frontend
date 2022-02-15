@@ -94,7 +94,6 @@ function Request({
         <div
           ref={printRef}
           style={{
-            // display: "none",
             visibility: "hidden",
             position: "absolute",
             zIndex: "-100",

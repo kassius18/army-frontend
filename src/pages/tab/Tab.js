@@ -10,9 +10,13 @@ function Tab({ tab }) {
   };
 
   return (
-    <li onClick={navigateToTab}>
+    <div onClick={navigateToTab} className={"tab__list"}>
+      <p>{tab.id}</p>
       <p>{tab.name}</p>
-    </li>
+      <p>{tab.startingTotal}</p>
+      <p>{tab.usage}</p>
+      <p>{tab.observations}</p>
+    </div>
   );
 }
 

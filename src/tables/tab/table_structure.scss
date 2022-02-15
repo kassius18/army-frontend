@@ -4,7 +4,7 @@
 // }
 
 .tab__table__layout {
-  max-width: 290mm;
+  max-width: 185mm;
   font-family: "DejaVu sans";
 }
 
@@ -37,11 +37,11 @@
 }
 .wrapper-8-11 {
   display: grid;
-  grid-template-columns: 2.1fr 2fr 1fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
 }
 .wrapper-12-15 {
   display: grid;
-  grid-template-columns: 1.78fr 1fr 1.2fr 1.2fr;
+  grid-template-columns: 1.78fr 1.2fr 1.2fr 1.2fr;
 }
 .wrapper-16-18 {
   display: grid;
@@ -117,7 +117,7 @@
 }
 
 .table__cell {
-  font-size: 1.1rem;
+  font-size: 0.63rem;
   text-align: left;
   border: 1px solid black;
   color: black;

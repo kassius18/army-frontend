@@ -50,7 +50,6 @@ export default function OneTab() {
   };
 
   const deleteTab = () => {
-    setHasChanged(true);
     tabApi.deleteTab(tab.id).then((response) => {
       if (response.success === true) {
         navigate("/tabs");
@@ -59,6 +58,7 @@ export default function OneTab() {
         openErrorModal();
       }
     });
+    setHasChanged(true);
   };
 
   const editTab = (newTab) => {

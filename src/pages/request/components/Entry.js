@@ -41,7 +41,13 @@ function Entry({
   };
   return (
     <>
-      <div className="request__entry">
+      <div
+        className={
+          entry.consumableId === ""
+            ? "request__entry"
+            : "request__entry consumable"
+        }
+      >
         <div>{entry.nameNumber}</div>
         <div>{entry.name}</div>
         <div>{entry.mainPart}</div>

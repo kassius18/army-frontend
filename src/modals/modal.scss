@@ -27,6 +27,11 @@
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 2rem;
     margin: 2rem;
+    font-size: 2rem;
+
+    & * {
+      font-size: 2rem;
+    }
   }
 
   &__input {

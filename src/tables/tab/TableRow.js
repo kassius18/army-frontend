@@ -15,11 +15,14 @@ function TableRow({ part, rowNumber, currentTotal }) {
       </div>
       <div
         className="table__cell center text-vertical"
-        style={{ width: "76.5px" }}
+        style={{ width: "96.5px" }}
       >
         {dateRecieved ? dateRecieved : dateUsed}
       </div>
-      <div className="table__cell center" style={{ width: "82.5px" }}></div>
+      <div
+        className="table__cell center"
+        style={{ width: "82.5px", whiteSpace: "nowrap" }}
+      ></div>
       <div className="table__cell center" style={{ width: "82.5px" }}>
         {pieNumber}
       </div>
@@ -32,7 +35,7 @@ function TableRow({ part, rowNumber, currentTotal }) {
       <div className="table__cell center" style={{ width: "88.5px" }}>
         {currentTotal}
       </div>
-      <div className="table__cell center" style={{ width: "135.5px" }}>
+      <div className="table__cell center" style={{ width: "115.5px" }}>
         {observation}
       </div>
     </div>

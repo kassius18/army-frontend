@@ -30,7 +30,7 @@ function NewRequest() {
   return (
     <>
       <div>
-        <button onClick={openModal}>Crete Request</button>
+        <button onClick={openModal}>Δημιουργία Νεας Αίτησης</button>
       </div>
       <RequestModal
         isOpen={isOpen}

@@ -3,9 +3,11 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import vehicleApi from "apis/vehicleApi";
 import "./vehicle.scss";
+import { AppContext } from "context/AppContext";
 
 export default function Vehicle() {
   const navigate = useNavigate();
+  const { setHasChanged } = useContext(AppContext);
 
   const [vehicles, setVehicles] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +20,7 @@ export default function Vehicle() {
   };
 
   const addVehicle = (newVehicle) => {
+    setHasChanged(true);
     setVehicles([...vehicles, newVehicle]);
   };
 
@@ -38,9 +41,9 @@ export default function Vehicle() {
       <div className="vehicle__all">
         <div className="vehicle__list">
           <div className="vehicle__list-header">
-            <div>Vehicle Id</div>
-            <div>Vehicle Plate</div>
-            <div>Vehicle Type</div>
+            <div>Αρ Οχήματος</div>
+            <div>Πινακίδα Οχήματος</div>
+            <div>Τυπος Οχήματος</div>
           </div>
           {vehicles.map((vehicle) => {
             return (
@@ -58,7 +61,7 @@ export default function Vehicle() {
             );
           })}
         </div>
-        <button onClick={openModal}>Add Vehicle</button>
+        <button onClick={openModal}>Προσθήκη Οχήματος</button>
       </div>
       <VehicleModal
         addVehicle={addVehicle}

@@ -40,7 +40,7 @@ function GetRequests() {
     event.preventDefault();
     const getHttpRequestParams = {};
     getHttpRequestParams.startYear =
-      parseInt(event.target.startYear.value) || null;
+      parseInt(event.target.startYear.value) || parseInt(0);
     getHttpRequestParams.startMonth =
       parseInt(event.target.startMonth.value) || null;
     getHttpRequestParams.startDay =
@@ -51,6 +51,7 @@ function GetRequests() {
     getHttpRequestParams.endDay = parseInt(event.target.endDay.value) || null;
     getHttpRequestParams.findBy = "date";
 
+    console.log("http params are", getHttpRequestParams);
     requestApi
       .getRequestByDateInterval(getHttpRequestParams)
       .then((response) => {
@@ -86,10 +87,10 @@ function GetRequests() {
             className={"requests--byPhi"}
             id={"requests--byPhi"}
           >
-            <h1>Find ALL By Phi</h1>
-            <label htmlFor="firstPartOfPhi">First Part Of Phi</label>
+            <h1>Αναζήτηση με Φ</h1>
+            <label htmlFor="firstPartOfPhi">Αριθμός Φ</label>
             <input type="number" name="firstPartOfPhi" />
-            <button type="submit">Submit</button>
+            <button type="submit">Αναζήτηση</button>
           </form>
         );
         break;
@@ -100,20 +101,20 @@ function GetRequests() {
             className={"requests--byDate"}
             id={"requests--byDate"}
           >
-            <h1>Find By Date</h1>
-            <label htmlFor="startYear">Start Year</label>
+            <h1>Αναζήτηση με Ημερομηνία</h1>
+            <label htmlFor="startYear">Αρχικό Ετός</label>
             <input type="number" name="startYear" />
-            <label htmlFor="startMonth">Start Month</label>
+            <label htmlFor="startMonth">Αρχικός Μηνας</label>
             <input type="number" name="startMonth" />
-            <label htmlFor="startDay">Start Day</label>
+            <label htmlFor="startDay">Αρχική Μέρα</label>
             <input type="number" name="startDay" />
-            <label htmlFor="endYear">End Year</label>
+            <label htmlFor="endYear">Τελικό Ετός</label>
             <input type="number" name="endYear" />
-            <label htmlFor="endMonth">End Month</label>
+            <label htmlFor="endMonth">Τελικός Μηνας</label>
             <input type="number" name="endMonth" />
-            <label htmlFor="endDay">End Day</label>
+            <label htmlFor="endDay">Τελική Μέρα</label>
             <input type="number" name="endDay" />
-            <button type="submit"> Submit </button>
+            <button type="submit">Αναζήτηση</button>
           </form>
         );
         break;
@@ -124,12 +125,12 @@ function GetRequests() {
             className={"requests--byPhi"}
             id={"requests--byPhi"}
           >
-            <h1>Find One By Phi and Year</h1>
-            <label htmlFor="phi">First Part Of Phi</label>
+            <h1>Αναζήτηση με Ετός και Φ</h1>
+            <label htmlFor="phi">Αριθμός Φ</label>
             <input type="number" name="phi" />
-            <label htmlFor="year">Year</label>
+            <label htmlFor="year">Έτος</label>
             <input type="number" name="year" />
-            <button type="submit">Submit</button>
+            <button type="submit">Αναζήτηση</button>
           </form>
         );
         break;

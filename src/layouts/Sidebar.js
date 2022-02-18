@@ -19,26 +19,25 @@ function Sidebar() {
     <div className="sidebar">
       <nav className="sidebar__navbar">
         <div className="sidebar__request">
-          <a onClick={toggleRequestMenu}>Requests</a>
+          <a onClick={toggleRequestMenu}>Eτήσεις</a>
           <Dropdown isOpen={isRequestOpen}>
-            <a onClick={toggleFindMenu}>Find</a>
+            <a onClick={toggleFindMenu}>Ευρεση</a>
             <Dropdown isOpen={isFindOpen}>
               <NavLink to="/requests/" state={{ findBy: "phi" }}>
-                By Phi
+                Με Φ
               </NavLink>
               <NavLink to="/requests/" state={{ findBy: "date" }}>
-                By Date
+                Με Hμερομηνία
               </NavLink>
               <NavLink to="/requests/" state={{ findBy: "phi-year" }}>
-                By Phi And Year
+                Με Φ Και Έτος
               </NavLink>
             </Dropdown>
-            <NavLink to="/requests/new">Create</NavLink>
+            <NavLink to="/requests/new">Καινούργια</NavLink>
           </Dropdown>
         </div>
         <NavLink to="/tabs">Καρτελες</NavLink>
-        <NavLink to="/tv">View Three</NavLink>
-        <NavLink to="/fov">View Four</NavLink>
+        <NavLink to="/vehicles">Οχήματα</NavLink>
       </nav>
     </div>
   );

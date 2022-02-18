@@ -10,7 +10,10 @@ function PartRow({ part, index, total }) {
     observation,
   } = part;
   return (
-    <div className="tab row">
+    <div
+      className="tab row"
+      style={{ border: "1px solid darkslateblue", fontSize: "1.3rem" }}
+    >
       <div>{index}</div>
       <div>{dateRecieved ? dateRecieved : dateUsed}</div>
       <div></div>

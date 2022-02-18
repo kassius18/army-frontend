@@ -14,6 +14,7 @@ export default function Context({ children }) {
       tabApi.getAllTabs().then((response) => {
         if (response.success === true) {
           setTabs(response.tabs);
+          setHasChanged(false);
         } else setTabs([]);
       });
       vehicleApi.getAllVehicles().then((response) => {
@@ -30,6 +31,7 @@ export default function Context({ children }) {
     setVehicles: setVehicles,
     tabs: tabs,
     setTabs: setTabs,
+    setHasChanged: setHasChanged,
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

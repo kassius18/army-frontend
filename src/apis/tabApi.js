@@ -34,6 +34,7 @@ const tabApi = {
     return axios
       .get(url + `/${tabId}`)
       .then((response) => {
+        console.log(response);
         return { success: true, parts: response.data };
       })
       .catch((error) => {

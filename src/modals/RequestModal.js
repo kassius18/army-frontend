@@ -11,6 +11,7 @@ function RequestModal({
   initialValues = {},
 }) {
   const [apiResponse, setApiResponse] = useState({ sucess: true });
+  const [feedback, setFeedback] = useState(false);
 
   const createRequest = (newRequest) => {
     requestApi.createRequest(newRequest).then((response) => {
@@ -18,6 +19,20 @@ function RequestModal({
         closeModal();
         addRequest(...response.requests);
         if (apiResponse.success !== true) {
+          setApiResponse(response);
+        }
+      } else {
+        setApiResponse(response);
+      }
+    });
+  };
+
+  const copyRequest = (request) => {
+    requestApi.copyRequest(request).then((response) => {
+      if (response.success === true) {
+        closeModal();
+        editRequest(request);
+        if (apiResponse.sucess !== true) {
           setApiResponse(response);
         }
       } else {
@@ -43,6 +58,7 @@ function RequestModal({
   const closeModalAndResetContent = () => {
     closeModal();
     setApiResponse({ sucess: true });
+    setFeedback(false);
   };
 
   const submitForm = (e) => {
@@ -57,7 +73,18 @@ function RequestModal({
     if (Object.keys(initialValues).length === 0) {
       createRequest(newRequest);
     } else {
-      updateRequest(newRequest, initialValues.id);
+      if (initialValues.copy) {
+        if (
+          newRequest.firstPartOfPhi === initialValues.firstPartOfPhi &&
+          newRequest.year === initialValues.year
+        ) {
+          setFeedback(true);
+        } else {
+          copyRequest({ ...initialValues, ...newRequest });
+        }
+      } else {
+        updateRequest(newRequest, initialValues.id);
+      }
     }
   };
 
@@ -75,9 +102,10 @@ function RequestModal({
             className={"request__form"}
             id="requestForm"
           >
+            {feedback && <span>Το Φ η το Αίτος πρεπει να μην είναι ίδια</span>}
             <div className={"request__body"}>
               <div className={"request__data"}>
-                <span>phi</span>
+                <span>Φ</span>
                 <input
                   type="number"
                   name="firstPartOfPhi"
@@ -87,6 +115,7 @@ function RequestModal({
                       : undefined
                   }
                 />
+                <span>Σχήμα</span>
                 <input
                   type="number"
                   name="secondPartOfPhi"
@@ -98,7 +127,7 @@ function RequestModal({
                 />
               </div>
               <div className={"request__data"}>
-                <span>year</span>
+                <span>Έτος</span>
                 <input
                   type="number"
                   name="year"
@@ -110,7 +139,7 @@ function RequestModal({
                 />
               </div>
               <div className={"request__data"}>
-                <span>month</span>
+                <span>Μήνας</span>
                 <input
                   type="number"
                   name="month"
@@ -122,7 +151,7 @@ function RequestModal({
                 />
               </div>
               <div className={"request__data"}>
-                <span>day</span>
+                <span>Μέρα</span>
                 <input
                   type="number"
                   name="day"
@@ -135,7 +164,9 @@ function RequestModal({
               </div>
             </div>
             <button type="submit" className="modal__button" form="requestForm">
-              {Object.keys(initialValues).length === 0 ? "Add" : "Edit"}
+              {Object.keys(initialValues).length === 0
+                ? "Προσθήκη"
+                : "Επεξεργασία"}
             </button>
           </form>
         ) : (

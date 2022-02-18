@@ -61,7 +61,7 @@ function EntryModal({
       mainPart: event.target.mainPart.value,
       amountOfOrder: parseInt(event.target.amountOfOrder.value),
       unitOfOrder: event.target.unitOfOrder.value,
-      reasonOfOrder: parseInt(event.target.reasonOfOrder.value),
+      reasonOfOrder: event.target.reasonOfOrder.value,
       priorityOfOrder: parseInt(event.target.priorityOfOrder.value),
       consumableId: event.target.consumableId.value,
       observations: event.target.observations.value,
@@ -89,7 +89,7 @@ function EntryModal({
             />
 
             <div className="modal__input">
-              <label htmlFor="nameNumber">Name Number</label>
+              <label htmlFor="nameNumber">Αριθμός Ονομαστικού</label>
               <input
                 name="nameNumber"
                 type="text"
@@ -101,7 +101,7 @@ function EntryModal({
               />
             </div>
             <div className="modal__input">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Όνομα</label>
               <input
                 name="name"
                 type="text"
@@ -113,7 +113,7 @@ function EntryModal({
               />
             </div>
             <div className="modal__input">
-              <label htmlFor="mainPart">Main Material</label>
+              <label htmlFor="mainPart">Κύριο Υλικό</label>
               <input
                 name="mainPart"
                 type="text"
@@ -125,7 +125,7 @@ function EntryModal({
               />
             </div>
             <div className="modal__input">
-              <label htmlFor="amountOfOrder">Amount Of Order</label>
+              <label htmlFor="amountOfOrder">Ποσότητα</label>
               <input
                 name="amountOfOrder"
                 type="text"
@@ -137,43 +137,46 @@ function EntryModal({
               />
             </div>
             <div className="modal__input">
-              <label htmlFor="unitOfOrder">Units Of Order</label>
-              <input
+              <label htmlFor="unitOfOrder">Μονάδα</label>
+              <select
                 name="unitOfOrder"
                 type="text"
                 defaultValue={
-                  initialValues.unitOfOrder !== undefined
+                  Object.keys(initialValues).length !== 0
                     ? initialValues.unitOfOrder
-                    : undefined
+                    : "τεμ"
                 }
-              />
+              >
+                <option value="τεμ">τεμ</option>
+                <option value="λτ">λτ</option>
+              </select>
             </div>
             <div className="modal__input">
-              <label htmlFor="reasonOfOrder">Reason Of Order</label>
+              <label htmlFor="reasonOfOrder">Αιτιολογία </label>
               <input
                 name="reasonOfOrder"
                 type="text"
                 defaultValue={
                   initialValues.reasonOfOrder !== undefined
                     ? initialValues.reasonOfOrder
-                    : undefined
+                    : "04"
                 }
               />
             </div>
             <div className="modal__input">
-              <label htmlFor="priorityOfOrder">Priority Of Order</label>
+              <label htmlFor="priorityOfOrder">Προτεραιοτήτα</label>
               <input
                 name="priorityOfOrder"
                 type="text"
                 defaultValue={
                   initialValues.priorityOfOrder !== undefined
                     ? initialValues.priorityOfOrder
-                    : undefined
+                    : 50
                 }
               />
             </div>
             <div className="modal__input">
-              <label htmlFor="observations">Observations</label>
+              <label htmlFor="observations">Οχήμα</label>
               <select
                 name="observations"
                 type="text"
@@ -190,11 +193,11 @@ function EntryModal({
                     </option>
                   );
                 })}
-                <option value={""}>none</option>
+                <option value="">none</option>
               </select>
             </div>
             <div className="modal__input">
-              <label htmlFor="consumableId">Consumable</label>
+              <label htmlFor="consumableId">Καρτέλα</label>
               <select
                 name="consumableId"
                 type="text"
@@ -211,7 +214,7 @@ function EntryModal({
                     </option>
                   );
                 })}
-                <option value={""}>none</option>
+                <option value="">none</option>
               </select>
             </div>
           </form>
@@ -219,7 +222,7 @@ function EntryModal({
           <h1>Error connecting to server</h1>
         )}
         <button type="submit" className="modal__button" form="entry__form">
-          {Object.keys(initialValues).length === 0 ? "Add" : "Edit"}
+          {Object.keys(initialValues).length === 0 ? "Προσθήκη" : "Τροποποίηση"}
         </button>
       </Modal>
     </div>

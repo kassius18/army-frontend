@@ -29,7 +29,7 @@ function Modal({ isOpen, closeModal, children }) {
     <div className="modal" onClick={closeOnEscKeyOrClickOutside}>
       <div className="modal__content" ref={modalRef}>
         <div className="modal__close" onClick={closeModal}>
-          Close Modal
+          Κλείσιμο
         </div>
         <div className="modal__body">{children}</div>
       </div>

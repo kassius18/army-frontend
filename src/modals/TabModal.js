@@ -83,7 +83,7 @@ export default function TabModal({
               />
             </div>
             <div className="modal__inputs-name">
-              <label htmlFor="plate">Name</label>
+              <label htmlFor="plate">Όνομα</label>
               <input
                 name="name"
                 type="text"
@@ -95,7 +95,7 @@ export default function TabModal({
               />
             </div>
             <div className="modal__inputs-startingTotal">
-              <label htmlFor="tabType">Starting Total</label>
+              <label htmlFor="tabType">Αρχικό Σύνολο</label>
               <input
                 name="startingTotal"
                 type="text"
@@ -107,7 +107,7 @@ export default function TabModal({
               />
             </div>
             <div className="modal__inputs-usage">
-              <label htmlFor="usage">Usage</label>
+              <label htmlFor="usage">Χρήση</label>
               <input
                 name="usage"
                 type="text"
@@ -119,7 +119,7 @@ export default function TabModal({
               />
             </div>
             <div className="modal__inputs-observations">
-              <label htmlFor="observations">Observations</label>
+              <label htmlFor="observations">Παρατηρησεις</label>
               <input
                 name="observations"
                 type="text"
@@ -131,7 +131,9 @@ export default function TabModal({
               />
             </div>
             <button type="submit" className="modal__button">
-              {Object.keys(initialValues).length === 0 ? "Add" : "Edit"}
+              {Object.keys(initialValues).length === 0
+                ? "Προσθήκη"
+                : "Τροποποίηση"}
             </button>
           </form>
         ) : (

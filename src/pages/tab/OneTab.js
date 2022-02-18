@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import tabApi from "apis/tabApi";
 import PartRow from "./PartRow";
@@ -6,12 +6,13 @@ import TabTable from "tables/tab/TabTable";
 import TabModal from "modals/TabModal";
 import ApiErrorModal from "modals/ApiErrorModal";
 import { useReactToPrint } from "react-to-print";
+import { AppContext } from "context/AppContext";
 
 export default function OneTab() {
+  const { setHasChanged } = useContext(AppContext);
   const navigate = useNavigate();
   const tabRef = useRef();
   const location = useLocation();
-  console.log("location is", location);
   const tab = location.state;
   const initialValues = tab;
   const total = tab.startingTotal;
@@ -25,6 +26,14 @@ export default function OneTab() {
 
   const [minYear, setMinYear] = useState("");
   const [maxYear, setMaxYear] = useState("");
+
+  useEffect(() => {
+    tabApi.getPartsByTabId(tab.id).then((response) => {
+      console.log("the parts are", ...response.parts);
+      setAllParts(...response.parts);
+      setPartsToBePrinted(...response.parts);
+    });
+  }, []);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -41,6 +50,7 @@ export default function OneTab() {
   };
 
   const deleteTab = () => {
+    setHasChanged(true);
     tabApi.deleteTab(tab.id).then((response) => {
       if (response.success === true) {
         navigate("/tabs");
@@ -52,6 +62,7 @@ export default function OneTab() {
   };
 
   const editTab = (newTab) => {
+    setHasChanged(true);
     navigate(`/tabs/${newTab.id}`, { state: newTab });
   };
 
@@ -92,6 +103,7 @@ export default function OneTab() {
 
     const toBePrinted = allParts.filter((part) => {
       if (part.amountRecieved !== "") {
+        console.log("the part being recieved is", part);
         const yearRecieved = parseInt(part.dateRecieved.split("-")[2]);
         if (yearRecieved >= localMinYear && yearRecieved <= localMaxYear) {
           return (
@@ -128,18 +140,30 @@ export default function OneTab() {
     });
 
   return (
-    <div>
-      <input type="number" value={minYear} onChange={assingMinYearValue} />
-      <input type="number" value={maxYear} onChange={assingMaxYearValue} />
-      <button onClick={handlePrintTab}>Print</button>
-      <button onClick={openModal}>Edit</button>
-      <button onClick={deleteTab}>Delete</button>
+    <div className="tab__view">
+      <label htmlFor="startingYear">Αρχικό Έτος</label>
+      <input
+        type="number"
+        value={minYear}
+        onChange={assingMinYearValue}
+        id="startingYear"
+      />
+      <label htmlFor="endingYear">Τελικό Έτος</label>
+      <input
+        type="number"
+        value={maxYear}
+        onChange={assingMaxYearValue}
+        id="endingYear"
+      />
+      <button onClick={handlePrintTab}>Αποθήκευση</button>
+      <button onClick={openModal}>Τροποποίηση</button>
+      <button onClick={deleteTab}>Διαγραφή</button>
       <div className="tab__properties">
         <div>Id</div>
-        <div>Name</div>
-        <div>Starting Total</div>
-        <div>Usage</div>
-        <div>Observatios</div>
+        <div>Ονομα</div>
+        <div>Αρχικό Σύνολο</div>
+        <div>Χρήση</div>
+        <div>Παρατηρησεις</div>
         <div>{tab.id}</div>
         <div>{tab.name}</div>
         <div>{tab.startingTotal}</div>

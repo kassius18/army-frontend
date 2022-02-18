@@ -133,7 +133,7 @@ function PartRecievedModal({
               {validationPasses === 3 ? (
                 <div>Date cannot be empty if amount used is set</div>
               ) : null}
-              <label htmlFor="dayRecieved">Day Recieved</label>
+              <label htmlFor="dayRecieved">Ημέρα εισαγωγής</label>
               <input
                 name="dayRecieved"
                 type="number"
@@ -143,7 +143,7 @@ function PartRecievedModal({
                     : ""
                 }
               />
-              <label htmlFor="monthRecieved">Month Recieved</label>
+              <label htmlFor="monthRecieved">Μήνας εισαγωγής</label>
               <input
                 name="monthRecieved"
                 type="number"
@@ -153,7 +153,7 @@ function PartRecievedModal({
                     : ""
                 }
               />
-              <label htmlFor="yearRecieved">Date Recieved</label>
+              <label htmlFor="yearRecieved">Ετός εισαγωγής</label>
               <input
                 name="yearRecieved"
                 type="number"
@@ -168,7 +168,7 @@ function PartRecievedModal({
               {validationPasses === 1 ? (
                 <div>One of these fields must be filled</div>
               ) : null}
-              <label htmlFor="amountRecieved">Amount Recieved</label>
+              <label htmlFor="amountRecieved">Ποσότητα εισαγωγής</label>
               <input
                 name="amountRecieved"
                 type="number"
@@ -180,7 +180,7 @@ function PartRecievedModal({
               />
             </div>
             <div className="modal__inputs-pieNumber">
-              <label htmlFor="pieNumber">pieNumber</label>
+              <label htmlFor="pieNumber">Αριθμός Π</label>
               <input
                 name="pieNumber"
                 type="text"
@@ -192,7 +192,7 @@ function PartRecievedModal({
               />
             </div>
             <div className="modal__inputs-tabUsed">
-              <label htmlFor="tabUsed">Tab</label>
+              <label htmlFor="tabUsed">Καρτέλα</label>
               <input
                 name="tabUsed"
                 type="text"
@@ -207,7 +207,7 @@ function PartRecievedModal({
               {validationPasses === 2 ? (
                 <div>Date cannot be empty if amount used is set</div>
               ) : null}
-              <label htmlFor="dayUsed">Day Used</label>
+              <label htmlFor="dayUsed">Ημέρα εξαγωγής</label>
               <input
                 name="dayUsed"
                 type="number"
@@ -217,7 +217,7 @@ function PartRecievedModal({
                     : ""
                 }
               />
-              <label htmlFor="monthUsed">Month Used</label>
+              <label htmlFor="monthUsed">Μηνας εξαγωγής</label>
               <input
                 name="monthUsed"
                 type="number"
@@ -227,7 +227,7 @@ function PartRecievedModal({
                     : ""
                 }
               />
-              <label htmlFor="yearUsed">Date Used</label>
+              <label htmlFor="yearUsed">Ετός εξαγωγής</label>
               <input
                 name="yearUsed"
                 type="number"
@@ -242,7 +242,9 @@ function PartRecievedModal({
               {validationPasses === 1 ? (
                 <div>One of these fields must be filled</div>
               ) : null}
-              <label htmlFor="modal__inputs-amountUsed">Amount Used</label>
+              <label htmlFor="modal__inputs-amountUsed">
+                Ποσότητα εξαγωγής
+              </label>
               <input
                 name="amountUsed"
                 type="number"
@@ -254,7 +256,7 @@ function PartRecievedModal({
               />
             </div>
             <div className="modal__inputs-observation">
-              <label htmlFor="modal__inputs-observation">Observations</label>
+              <label htmlFor="modal__inputs-observation">Παρατηρησεις</label>
               <input
                 name="observation"
                 type="text"

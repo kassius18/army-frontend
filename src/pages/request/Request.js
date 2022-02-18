@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import ProtocolTable from "tables/protocol/ProtocolTable";
 import RequestTable from "tables/request/RequestTable";
 import { useLocation, useNavigate } from "react-router";
+import { AiOutlineDown } from "react-icons/ai";
 
 function Request({
   requestProp,
@@ -18,8 +19,18 @@ function Request({
   const navigate = useNavigate();
   const { state } = useLocation();
   const [request, setRequest] = useState(requestProp || []);
+  const [showRequest, setShowRequest] = useState(false);
   const [hasChanged, setHasChanged] = useState(false);
   const [entries, setEntries] = useState(request.entries);
+
+  const copyRequest = () => {
+    setInitialValues({ ...request, copy: true });
+    openModal();
+  };
+
+  const toggleRequestVisibility = () => {
+    setShowRequest(!showRequest);
+  };
 
   useEffect(() => {
     setRequest(requestProp);
@@ -102,37 +113,43 @@ function Request({
           <div ref={requestRef}>{<RequestTable request={request} />}</div>
           <div ref={protocolRef}>{<ProtocolTable request={request} />}</div>
         </div>
-        <div className="request">
+        <AiOutlineDown
+          className="table__button"
+          onClick={toggleRequestVisibility}
+        />
+        <div className={"request " + (showRequest ? "" : "hidden")}>
           <RequestHeader />
           <RequestBody
             entriesProp={entries}
             request={request}
             setRequestEntries={setEntries}
           />
-          <button onClick={handlePrintRequest}>Print Request</button>
-          <button onClick={handlePrintProtocol}>Print Protocol</button>
+          <button onClick={handlePrintRequest}>Αποθήκευση Αίτησης</button>
+          <button onClick={handlePrintProtocol}>Αποθήκευση Πρωτόκολλου</button>
         </div>
         <div className={"request__body"}>
           <div className={"request__data"}>
-            <span>phi</span>
+            <span>Φ</span>
             <span className="firstPartOfPhi">{request.firstPartOfPhi}</span>
+            <span>Σχήμα</span>
             <span>{request.secondPartOfPhi}</span>
           </div>
           <div className={"request__data"}>
-            <span>year</span>
+            <span>Aίτος</span>
             <span>{request.year}</span>
           </div>
           <div className={"request__data"}>
-            <span>month</span>
+            <span>Μήνας</span>
             <span>{request.month}</span>
           </div>
           <div className={"request__data"}>
-            <span>day</span>
+            <span>Μέρα</span>
             <span>{request.day}</span>
           </div>
         </div>
-        <button onClick={deleteClickedRequest}>Delete Request</button>
-        <button onClick={editClickedRequest}>Update Request</button>
+        <button onClick={deleteClickedRequest}>Διαγραφή Αίτησης</button>
+        <button onClick={copyRequest}>Αντιγραφή Αίτησης</button>
+        <button onClick={editClickedRequest}>Τροποποίηση Αίτησης</button>
       </div>
     </>
   );

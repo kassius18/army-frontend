@@ -81,7 +81,7 @@ export default function VehicleModal({
               />
             </div>
             <div className="modal__inputs-plate">
-              <label htmlFor="plate">Plate</label>
+              <label htmlFor="plate">Πινακίδα</label>
               <input
                 name="plate"
                 type="text"
@@ -93,7 +93,7 @@ export default function VehicleModal({
               />
             </div>
             <div className="modal__inputs-vehicleType">
-              <label htmlFor="vehicleType">Vehicle Type</label>
+              <label htmlFor="vehicleType">Είδoς Οχήματος</label>
               <input
                 name="vehicleType"
                 type="text"

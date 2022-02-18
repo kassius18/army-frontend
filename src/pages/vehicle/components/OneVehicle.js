@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useContext } from "react";
 import vehicleApi from "apis/vehicleApi";
 import { useLocation, useNavigate } from "react-router";
 import VehicleModal from "modals/vehicle/VehicleModal";
 import ApiErrorModal from "modals/ApiErrorModal";
+import { AppContext } from "context/AppContext";
 
 export default function OneVehicle() {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const { setHasChanged } = useContext(AppContext);
   const vehicle = state.vehicle;
   const [apiResponse, setApiResponse] = useState({ success: true });
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +30,7 @@ export default function OneVehicle() {
   };
 
   const deleteVehicle = () => {
+    setHasChanged(true);
     vehicleApi.deleteVehicle(vehicle.id).then((response) => {
       if (response.success === true) {
         navigate("/vehicles");
@@ -39,6 +42,7 @@ export default function OneVehicle() {
   };
 
   const editVehicle = (newVehicle) => {
+    setHasChanged(true);
     navigate(`/vehicles/${newVehicle.id}`, { state: { vehicle: newVehicle } });
   };
 

@@ -19,9 +19,9 @@ function Sidebar() {
     <div className="sidebar">
       <nav className="sidebar__navbar">
         <div className="sidebar__request">
-          <a onClick={toggleRequestMenu}>Eτήσεις</a>
+          <a onClick={toggleRequestMenu}>Aiτήσεις</a>
           <Dropdown isOpen={isRequestOpen}>
-            <a onClick={toggleFindMenu}>Ευρεση</a>
+            <a onClick={toggleFindMenu}>Αναζήτηση</a>
             <Dropdown isOpen={isFindOpen}>
               <NavLink to="/requests/" state={{ findBy: "phi" }}>
                 Με Φ

@@ -73,7 +73,7 @@ export default function TabModal({
               onClick={closeModal}
             />
             <div className="modal__inputs-id">
-              <label htmlFor="id">Id</label>
+              <label htmlFor="id">A/A</label>
               <input
                 name="id"
                 type="number"
@@ -83,7 +83,7 @@ export default function TabModal({
               />
             </div>
             <div className="modal__inputs-name">
-              <label htmlFor="plate">Όνομα</label>
+              <label htmlFor="plate">Ονομασία Υλικού</label>
               <input
                 name="name"
                 type="text"

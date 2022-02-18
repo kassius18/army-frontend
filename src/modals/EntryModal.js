@@ -176,7 +176,7 @@ function EntryModal({
               />
             </div>
             <div className="modal__input">
-              <label htmlFor="observations">Οχήμα</label>
+              <label htmlFor="observations">Όχήμα</label>
               <select
                 name="observations"
                 type="text"

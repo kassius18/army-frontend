@@ -115,7 +115,7 @@ function RequestModal({
                       : undefined
                   }
                 />
-                <span>Σχήμα</span>
+                <span>Σχέδιο</span>
                 <input
                   type="number"
                   name="secondPartOfPhi"

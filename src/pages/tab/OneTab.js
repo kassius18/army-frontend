@@ -159,8 +159,8 @@ export default function OneTab() {
       <button onClick={openModal}>Τροποποίηση</button>
       <button onClick={deleteTab}>Διαγραφή</button>
       <div className="tab__properties">
-        <div>Id</div>
-        <div>Ονομα</div>
+        <div>A/A</div>
+        <div>Ονομασία Υλικού</div>
         <div>Αρχικό Σύνολο</div>
         <div>Χρήση</div>
         <div>Παρατηρησεις</div>

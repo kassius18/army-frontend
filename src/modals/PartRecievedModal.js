@@ -192,7 +192,7 @@ function PartRecievedModal({
               />
             </div>
             <div className="modal__inputs-tabUsed">
-              <label htmlFor="tabUsed">Καρτέλα</label>
+              <label htmlFor="tabUsed">Αριθμός Εργασίας</label>
               <input
                 name="tabUsed"
                 type="text"

@@ -77,8 +77,8 @@ function AllTabs() {
     <>
       <div className="tab__view">
         <div className={"tab__list"}>
-          <p>Id</p>
-          <p>Όνομα</p>
+          <p>A/A</p>
+          <p>Ονομασία Υλικού</p>
           <p>Αρχικό Σύνολο</p>
           <p>Χρήση</p>
           <p>Παρατηρησεις</p>

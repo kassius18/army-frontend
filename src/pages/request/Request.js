@@ -131,11 +131,11 @@ function Request({
           <div className={"request__data"}>
             <span>Φ</span>
             <span className="firstPartOfPhi">{request.firstPartOfPhi}</span>
-            <span>Σχήμα</span>
+            <span style={{ marginRight: "2rem" }}>Σχέδιο</span>
             <span>{request.secondPartOfPhi}</span>
           </div>
           <div className={"request__data"}>
-            <span>Aίτος</span>
+            <span>Έτος</span>
             <span>{request.year}</span>
           </div>
           <div className={"request__data"}>

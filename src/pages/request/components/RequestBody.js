@@ -76,7 +76,6 @@ function RequestBody({ entriesProp, request, setRequestEntries }) {
             setEntries={setEntries}
             openModal={openModal}
             deleteEntry={deleteEntry}
-            key={entry.id}
           />
         );
       })}

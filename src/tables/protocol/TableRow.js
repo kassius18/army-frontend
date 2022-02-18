@@ -1,12 +1,7 @@
+import uuid from "react-uuid";
+
 function TableRow({ entry, firstColumnContent }) {
-  const {
-    nameNumber,
-    name,
-    mainPart,
-    amountOfOrder,
-    observations,
-    parts = [],
-  } = entry;
+  const { nameNumber, name, mainPart, amountOfOrder, parts = [] } = entry;
 
   return (
     <>
@@ -17,17 +12,32 @@ function TableRow({ entry, firstColumnContent }) {
         <td>{name}</td>
         <td>{mainPart}</td>
         <td>{amountOfOrder}</td>
-        <td>{observations}</td>
         <td>
           {parts.map((part, index) => {
             if (index > 2) {
               return null;
             }
-            return <p key={part.id}>{part.dateRecieved}</p>;
+            return (
+              <p key={uuid()}>{part.dateRecieved + " " + part.pieNumber}</p>
+            );
           })}
         </td>
-        <td></td>
-        <td></td>
+        <td>
+          {parts.map((part, index) => {
+            if (index > 2) {
+              return null;
+            }
+            return <p key={uuid()}>{part.amountRecieved}</p>;
+          })}
+        </td>
+        <td>
+          {parts.map((part, index) => {
+            if (index > 2) {
+              return null;
+            }
+            return <p key={uuid()}>{part.tabUsed}</p>;
+          })}
+        </td>
         <td>
           {parts.map((part, index) => {
             if (index > 2) {

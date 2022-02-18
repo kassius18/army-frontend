@@ -7,7 +7,6 @@ function TableHeader() {
       <td>Ονομασία Υλικού</td>
       <td>Τύπος Οχήματος</td>
       <td>Ποσότητα</td>
-      <td>Observations</td>
       <td>ΗΜ/ΝΙΑ-ΔΙΑΤΑΚΤΙΚΗ</td>
       <td>Χορηγήσεις</td>
       <td>Καρτέλα εργασίας</td>

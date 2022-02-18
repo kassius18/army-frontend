@@ -4,7 +4,7 @@ export default function PartsRecievedHeader() {
       <div>Ημερομηνια</div>
       <div>Π αρ</div>
       <div>Χορηγησεις</div>
-      <div>Καρτελα εργασιας</div>
+      <div>Αριθμός εργασιας</div>
       <div>Παρατηρησεις</div>
       <div>Ημερομηνια Εξ</div>
       <div>Ποσοτητηα Εξ</div>

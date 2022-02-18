@@ -197,8 +197,8 @@ function PartRecievedModal({
                 name="tabUsed"
                 type="text"
                 defaultValue={
-                  initialValues.tab !== undefined
-                    ? initialValues.tab
+                  initialValues.tabUsed !== undefined
+                    ? initialValues.tabUsed
                     : undefined
                 }
               />

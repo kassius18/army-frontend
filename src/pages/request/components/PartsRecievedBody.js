@@ -4,6 +4,7 @@ import partApi from "apis/partApi";
 import OnePartRecieved from "./OnePartRecieved";
 import PartRecievedModal from "modals/PartRecievedModal";
 import ApiErrorModal from "modals/ApiErrorModal";
+import uuid from "react-uuid";
 
 export default function PartsRecievedBody({
   partsProp,

@@ -1,5 +1,6 @@
 import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
+import uuid from "react-uuid";
 
 export default function OnePartRecieved({
   part,
@@ -17,14 +18,14 @@ export default function OnePartRecieved({
   };
   return (
     <div
-      key={part.id}
+      key={uuid()}
       style={{ display: "contents" }}
       className="parts-recieved__row"
     >
       <div>{part.dateRecieved}</div>
       <div>{part.pieNumber}</div>
       <div>{part.amountRecieved}</div>
-      <div>{part.tab}</div>
+      <div>{part.tabUsed}</div>
       <div>{part.observation}</div>
       <div>{part.dateUsed}</div>
       <div>{part.amountUsed}</div>

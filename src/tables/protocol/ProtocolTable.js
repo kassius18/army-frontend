@@ -19,7 +19,6 @@ function ProtocolTable({ request }) {
         <col width="369" />
         <col width="116" />
         <col width="73" />
-        <col width="128" />
         <col width="153" />
         <col width="93" />
         <col width="73" />

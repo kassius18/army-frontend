@@ -60,8 +60,8 @@ const partApi = {
   async updatePart(part, partId) {
     return axios
       .put(url + `/${partId}`, part)
-      .then(() => {
-        return { success: true };
+      .then((response) => {
+        return { success: true, parts: [response.data] };
       })
       .catch((error) => {
         if (error.response) {

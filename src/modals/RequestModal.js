@@ -45,7 +45,7 @@ function RequestModal({
     requestApi.updateRequest(newRequest, requestId).then((response) => {
       if (response.success === true) {
         closeModal();
-        editRequest(newRequest, requestId);
+        editRequest(...response.requests, requestId);
         if (apiResponse.sucess !== true) {
           setApiResponse(response);
         }
@@ -65,7 +65,7 @@ function RequestModal({
     e.preventDefault();
     const newRequest = {
       firstPartOfPhi: parseInt(e.target.firstPartOfPhi.value),
-      secondPartOfPhi: parseInt(e.target.secondPartOfPhi.value),
+      secondPartOfPhi: parseInt(e.target.secondPartOfPhi.value) || "",
       year: parseInt(e.target.year.value),
       month: parseInt(e.target.month.value),
       day: parseInt(e.target.day.value),
@@ -102,7 +102,7 @@ function RequestModal({
             className={"request__form"}
             id="requestForm"
           >
-            {feedback && <span>Το Φ η το Αίτος πρεπει να μην είναι ίδια</span>}
+            {feedback && <span>Το Φ η το Έτος πρεπει να μην είναι ίδια</span>}
             <div className={"request__body"}>
               <div className={"request__data"}>
                 <span>Φ</span>

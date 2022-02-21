@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./table_structure.scss";
-import uuid from "react-uuid";
 
+import TableHeader from "./TableHeader";
 import TableFooter from "./TableFooter";
 import TableRow from "./TableRow";
 import TableRowWithEnd from "./TableRowWithEnd";
@@ -125,33 +125,16 @@ function TabTable({
           <div className="table__cell"></div>
         </div>
         <div className="wrapper-8fr">
-          <div className="table__cell center" style={{ width: "52px" }}>
-            Α/Α
-          </div>
-          <div
-            className="table__cell center text-vertical"
-            style={{ width: "82.5px", whiteSpace: "nowrap" }}
-          >
-            ΗΜΕΡΟΜ.
-          </div>
-          <div className="table__cell center" style={{ width: "82.5px" }}>
+          <div className="table__cell center">Α/Α</div>
+          <div className="table__cell center text-vertical">ΗΜΕΡΟΜ.</div>
+          <div className="table__cell center">
             ΑΥΤΟΣ ΠΟΥ ΠΑΡΑΔΩΣΕ ή ΠΑΡΕΛΑΒΕ
           </div>
-          <div className="table__cell center" style={{ width: "96.5px" }}>
-            ΑΡΙΘΜΟΣ ΕΥΡΕΤΗΡ.
-          </div>
-          <div className="table__cell center" style={{ width: "88.5px" }}>
-            ΕΙΣΑΓΩΓΕΣ
-          </div>
-          <div className="table__cell center" style={{ width: "88.5px" }}>
-            ΕΞΑΓΩΓΕΣ.
-          </div>
-          <div className="table__cell center" style={{ width: "88.5px" }}>
-            ΥΠΟΛΟΙΟΠΟ
-          </div>
-          <div className="table__cell center" style={{ width: "115.5px" }}>
-            ΠΑΡΑΤΗΡΗΣΕΙΣ
-          </div>
+          <div className="table__cell center">ΑΡΙΘΜΟΣ ΕΥΡΕΤΗΡ.</div>
+          <div className="table__cell center">ΕΙΣΑΓΩΓΕΣ</div>
+          <div className="table__cell center">ΕΞΑΓΩΓΕΣ.</div>
+          <div className="table__cell center">ΥΠΟΛΟΙΟΠΟ</div>
+          <div className="table__cell center">ΠΑΡΑΤΗΡΗΣΕΙΣ</div>
           <div className="table__cell center">22</div>
           <div className="table__cell center">23</div>
           <div className="table__cell center">24</div>
@@ -173,6 +156,7 @@ function TabTable({
             const previousYear = parts[index - 1].dateRecieved
               ? parseInt(parts[index - 1].dateRecieved.split("-")[2])
               : parseInt(parts[index - 1].dateUsed.split("-")[2]);
+
             if (year < startingYear || year > endingYear) {
               return null;
             }
@@ -183,7 +167,7 @@ function TabTable({
               previousYear > endingYear
             ) {
               return (
-                <TableRow part={part} key={uuid()} currentTotal={localTotal} />
+                <TableRow part={part} key={part.id} currentTotal={localTotal} />
               );
             } else {
               let difference = year - previousYear + 1;
@@ -193,7 +177,7 @@ function TabTable({
                   return (
                     <TableRowWithEnd
                       part={part}
-                      key={uuid()}
+                      key={part.id}
                       year={year}
                       currentTotal={localTotal}
                     />
@@ -203,7 +187,7 @@ function TabTable({
                   return (
                     <TableRow
                       part={part}
-                      key={uuid()}
+                      key={part.id}
                       currentTotal={localTotal}
                     />
                   );
@@ -211,7 +195,7 @@ function TabTable({
                 difference--;
                 return (
                   <>
-                    <div className="wrapper-end" key={uuid()}>
+                    <div className="wrapper-end">
                       <div className="table__cell"></div>
                       <div className="table__cell lined"></div>
                       <div className="table__cell"></div>
@@ -230,7 +214,7 @@ function TabTable({
             }
           }
           return (
-            <TableRow part={part} key={uuid()} currentTotal={localTotal} />
+            <TableRow part={part} key={part.id} currentTotal={localTotal} />
           );
         })}
         <TableFooter shouldRerender={shouldRerender} />

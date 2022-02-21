@@ -152,8 +152,8 @@ const tabApi = {
   async updateTab(tab, tabId) {
     return axios
       .put(url + `/${tabId}`, tab)
-      .then(() => {
-        return { success: true };
+      .then((response) => {
+        return { success: true, tabs: [response.data] };
       })
       .catch((error) => {
         if (error.response) {

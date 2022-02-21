@@ -35,9 +35,9 @@ function EntryModal({
 
   const updateEntry = (newEntry, entryId) => {
     entryApi.updateEntry(newEntry, entryId).then((response) => {
-      if (response.success === true) {
+      if (response.success === true && Object.keys(response.entries) !== 0) {
         closeModal();
-        editEntry(newEntry, entryId);
+        editEntry(...response.entries, entryId);
         if (apiResponse.success !== true) {
           setApiResponse(response);
         }

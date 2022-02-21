@@ -51,7 +51,6 @@ function GetRequests() {
     getHttpRequestParams.endDay = parseInt(event.target.endDay.value) || null;
     getHttpRequestParams.findBy = "date";
 
-    console.log("http params are", getHttpRequestParams);
     requestApi
       .getRequestByDateInterval(getHttpRequestParams)
       .then((response) => {

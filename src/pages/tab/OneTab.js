@@ -29,7 +29,6 @@ export default function OneTab() {
 
   useEffect(() => {
     tabApi.getPartsByTabId(tab.id).then((response) => {
-      console.log("the parts are", ...response.parts);
       setAllParts(...response.parts);
       setPartsToBePrinted(...response.parts);
     });
@@ -103,7 +102,6 @@ export default function OneTab() {
 
     const toBePrinted = allParts.filter((part) => {
       if (part.amountRecieved !== "") {
-        console.log("the part being recieved is", part);
         const yearRecieved = parseInt(part.dateRecieved.split("-")[2]);
         if (yearRecieved >= localMinYear && yearRecieved <= localMaxYear) {
           return (

@@ -33,7 +33,7 @@ function PartRecievedModal({
     partApi.updatePart(newPart, partId).then((response) => {
       if (response.success === true) {
         closeModal();
-        editPart(newPart, partId);
+        editPart(...response.parts, partId);
         if (apiResponse.sucess !== true) {
           setApiResponse(response);
         }
@@ -79,8 +79,6 @@ function PartRecievedModal({
     } else {
       setValidationPasses(false);
       closeModal();
-
-      console.log(event.target.monthUsed.value);
 
       const newPart = {
         id: uuid(),

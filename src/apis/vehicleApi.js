@@ -97,8 +97,8 @@ const vehicleApi = {
   async updateVehicle(vehicle, vehicleId) {
     return axios
       .put(url + `/${vehicleId}`, vehicle)
-      .then(() => {
-        return { success: true };
+      .then((response) => {
+        return { success: true, vehicles: [response.data] };
       })
       .catch((error) => {
         if (error.response) {

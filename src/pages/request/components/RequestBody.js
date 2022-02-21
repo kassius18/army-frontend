@@ -21,6 +21,7 @@ function RequestBody({ entriesProp, request, setRequestEntries }) {
   };
 
   const closeModal = () => {
+    setInitialValues({});
     setIsOpen(false);
   };
 
@@ -33,6 +34,7 @@ function RequestBody({ entriesProp, request, setRequestEntries }) {
   };
 
   const addEntry = (newEntry) => {
+    console.log("adding entry, new entry is", newEntry);
     setEntries([...entries, newEntry]);
   };
 
@@ -54,6 +56,12 @@ function RequestBody({ entriesProp, request, setRequestEntries }) {
   };
 
   const editEntry = (newEntry, entryId) => {
+    console.log(
+      "editing entry, new entry is",
+      newEntry,
+      "entry id is",
+      entryId
+    );
     setEntries((oldEntries) => {
       return oldEntries.map((entry) => {
         if (entry.id === entryId) {

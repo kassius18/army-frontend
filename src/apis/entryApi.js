@@ -60,8 +60,8 @@ const entryApi = {
   async updateEntry(entry, entryId) {
     return axios
       .put(url + `/${entryId}`, entry)
-      .then(() => {
-        return { success: true };
+      .then((response) => {
+        return { success: true, entries: [response.data] };
       })
       .catch((error) => {
         if (error.response) {

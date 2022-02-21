@@ -31,7 +31,6 @@ const requestApi = {
   },
 
   async copyRequest(request) {
-    console.log("request seinding to server", request);
     return axios
       .post(url, request)
       .then((response) => {
@@ -88,8 +87,8 @@ const requestApi = {
   async updateRequest(request, requestId) {
     return axios
       .put(url + `/${requestId}`, request)
-      .then(() => {
-        return { success: true };
+      .then((response) => {
+        return { success: true, requests: [response.data] };
       })
       .catch((error) => {
         if (error.response) {

@@ -9,35 +9,33 @@ function TableFooter({ shouldRerender }) {
   const [emptyRowsToFillBefore, setEmptyRowsToFillBefore] = useState(-1);
 
   useEffect(() => {
-    if (shouldRerender !== 1) {
-      let emptyRowsToFillBeforeNumber =
-        emptyRowsToFillBefore !== -1 ? emptyRowsToFillBefore : 0;
-      let emptyRowsToFillFullPageNumber =
-        emptyRowsToFillFullPage !== -1 ? emptyRowsToFillFullPage : 0;
-      let allEmptyRowsHeight =
-        (emptyRowsToFillFullPageNumber + emptyRowsToFillBeforeNumber) *
-        emptyRowHeight;
+    let emptyRowsToFillBeforeNumber =
+      emptyRowsToFillBefore !== -1 ? emptyRowsToFillBefore : 0;
+    let emptyRowsToFillFullPageNumber =
+      emptyRowsToFillFullPage !== -1 ? emptyRowsToFillFullPage : 0;
+    let allEmptyRowsHeight =
+      (emptyRowsToFillFullPageNumber + emptyRowsToFillBeforeNumber) *
+      emptyRowHeight;
 
-      const offsetTop = footerRef.current.offsetTop - allEmptyRowsHeight;
-      const remainder = Math.abs((offsetTop % paperHeight) - paperHeight);
-      console.log("allEmptyRowsHeight is", allEmptyRowsHeight);
-      console.log("remainder is", remainder);
-      console.log("current height is", footerRef.current.offsetHeight);
-      if (remainder > footerRef.current.offsetHeight) {
-        setEmptyRowsToFillBefore(
-          Math.floor(
-            (remainder - footerRef.current.offsetHeight) / emptyRowHeight
-          )
-        );
-        setEmptyRowsToFillFullPage(-1);
-      } else {
-        setEmptyRowsToFillBefore(Math.floor(remainder / emptyRowHeight));
-        setEmptyRowsToFillFullPage(
-          Math.floor(
-            (paperHeight - footerRef.current.offsetHeight) / emptyRowHeight
-          )
-        );
-      }
+    const offsetTop = footerRef.current.offsetTop - allEmptyRowsHeight;
+    const remainder = Math.abs((offsetTop % paperHeight) - paperHeight);
+    console.log("allEmptyRowsHeight is", allEmptyRowsHeight);
+    console.log("remainder is", remainder);
+    console.log("current height is", footerRef.current.offsetHeight);
+    if (remainder > footerRef.current.offsetHeight) {
+      setEmptyRowsToFillBefore(
+        Math.floor(
+          (remainder - footerRef.current.offsetHeight) / emptyRowHeight
+        )
+      );
+      setEmptyRowsToFillFullPage(-1);
+    } else {
+      setEmptyRowsToFillBefore(Math.floor(remainder / emptyRowHeight));
+      setEmptyRowsToFillFullPage(
+        Math.floor(
+          (paperHeight - footerRef.current.offsetHeight) / emptyRowHeight
+        )
+      );
     }
   }, [shouldRerender]);
 

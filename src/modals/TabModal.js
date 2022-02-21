@@ -31,7 +31,7 @@ export default function TabModal({
     tabApi.updateTab(newTab, tabId).then((response) => {
       if (response.success === true) {
         closeModal();
-        editTab(newTab, tabId);
+        editTab(...response.tabs, tabId);
         if (apiResponse.success !== true) {
           setApiResponse(response);
         }

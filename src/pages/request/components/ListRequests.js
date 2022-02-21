@@ -45,6 +45,7 @@ function ListRequests() {
     setIsOpen(true);
   };
   const closeModal = () => {
+    setInitialValues({});
     setIsOpen(false);
   };
 

@@ -1,6 +1,8 @@
 import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 import uuid from "react-uuid";
+import DeleteModal from "modals/DeleteModal";
+import { useState } from "react";
 
 export default function OnePartRecieved({
   part,
@@ -8,6 +10,16 @@ export default function OnePartRecieved({
   openModal,
   deletePart,
 }) {
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const closeDeleteModal = () => {
+    setIsDeleteOpen(false);
+  };
+
+  const openDeleteModal = () => {
+    setIsDeleteOpen(true);
+  };
+
   const editClickedPart = () => {
     setInitialValues(part);
     openModal();
@@ -45,7 +57,13 @@ export default function OnePartRecieved({
               editClickedPart(part.id);
             }}
           />
-          <FiDelete className="table__button" onClick={deleteClickedPart} />
+          <FiDelete className="table__button" onClick={openDeleteModal} />
+          <DeleteModal
+            isOpen={isDeleteOpen}
+            closeModal={closeDeleteModal}
+            deleteFcn={deleteClickedPart}
+            name="part"
+          />
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router";
 import VehicleModal from "modals/vehicle/VehicleModal";
 import ApiErrorModal from "modals/ApiErrorModal";
 import { AppContext } from "context/AppContext";
+import DeleteModal from "modals/DeleteModal";
 
 export default function OneVehicle() {
   const navigate = useNavigate();
@@ -14,6 +15,16 @@ export default function OneVehicle() {
   const [isOpen, setIsOpen] = useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const initialValues = vehicle;
+
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const closeDeleteModal = () => {
+    setIsDeleteOpen(false);
+  };
+
+  const openDeleteModal = () => {
+    setIsDeleteOpen(true);
+  };
 
   const closeModal = () => {
     setIsOpen(false);
@@ -55,7 +66,7 @@ export default function OneVehicle() {
       </div>
       <div className="vehicle__buttons">
         <button onClick={openModal}>Edit</button>
-        <button onClick={deleteVehicle}>Delete</button>
+        <button onClick={openDeleteModal}>Delete</button>
       </div>
       <VehicleModal
         editVehicle={editVehicle}
@@ -67,6 +78,12 @@ export default function OneVehicle() {
         isModalOpen={isErrorModalOpen}
         closeModal={closeErrorModal}
         error={apiResponse.error}
+      />
+      <DeleteModal
+        isOpen={isDeleteOpen}
+        closeModal={closeDeleteModal}
+        deleteFcn={deleteVehicle}
+        name="vehicle"
       />
     </div>
   );

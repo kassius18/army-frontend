@@ -1,9 +1,9 @@
 import PartsRecieved from "./PartsRecieved";
-
 import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 import { AiOutlineDown } from "react-icons/ai";
 import { useEffect, useState } from "react";
+import DeleteModal from "modals/DeleteModal";
 
 function Entry({
   entry,
@@ -15,6 +15,15 @@ function Entry({
 }) {
   const [parts, setParts] = useState(entry.parts);
   const [isPartsHidden, setIsPartsHidden] = useState(true);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const closeDeleteModal = () => {
+    setIsDeleteOpen(false);
+  };
+
+  const openDeleteModal = () => {
+    setIsDeleteOpen(true);
+  };
 
   useEffect(() => {
     setEntries(
@@ -62,7 +71,7 @@ function Entry({
             className="table__button"
             onClick={editClickedEntry}
           />
-          <FiDelete className="table__button" onClick={deleteClickedEntry} />
+          <FiDelete className="table__button" onClick={openDeleteModal} />
           <AiOutlineDown
             className="table__button"
             onClick={togglePartsVisibility}
@@ -75,7 +84,14 @@ function Entry({
         entryId={entry.id}
         setEntriesParts={setParts}
       />
-      <div className="grid-border-line"></div>
+      <div className="grid-border-line">
+        <DeleteModal
+          isOpen={isDeleteOpen}
+          closeModal={closeDeleteModal}
+          deleteFcn={deleteClickedEntry}
+          name="entry"
+        />
+      </div>
     </>
   );
 }

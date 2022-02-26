@@ -8,6 +8,7 @@ export default function Context({ children }) {
   const [vehicles, setVehicles] = useState([]);
   const [tabs, setTabs] = useState([]);
   const [hasChanged, setHasChanged] = useState(true);
+  const [isFailure, setIsFailure] = useState(false);
 
   useEffect(() => {
     if (hasChanged === true) {
@@ -15,12 +16,18 @@ export default function Context({ children }) {
         if (response.success === true) {
           setTabs(response.tabs);
           setHasChanged(false);
-        } else setTabs([]);
+        } else {
+          setIsFailure(true);
+          setTabs([]);
+        }
       });
       vehicleApi.getAllVehicles().then((response) => {
         if (response.success === true) {
           setVehicles(response.vehicles);
-        } else setVehicles([]);
+        } else {
+          setIsFailure(true);
+          setVehicles([]);
+        }
       });
     }
     setHasChanged(false);
@@ -32,6 +39,7 @@ export default function Context({ children }) {
     tabs: tabs,
     setTabs: setTabs,
     setHasChanged: setHasChanged,
+    isFailure: isFailure,
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

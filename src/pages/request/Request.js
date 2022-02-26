@@ -7,6 +7,7 @@ import ProtocolTable from "tables/protocol/ProtocolTable";
 import RequestTable from "tables/request/RequestTable";
 import { useLocation, useNavigate } from "react-router";
 import { AiOutlineDown } from "react-icons/ai";
+import DeleteModal from "modals/DeleteModal";
 
 function Request({
   requestProp,
@@ -22,6 +23,15 @@ function Request({
   const [showRequest, setShowRequest] = useState(false);
   const [hasChanged, setHasChanged] = useState(false);
   const [entries, setEntries] = useState(request.entries);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const closeDeleteModal = () => {
+    setIsDeleteOpen(false);
+  };
+
+  const openDeleteModal = () => {
+    setIsDeleteOpen(true);
+  };
 
   const copyRequest = () => {
     setInitialValues({ ...request, copy: true });
@@ -147,9 +157,15 @@ function Request({
             <span>{request.day}</span>
           </div>
         </div>
-        <button onClick={deleteClickedRequest}>Διαγραφή Αίτησης</button>
+        <button onClick={openDeleteModal}>Διαγραφή Αίτησης</button>
         <button onClick={copyRequest}>Αντιγραφή Αίτησης</button>
         <button onClick={editClickedRequest}>Τροποποίηση Αίτησης</button>
+        <DeleteModal
+          isOpen={isDeleteOpen}
+          closeModal={closeDeleteModal}
+          deleteFcn={deleteClickedRequest}
+          name="request"
+        />
       </div>
     </>
   );

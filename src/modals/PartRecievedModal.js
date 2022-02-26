@@ -52,11 +52,6 @@ function PartRecievedModal({
   const submitForm = (event) => {
     event.preventDefault();
 
-    console.log("clicked");
-    console.log(
-      event.target.amountRecieved.value,
-      event.target.amountUsed.value
-    );
     if (
       event.target.amountRecieved.value === "" &&
       event.target.amountUsed.value === ""

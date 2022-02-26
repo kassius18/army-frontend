@@ -7,6 +7,7 @@ import TabModal from "modals/TabModal";
 import ApiErrorModal from "modals/ApiErrorModal";
 import { useReactToPrint } from "react-to-print";
 import { AppContext } from "context/AppContext";
+import DeleteModal from "modals/DeleteModal";
 
 export default function OneTab() {
   const { setHasChanged } = useContext(AppContext);
@@ -26,6 +27,16 @@ export default function OneTab() {
 
   const [minYear, setMinYear] = useState("");
   const [maxYear, setMaxYear] = useState("");
+
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const closeDeleteModal = () => {
+    setIsDeleteOpen(false);
+  };
+
+  const openDeleteModal = () => {
+    setIsDeleteOpen(true);
+  };
 
   useEffect(() => {
     tabApi.getPartsByTabId(tab.id).then((response) => {
@@ -155,7 +166,7 @@ export default function OneTab() {
       />
       <button onClick={handlePrintTab}>Αποθήκευση</button>
       <button onClick={openModal}>Τροποποίηση</button>
-      <button onClick={deleteTab}>Διαγραφή</button>
+      <button onClick={openDeleteModal}>Διαγραφή</button>
       <div className="tab__properties">
         <div>A/A</div>
         <div>Ονομασία Υλικού</div>
@@ -208,6 +219,12 @@ export default function OneTab() {
         isModalOpen={isErrorModalOpen}
         closeModal={closeErrorModal}
         error={apiResponse.error}
+      />
+      <DeleteModal
+        isOpen={isDeleteOpen}
+        closeModal={closeDeleteModal}
+        deleteFcn={deleteTab}
+        name="tab"
       />
     </div>
   );

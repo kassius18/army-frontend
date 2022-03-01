@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import "./table_structure.scss";
 
 import TableHeader from "./TableHeader";
@@ -6,22 +6,9 @@ import TableRow from "./TableRow";
 import TableFoter from "./TableFooter";
 import uuid from "react-uuid";
 
-function RequestTable({ request }) {
-  const headerRef = useRef(0);
-  const [numOfEmptyRows, setNumOfEmptyRows] = useState(0);
-  const [countOfPages, setCountOfPages] = useState(1);
-  const paperHeight = 697;
-  const emptyRowHeight = 26.45;
+function RequestTable({ print, request }) {
   const entries = request.entries || [];
   const tableRef = useRef(null);
-
-  useEffect(() => {
-    const contentSpace = tableRef.current.clientHeight;
-    if (contentSpace < paperHeight) {
-      const blankSpace = paperHeight - contentSpace;
-      setNumOfEmptyRows(Math.floor(blankSpace / emptyRowHeight));
-    }
-  }, [request]);
 
   return (
     <div className="request__table">
@@ -40,7 +27,7 @@ function RequestTable({ request }) {
           <col width="51"></col>
           <col width="123"></col>
         </colgroup>
-        <tbody className="request__table header" ref={headerRef}>
+        <tbody className="request__table header">
           <TableHeader />
         </tbody>
         <tbody className="table__body rows">
@@ -49,7 +36,7 @@ function RequestTable({ request }) {
             return <TableRow row={entry} key={uuid()} page={page} />;
           })}
         </tbody>
-        <TableFoter headerRef={headerRef} request={request} />
+        <TableFoter request={request} print={print} />
       </table>
     </div>
   );

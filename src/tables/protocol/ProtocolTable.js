@@ -5,7 +5,7 @@ import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 import TableFooter from "./TableFooter";
 
-function ProtocolTable({ request }) {
+function ProtocolTable({ print, request }) {
   const firstPartOfPhi = request.firstPartOfPhi;
   const date = `${request.day}/${request.month}/${request.year}`;
   const entries = request.entries || [];
@@ -47,7 +47,7 @@ function ProtocolTable({ request }) {
           return <TableRow entry={entry} key={entry.id} />;
         })}
       </tbody>
-      <TableFooter />
+      <TableFooter print={print} />
     </table>
   );
 }

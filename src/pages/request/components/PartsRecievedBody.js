@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import partApi from "apis/partApi";
 import OnePartRecieved from "./OnePartRecieved";
 import PartRecievedModal from "modals/PartRecievedModal";
 import ApiErrorModal from "modals/ApiErrorModal";
+import { ACTIONS } from "pages/request/components/ListRequests";
 
-export default function PartsRecievedBody({
-  partsProp,
-  entryId,
-  setEntriesParts,
-}) {
-  const [parts, setParts] = useState(partsProp || []);
+export default function PartsRecievedBody({ parts, entryId, dispatch }) {
   const [initialValues, setInitialValues] = useState({});
   const [apiResponse, setApiResponse] = useState({ success: true });
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-
-  useEffect(() => {
-    setEntriesParts(parts);
-  }, [parts]);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -39,19 +31,13 @@ export default function PartsRecievedBody({
   };
 
   const addPart = (newPart) => {
-    setParts([...parts, newPart]);
+    dispatch({ type: ACTIONS.ADD_PART, payload: { newPart, entryId } });
   };
 
   const deletePart = (partId) => {
     partApi.deletePart(partId).then((response) => {
       if (response.success === true) {
-        setParts((oldParts) => {
-          return oldParts.filter((part) => {
-            if (part.id !== partId) {
-              return part;
-            }
-          });
-        });
+        dispatch({ type: ACTIONS.DELETE_PART, payload: { partId } });
       } else {
         setApiResponse(response);
         openErrorModal();
@@ -60,14 +46,7 @@ export default function PartsRecievedBody({
   };
 
   const editPart = (newPart, partId) => {
-    setParts((oldParts) => {
-      return oldParts.map((part) => {
-        if (part.id === partId) {
-          return newPart;
-        }
-        return part;
-      });
-    });
+    dispatch({ type: ACTIONS.EDIT_PART, payload: { partId, newPart } });
   };
   return (
     <>

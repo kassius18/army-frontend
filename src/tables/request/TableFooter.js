@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import EmptyRow from "./EmptyRow";
-function TableFooter({ request, headerRef }) {
+function TableFooter({ request, print }) {
   const paperHeight = 697;
   const emptyRowHeight = 26.45;
   const footerRef = useRef(0);
@@ -9,13 +9,7 @@ function TableFooter({ request, headerRef }) {
   const [emptyRowsToFillBefore, setEmptyRowsToFillBefore] = useState(-1);
 
   useEffect(() => {
-    const numberOfPages = Math.ceil(
-      (footerRef.current.offsetTop + footerRef.current.offsetHeight) /
-        paperHeight
-    );
-
-    const offsetTop = footerRef.current.offsetTop + (numberOfPages - 1) * 28;
-
+    const offsetTop = footerRef.current.offsetTop;
     const remainder = Math.abs((offsetTop % paperHeight) - paperHeight);
 
     if (remainder > footerRef.current.offsetHeight) {
@@ -33,237 +27,20 @@ function TableFooter({ request, headerRef }) {
         ) - 1
       );
     }
-  }, []);
+  }, [print]);
+
+  const renderEmptyRows = () => {
+    const countOfRows =
+      (emptyRowsToFillBefore >= 0 ? emptyRowsToFillBefore : 0) +
+      (emptyRowsToFillFullPage >= 0 ? emptyRowsToFillFullPage : 0);
+    const iterationArray = Array(countOfRows).fill(1);
+    return <EmptyRow iterationArray={iterationArray} />;
+  };
 
   const { day, month, year, firstPartOfPhi, secondPartOfPhi } = request;
   return (
     <>
-      <tbody className="table__body">
-        {
-          <EmptyRow
-            iterationArray={Array(
-              emptyRowsToFillBefore >= 0 ? emptyRowsToFillBefore : 0
-            ).fill(1)}
-          />
-        }
-        {emptyRowsToFillFullPage !== -1 && (
-          <tr>
-            <td
-              style={{
-                borderTop: "1px solid #33cccc",
-                borderBottom: "1px solid #33cccc",
-                borderLeft: "1px solid #33cccc",
-                borderRight: "1px solid #33cccc",
-                valign: "middle",
-                height: "37",
-                bgcolor: "#CCFFFF",
-                align: "center",
-              }}
-            >
-              <b>
-                <font size="1" color="#000000">
-                  ΚΩΔΙΚΑΣ ΕΝΤΥΠΟΥ
-                </font>
-              </b>
-            </td>
-            <td
-              style={{
-                borderTop: "1px solid #33cccc",
-                borderBottom: "1px solid #33cccc",
-                borderLeft: "1px solid #33cccc",
-                borderRight: "1px solid #33cccc",
-                valign: "middle",
-                bgcolor: "#CCFFFF",
-                align: "center",
-              }}
-            >
-              <b>
-                <font size="1" color="#000000">
-                  ΑΡΙΘΜΟΣ ΟΝΟΜΑΣΤΙΚΟΥ
-                </font>
-              </b>
-            </td>
-            <td
-              style={{
-                borderTop: "1px solid #33cccc",
-                borderBottom: "1px solid #33cccc",
-                borderLeft: "1px solid #33cccc",
-                borderRight: "1px solid #33cccc",
-                valign: "middle",
-                bgcolor: "#CCFFFF",
-                align: "center",
-              }}
-            >
-              <b>
-                <font size="1" color="#000000">
-                  Part Number
-                </font>
-              </b>
-            </td>
-            <td
-              style={{
-                borderTop: "1px solid #33cccc",
-                borderBottom: "1px solid #33cccc",
-                borderLeft: "1px solid #33cccc",
-                borderRight: "1px solid #33cccc",
-                valign: "middle",
-                bgcolor: "#CCFFFF",
-                align: "center",
-              }}
-            >
-              <b>
-                <font size="1" color="#000000">
-                  Ονομασία
-                </font>
-              </b>
-            </td>
-            <td
-              style={{
-                borderTop: "1px solid #33cccc",
-                borderBottom: "1px solid #33cccc",
-                borderLeft: "1px solid #33cccc",
-                borderRight: "1px solid #33cccc",
-                valign: "middle",
-                bgcolor: "#CCFFFF",
-                align: "center",
-              }}
-            >
-              <b>
-                <font size="1" color="#000000">
-                  ΚΥΡΙΟ ΥΛΙΚΟ
-                </font>
-              </b>
-            </td>
-            <td
-              style={{
-                borderTop: "1px solid #33cccc",
-                borderBottom: "1px solid #33cccc",
-                borderLeft: "1px solid #33cccc",
-                borderRight: "1px solid #33cccc",
-                valign: "middle",
-                bgcolor: "#CCFFFF",
-                align: "center",
-              }}
-            >
-              <b>
-                <font size="1" color="#000000">
-                  ΑΙΤΟΥΜΕΝΗ ΠΟΣΟΤΗΤΑ
-                </font>
-              </b>
-            </td>
-            <td
-              style={{
-                borderTop: "1px solid #33cccc",
-                borderBottom: "1px solid #33cccc",
-                borderLeft: "1px solid #33cccc",
-                borderRight: "1px solid #33cccc",
-                valign: "middle",
-                bgcolor: "#CCFFFF",
-                align: "center",
-              }}
-            >
-              <b>
-                <font size="1" color="#000000">
-                  ΤΑΥΤΟΤΗΤΑ ΕΝΤΥΠΟΥ
-                </font>
-              </b>
-            </td>
-            <td
-              style={{
-                borderTop: "1px solid #33cccc",
-                borderBottom: "1px solid #33cccc",
-                borderLeft: "1px solid #33cccc",
-                borderRight: "1px solid #33cccc",
-                valign: "middle",
-                bgcolor: "#CCFFFF",
-                align: "center",
-              }}
-            >
-              <b>
-                <font size="1" color="#000000">
-                  ΜΜ
-                </font>
-              </b>
-            </td>
-            <td
-              style={{
-                borderTop: "1px solid #33cccc",
-                borderBottom: "1px solid #33cccc",
-                borderLeft: "1px solid #33cccc",
-                borderRight: "1px solid #33cccc",
-                valign: "middle",
-                bgcolor: "#CCFFFF",
-                align: "center",
-              }}
-            >
-              <b>
-                <font size="1" color="#000000">
-                  ΑΙΤΙΟΛΟΓΙΑ
-                </font>
-              </b>
-            </td>
-            <td
-              style={{
-                borderTop: "1px solid #33cccc",
-                borderBottom: "1px solid #33cccc",
-                borderLeft: "1px solid #33cccc",
-                borderRight: "1px solid #33cccc",
-                valign: "middle",
-                bgcolor: "#CCFFFF",
-                align: "center",
-              }}
-            >
-              <b>
-                <font size="1" color="#000000">
-                  ΠΡΟΤΕΡΑΙΟΤΗΤΑ
-                </font>
-              </b>
-            </td>
-            <td
-              style={{
-                borderTop: "1px solid #33cccc",
-                borderBottom: "1px solid #33cccc",
-                borderLeft: "1px solid #33cccc",
-                borderRight: "1px solid #33cccc",
-                valign: "middle",
-                bgcolor: "#CCFFFF",
-                align: "center",
-              }}
-            >
-              <b>
-                <font size="1" color="#000000">
-                  ΔΕΛΤΙΟ
-                </font>
-              </b>
-            </td>
-            <td
-              style={{
-                borderTop: "1px solid #33cccc",
-                borderBottom: "1px solid #33cccc",
-                borderLeft: "1px solid #33cccc",
-                borderRight: "1px solid #33cccc",
-                valign: "middle",
-                bgcolor: "#CCFFFF",
-                align: "center",
-              }}
-            >
-              <b>
-                <font size="1" color="#000000">
-                  ΠΑΡΑΤΗΡΗΣΕΙΣ
-                </font>
-              </b>
-            </td>
-            <td valign="middle" align="center">
-              <br />
-            </td>
-          </tr>
-        )}
-        <EmptyRow
-          iterationArray={Array(
-            emptyRowsToFillFullPage >= 0 ? emptyRowsToFillFullPage : 0
-          ).fill(1)}
-        />
-      </tbody>
+      <tbody className="table__body">{renderEmptyRows()}</tbody>
       <tbody ref={footerRef}>
         <tr>
           <td height="66" align="center">

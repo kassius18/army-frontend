@@ -1,29 +1,46 @@
 import "./request.scss";
 import RequestHeader from "./components/RequestHeader";
+import { ACTIONS } from "./components/ListRequests";
 import RequestBody from "./components/RequestBody";
 import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState } from "react";
 import ProtocolTable from "tables/protocol/ProtocolTable";
 import RequestTable from "tables/request/RequestTable";
-import { useLocation, useNavigate } from "react-router";
 import { AiOutlineDown } from "react-icons/ai";
 import DeleteModal from "modals/DeleteModal";
+import uuid from "react-uuid";
 
 function Request({
-  requestProp,
+  request,
   openModal,
-  deleteRequest,
   setInitialValues,
-  setRequests,
-  requests,
+  deleteRequest,
+  dispatch,
 }) {
-  const navigate = useNavigate();
-  const { state } = useLocation();
-  const [request, setRequest] = useState(requestProp || []);
+  const entries = request.entries;
+
   const [showRequest, setShowRequest] = useState(false);
-  const [hasChanged, setHasChanged] = useState(false);
-  const [entries, setEntries] = useState(request.entries);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isPrintRequest, setIsPrintRequest] = useState({
+    value: false,
+    resolve: undefined,
+  });
+  const [isPrintProtocol, setIsPrintProtocol] = useState({
+    value: false,
+    resolve: undefined,
+  });
+
+  useEffect(() => {
+    if (isPrintRequest.resolve) {
+      isPrintRequest.resolve();
+    }
+  }, [isPrintRequest]);
+
+  useEffect(() => {
+    if (isPrintProtocol.resolve) {
+      isPrintProtocol.resolve();
+    }
+  }, [isPrintProtocol]);
 
   const closeDeleteModal = () => {
     setIsDeleteOpen(false);
@@ -42,38 +59,6 @@ function Request({
     setShowRequest(!showRequest);
   };
 
-  useEffect(() => {
-    setRequest(requestProp);
-    setEntries(requestProp.entries);
-  }, [requestProp]);
-
-  useEffect(() => {
-    if (hasChanged) {
-      setHasChanged(false);
-      setRequests(
-        requests.map((oldRequest) => {
-          if (oldRequest.id === request.id) {
-            return request;
-          }
-          return oldRequest;
-        })
-      );
-
-      navigate("", {
-        state: state.map((requestFromState) => {
-          if (requestFromState.id === request.id) {
-            return request;
-          }
-          return requestFromState;
-        }),
-      });
-    }
-  }, [hasChanged]);
-  useEffect(() => {
-    setRequest({ ...request, entries: entries });
-    setHasChanged(true);
-  }, [entries]);
-
   const printRef = useRef();
   const requestRef = useRef();
   const protocolRef = useRef();
@@ -84,20 +69,30 @@ function Request({
     margin: 0.5in 0.5in 0.5in 0.5in !important; 
     size: landscape;
   }`,
+    onAfterPrint: () => {
+      setIsPrintRequest({ value: false, resolve: undefined });
+    },
+    onBeforeGetContent: () => {
+      return new Promise((resolve) => {
+        setIsPrintRequest({ value: true, resolve });
+      });
+    },
   });
+
   const handlePrintProtocol = useReactToPrint({
     content: () => protocolRef.current,
-    onBeforePrint: () => {
-      console.log("content is");
-      printRef.current.style.display = "block";
-      console.log(protocolRef.current.clientHeight);
-      printRef.current.style.zIndex = "-100";
-      printRef.current.style.position = "absolute";
-    },
     pageStyle: `@page {
     margin: 0.5in 0.5in 0.5in 0.5in !important;
     size: landscape;
   }`,
+    onAfterPrint: () => {
+      setIsPrintProtocol({ value: false, resolve: undefined });
+    },
+    onBeforeGetContent: () => {
+      return new Promise((resolve) => {
+        setIsPrintProtocol({ value: true, resolve });
+      });
+    },
   });
 
   const editClickedRequest = () => {
@@ -120,8 +115,24 @@ function Request({
             zIndex: "-100",
           }}
         >
-          <div ref={requestRef}>{<RequestTable request={request} />}</div>
-          <div ref={protocolRef}>{<ProtocolTable request={request} />}</div>
+          <div ref={requestRef}>
+            {isPrintRequest ? (
+              <RequestTable
+                key={uuid()}
+                print={isPrintRequest}
+                request={request}
+              />
+            ) : null}
+          </div>
+          <div ref={protocolRef}>
+            {isPrintProtocol ? (
+              <ProtocolTable
+                print={isPrintProtocol}
+                key={uuid()}
+                request={request}
+              />
+            ) : null}
+          </div>
         </div>
         <AiOutlineDown
           className="table__button"
@@ -130,9 +141,9 @@ function Request({
         <div className={"request " + (showRequest ? "" : "hidden")}>
           <RequestHeader />
           <RequestBody
-            entriesProp={entries}
+            entries={entries}
             request={request}
-            setRequestEntries={setEntries}
+            dispatch={dispatch}
           />
           <button onClick={handlePrintRequest}>Αποθήκευση Αίτησης</button>
           <button onClick={handlePrintProtocol}>Αποθήκευση Πρωτόκολλου</button>
@@ -160,6 +171,7 @@ function Request({
         <button onClick={openDeleteModal}>Διαγραφή Αίτησης</button>
         <button onClick={copyRequest}>Αντιγραφή Αίτησης</button>
         <button onClick={editClickedRequest}>Τροποποίηση Αίτησης</button>
+
         <DeleteModal
           isOpen={isDeleteOpen}
           closeModal={closeDeleteModal}

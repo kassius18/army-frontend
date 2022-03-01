@@ -7,6 +7,7 @@ import TableRow from "./TableRow";
 import TableRowWithEnd from "./TableRowWithEnd";
 
 function TabTable({
+  print,
   parts,
   startingTotal,
   startingYear = 0,

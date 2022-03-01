@@ -1,20 +1,16 @@
 import Entry from "./Entry";
 import { IoMdAdd } from "react-icons/io";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { ACTIONS } from "./ListRequests";
 import EntryModal from "modals/EntryModal";
 import ApiErrorModal from "modals/ApiErrorModal";
 import entryApi from "apis/entryApi";
 
-function RequestBody({ entriesProp, request, setRequestEntries }) {
-  const [entries, setEntries] = useState(entriesProp || []);
+function RequestBody({ entries, dispatch, request }) {
   const [initialValues, setInitialValues] = useState({});
   const [apiResponse, setApiResponse] = useState({ success: true });
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    setRequestEntries(entries);
-  }, [entries]);
 
   const openModal = () => {
     setIsOpen(true);
@@ -34,20 +30,16 @@ function RequestBody({ entriesProp, request, setRequestEntries }) {
   };
 
   const addEntry = (newEntry) => {
-    console.log("adding entry, new entry is", newEntry);
-    setEntries([...entries, newEntry]);
+    dispatch({
+      type: ACTIONS.ADD_ENTRY,
+      payload: { newEntry, requestId: request.id },
+    });
   };
 
   const deleteEntry = (entryId) => {
     entryApi.deleteEntry(entryId).then((response) => {
       if (response.success === true) {
-        setEntries((oldEntries) => {
-          return oldEntries.filter((entry) => {
-            if (entry.id !== entryId) {
-              return entry;
-            }
-          });
-        });
+        dispatch({ type: ACTIONS.DELETE_ENTRY, payload: { entryId } });
       } else {
         setApiResponse(response);
         openErrorModal();
@@ -56,20 +48,7 @@ function RequestBody({ entriesProp, request, setRequestEntries }) {
   };
 
   const editEntry = (newEntry, entryId) => {
-    console.log(
-      "editing entry, new entry is",
-      newEntry,
-      "entry id is",
-      entryId
-    );
-    setEntries((oldEntries) => {
-      return oldEntries.map((entry) => {
-        if (entry.id === entryId) {
-          return newEntry;
-        }
-        return entry;
-      });
-    });
+    dispatch({ type: ACTIONS.EDIT_ENTRY, payload: { newEntry, entryId } });
   };
 
   return (
@@ -78,12 +57,11 @@ function RequestBody({ entriesProp, request, setRequestEntries }) {
         return (
           <Entry
             entry={entry}
-            entries={entries}
             key={entry.id}
             setInitialValues={setInitialValues}
-            setEntries={setEntries}
             openModal={openModal}
             deleteEntry={deleteEntry}
+            dispatch={dispatch}
           />
         );
       })}

@@ -1,18 +1,14 @@
 import PartsRecievedHeader from "./PartsRecievedHeader";
 import PartsRecievedBody from "./PartsRecievedBody";
 
-function PartsRecieved({ parts = [], isHidden, entryId, setEntriesParts }) {
+function PartsRecieved({ parts, isHidden, entryId, dispatch }) {
   return (
     <div
       className="parts-recieved"
       style={{ height: isHidden ? "0" : (parts.length + 2) * 60 }}
     >
       <PartsRecievedHeader />
-      <PartsRecievedBody
-        partsProp={parts}
-        entryId={entryId}
-        setEntriesParts={setEntriesParts}
-      />
+      <PartsRecievedBody parts={parts} entryId={entryId} dispatch={dispatch} />
     </div>
   );
 }

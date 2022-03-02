@@ -3,24 +3,16 @@ import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 import { AiOutlineDown } from "react-icons/ai";
 import { useState } from "react";
-import DeleteModal from "modals/DeleteModal";
 
-function Entry({
-  entry,
-  setInitialValues,
-  openModal,
-  deleteEntry,
-  requestActions,
-}) {
+function Entry({ entry, deleteEntry, requestActions, modalActions }) {
   const [isPartsHidden, setIsPartsHidden] = useState(true);
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-
-  const closeDeleteModal = () => {
-    setIsDeleteOpen(false);
-  };
 
   const openDeleteModal = () => {
-    setIsDeleteOpen(true);
+    modalActions.openDeleteModal(
+      modalActions.closeModal,
+      deleteClickedEntry,
+      "entry"
+    );
   };
 
   const deleteClickedEntry = () => {
@@ -28,8 +20,13 @@ function Entry({
   };
 
   const editClickedEntry = () => {
-    setInitialValues(entry);
-    openModal();
+    modalActions.openEntryModal(
+      modalActions.closeModal,
+      requestActions.addEntry,
+      requestActions.editEntry,
+      {},
+      entry
+    );
   };
 
   const togglePartsVisibility = () => {
@@ -70,15 +67,9 @@ function Entry({
         isHidden={isPartsHidden}
         entryId={entry.id}
         requestActions={requestActions}
+        modalActions={modalActions}
       />
-      <div className="grid-border-line">
-        <DeleteModal
-          isOpen={isDeleteOpen}
-          closeModal={closeDeleteModal}
-          deleteFcn={deleteClickedEntry}
-          name="entry"
-        />
-      </div>
+      <div className="grid-border-line"></div>
     </>
   );
 }

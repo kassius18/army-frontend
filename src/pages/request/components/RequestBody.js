@@ -1,35 +1,15 @@
 import Entry from "./Entry";
 import { IoMdAdd } from "react-icons/io";
-import { useState } from "react";
-import EntryModal from "modals/EntryModal";
-import ApiErrorModal from "modals/ApiErrorModal";
 import entryApi from "apis/entryApi";
 
-function RequestBody({ entries, requestActions, request }) {
-  const [initialValues, setInitialValues] = useState({});
-  const [apiResponse, setApiResponse] = useState({ success: true });
-  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-
+function RequestBody({ entries, requestActions, request, modalActions }) {
   const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setInitialValues({});
-    setIsOpen(false);
-  };
-
-  const openErrorModal = () => {
-    setIsErrorModalOpen(true);
-  };
-
-  const closeErrorModal = () => {
-    setIsErrorModalOpen(false);
-  };
-
-  const addEntry = (newEntry) => {
-    requestActions.addEntry(newEntry, request.id);
+    modalActions.openEntryModal(
+      modalActions.closeModal,
+      requestActions.addEntry,
+      requestActions.editEntry,
+      request
+    );
   };
 
   const deleteEntry = (entryId) => {
@@ -37,14 +17,9 @@ function RequestBody({ entries, requestActions, request }) {
       if (response.success === true) {
         requestActions.deleteEntry(entryId);
       } else {
-        setApiResponse(response);
-        openErrorModal();
+        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
       }
     });
-  };
-
-  const editEntry = (newEntry, entryId) => {
-    requestActions.editEntry(newEntry, entryId);
   };
 
   return (
@@ -54,27 +29,13 @@ function RequestBody({ entries, requestActions, request }) {
           <Entry
             entry={entry}
             key={entry.id}
-            setInitialValues={setInitialValues}
-            openModal={openModal}
             deleteEntry={deleteEntry}
             requestActions={requestActions}
+            modalActions={modalActions}
           />
         );
       })}
       <IoMdAdd className="table__button addRow" onClick={openModal} />
-      <EntryModal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        addEntry={addEntry}
-        editEntry={editEntry}
-        initialValues={initialValues}
-        request={request}
-      />
-      <ApiErrorModal
-        isModalOpen={isErrorModalOpen}
-        closeModal={closeErrorModal}
-        error={apiResponse.error}
-      />
     </>
   );
 }

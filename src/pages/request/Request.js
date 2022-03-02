@@ -6,20 +6,12 @@ import { useEffect, useRef, useState } from "react";
 import ProtocolTable from "tables/protocol/ProtocolTable";
 import RequestTable from "tables/request/RequestTable";
 import { AiOutlineDown } from "react-icons/ai";
-import DeleteModal from "modals/DeleteModal";
 import uuid from "react-uuid";
 
-function Request({
-  request,
-  openModal,
-  setInitialValues,
-  deleteRequest,
-  requestActions,
-}) {
+function Request({ request, deleteRequest, requestActions, modalActions }) {
   const entries = request.entries;
 
   const [showRequest, setShowRequest] = useState(false);
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isPrintRequest, setIsPrintRequest] = useState({
     value: false,
     resolve: undefined,
@@ -41,17 +33,20 @@ function Request({
     }
   }, [isPrintProtocol]);
 
-  const closeDeleteModal = () => {
-    setIsDeleteOpen(false);
-  };
-
   const openDeleteModal = () => {
-    setIsDeleteOpen(true);
+    modalActions.openDeleteModal(
+      modalActions.closeModal,
+      deleteClickedRequest,
+      "request"
+    );
   };
 
   const copyRequest = () => {
-    setInitialValues({ ...request, copy: true });
-    openModal();
+    modalActions.openRequestModal(
+      requestActions.editRequest,
+      modalActions.closeModal,
+      { ...request, copy: true }
+    );
   };
 
   const toggleRequestVisibility = () => {
@@ -95,8 +90,12 @@ function Request({
   });
 
   const editClickedRequest = () => {
-    setInitialValues(request);
-    openModal();
+    modalActions.openRequestModal(
+      requestActions.editRequest,
+      () => {},
+      modalActions.closeModal,
+      request
+    );
   };
 
   const deleteClickedRequest = () => {
@@ -143,6 +142,7 @@ function Request({
             entries={entries}
             request={request}
             requestActions={requestActions}
+            modalActions={modalActions}
           />
           <button onClick={handlePrintRequest}>Αποθήκευση Αίτησης</button>
           <button onClick={handlePrintProtocol}>Αποθήκευση Πρωτόκολλου</button>
@@ -170,13 +170,6 @@ function Request({
         <button onClick={openDeleteModal}>Διαγραφή Αίτησης</button>
         <button onClick={copyRequest}>Αντιγραφή Αίτησης</button>
         <button onClick={editClickedRequest}>Τροποποίηση Αίτησης</button>
-
-        <DeleteModal
-          isOpen={isDeleteOpen}
-          closeModal={closeDeleteModal}
-          deleteFcn={deleteClickedRequest}
-          name="request"
-        />
       </div>
     </>
   );

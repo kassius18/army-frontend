@@ -1,28 +1,29 @@
 import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 import uuid from "react-uuid";
-import DeleteModal from "modals/DeleteModal";
-import { useState } from "react";
 
 export default function OnePartRecieved({
   part,
-  setInitialValues,
-  openModal,
   deletePart,
+  modalActions,
+  requestActions,
 }) {
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-
-  const closeDeleteModal = () => {
-    setIsDeleteOpen(false);
-  };
-
   const openDeleteModal = () => {
-    setIsDeleteOpen(true);
+    modalActions.openDeleteModal(
+      modalActions.closeModal,
+      deleteClickedPart,
+      "part"
+    );
   };
 
   const editClickedPart = () => {
-    setInitialValues(part);
-    openModal();
+    modalActions.openPartModal(
+      modalActions.closeModal,
+      requestActions.addPart,
+      requestActions.editPart,
+      {},
+      part
+    );
   };
 
   const deleteClickedPart = () => {
@@ -58,12 +59,6 @@ export default function OnePartRecieved({
             }}
           />
           <FiDelete className="table__button" onClick={openDeleteModal} />
-          <DeleteModal
-            isOpen={isDeleteOpen}
-            closeModal={closeDeleteModal}
-            deleteFcn={deleteClickedPart}
-            name="part"
-          />
         </div>
       </div>
     </div>

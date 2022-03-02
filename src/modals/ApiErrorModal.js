@@ -1,12 +1,12 @@
 import Modal from "modals/Modal";
 
 function ApiErrorModal({
-  isModalOpen,
+  isOpen,
   closeModal,
   error = { message: "", code: "" },
 }) {
   return (
-    <Modal isOpen={isModalOpen} closeModal={closeModal}>
+    <Modal isOpen={isOpen} closeModal={closeModal}>
       <h1>Open</h1>
       <h1>{error.code}</h1>
       <p>{error.message}</p>

@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import requestApi from "apis/requestApi";
-import ApiErrorModal from "modals/ApiErrorModal";
-import RequestModal from "modals/RequestModal";
+import ModalWrapper from "modals/ModalWrapper";
 import Request from "../Request";
 import { useEffect, useRef, useState, useReducer } from "react";
 import { useReactToPrint } from "react-to-print";
@@ -9,6 +8,7 @@ import ProtocolTable from "tables/protocol/ProtocolTable";
 import RequestTable from "tables/request/RequestTable";
 import uuid from "react-uuid";
 import { requestsReducer, requestsDispatchMap } from "reducers/requestReducer";
+import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 
 function ListRequests() {
   const location = useLocation();
@@ -18,12 +18,9 @@ function ListRequests() {
     requestsReducer,
     location.state || []
   );
+  const [modal, modalDispatch] = useReducer(modalReducer, "");
   const requestActions = requestsDispatchMap(requestsDispatch);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [apiResponse, setApiResponse] = useState({ success: true });
-  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-  const [initialValues, setInitialValues] = useState({});
+  const modalActions = modalDispatchMap(modalDispatch);
 
   const [isPrintRequest, setIsPrintRequest] = useState({
     value: false,
@@ -42,14 +39,9 @@ function ListRequests() {
       if (response.success === true) {
         requestActions.deleteRequest(requestId);
       } else {
-        setApiResponse(response);
-        openErrorModal();
+        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
       }
     });
-  };
-
-  const editRequest = (newRequest, requestId) => {
-    requestActions.editRequest(newRequest, requestId);
   };
 
   useEffect(() => {
@@ -101,21 +93,6 @@ function ListRequests() {
     },
   });
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
-  const closeModal = () => {
-    setInitialValues({});
-    setIsOpen(false);
-  };
-
-  const openErrorModal = () => {
-    setIsErrorModalOpen(true);
-  };
-
-  const closeErrorModal = () => {
-    setIsErrorModalOpen(false);
-  };
   return (
     <>
       <div className="request-list">
@@ -124,27 +101,16 @@ function ListRequests() {
             <Request
               request={request}
               key={request.id}
-              openModal={openModal}
-              setInitialValues={setInitialValues}
               deleteRequest={deleteRequest}
               requestActions={requestActions}
+              modalActions={modalActions}
             />
           );
         })}
       </div>
       <button onClick={handlePrintRequests}>Print all requests</button>
       <button onClick={handlePrintProtocols}>Print all protocols</button>
-      <RequestModal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        editRequest={editRequest}
-        initialValues={initialValues}
-      />
-      <ApiErrorModal
-        isModalOpen={isErrorModalOpen}
-        closeModal={closeErrorModal}
-        error={apiResponse.error}
-      />
+      <ModalWrapper modal={modal} />
       <div
         style={{
           visibility: "hidden",

@@ -23,7 +23,7 @@ function EntryModal({
       .then((response) => {
         if (response.success === true && Object.keys(response.entries) !== 0) {
           closeModal();
-          addEntry(...response.entries);
+          addEntry(...response.entries, request.id);
           if (apiResponse.success !== true) {
             setApiResponse(response);
           }

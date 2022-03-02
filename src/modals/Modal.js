@@ -7,18 +7,29 @@ function Modal({ isOpen, closeModal, children }) {
   const portalDiv = document.getElementById("modal-root");
   const modalRef = useRef();
 
-  const closeOnEscKeyOrClickOutside = (e) => {
-    if (e.keyCode === 27) {
+  const closeOnClickOutside = (e) => {
+    console.log("clicked ");
+    if (isOpen === true && !modalRef.current.contains(e.target)) {
       closeModal();
-    } else if (isOpen === true && !modalRef.current.contains(e.target)) {
+    }
+  };
+
+  const closeOnEscKeyDown = (e) => {
+    console.log("button pressed");
+    if (e.keyCode === 27) {
       closeModal();
     }
   };
 
   useEffect(() => {
-    window.addEventListener("keydown", closeOnEscKeyOrClickOutside);
-    return () =>
-      window.removeEventListener("keydown", closeOnEscKeyOrClickOutside);
+    console.log("Mounted");
+    window.addEventListener("keydown", closeOnEscKeyDown);
+    window.addEventListener("click", closeOnClickOutside);
+    return () => {
+      console.log("unmounting");
+      window.removeEventListener("keydown", closeOnEscKeyDown);
+      window.removeEventListener("click", closeOnClickOutside);
+    };
   }, []);
 
   if (!isOpen) {
@@ -26,7 +37,11 @@ function Modal({ isOpen, closeModal, children }) {
   }
 
   return ReactDOM.createPortal(
-    <div className="modal" onClick={closeOnEscKeyOrClickOutside}>
+    <div
+      className="modal"
+      // onKeyDown={closeOnClickOutside}
+      // onClick={closeOnEscKeyDown}
+    >
       <div className="modal__content" ref={modalRef}>
         <div className="modal__close" onClick={closeModal}>
           Κλείσιμο

@@ -1,7 +1,13 @@
 import PartsRecievedHeader from "./PartsRecievedHeader";
 import PartsRecievedBody from "./PartsRecievedBody";
 
-function PartsRecieved({ parts, isHidden, entryId, requestActions }) {
+function PartsRecieved({
+  parts,
+  isHidden,
+  entryId,
+  requestActions,
+  modalActions,
+}) {
   return (
     <div
       className="parts-recieved"
@@ -12,6 +18,7 @@ function PartsRecieved({ parts, isHidden, entryId, requestActions }) {
         parts={parts}
         entryId={entryId}
         requestActions={requestActions}
+        modalActions={modalActions}
       />
     </div>
   );

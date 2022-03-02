@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { useNavigate } from "react-router";
-import RequestModal from "modals/RequestModal";
+import ModalWrapper from "modals/ModalWrapper";
+import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 
 function NewRequest() {
+  const [modal, modalDispatch] = useReducer(modalReducer, "");
   const [request, setRequest] = useState({});
-  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+
+  const modalActions = modalDispatchMap(modalDispatch);
 
   useEffect(() => {
     if (request.firstPartOfPhi && request.year) {
@@ -16,11 +19,11 @@ function NewRequest() {
   }, [request]);
 
   const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
+    modalActions.openRequestModal(
+      () => {},
+      addRequest,
+      modalActions.closeModal
+    );
   };
 
   const addRequest = (newRequest) => {
@@ -32,11 +35,7 @@ function NewRequest() {
       <div>
         <button onClick={openModal}>Δημιουργία Νεας Αίτησης</button>
       </div>
-      <RequestModal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        addRequest={addRequest}
-      />
+      <ModalWrapper modal={modal} />
     </>
   );
 }

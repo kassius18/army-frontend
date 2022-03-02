@@ -4,6 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 function DeleteModal({ isOpen, closeModal, deleteFcn, name = "" }) {
   const verifyDeleting = () => {
     deleteFcn();
+    closeModal();
   };
 
   return (

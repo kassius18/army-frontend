@@ -1,12 +1,11 @@
 import Entry from "./Entry";
 import { IoMdAdd } from "react-icons/io";
 import { useState } from "react";
-import { ACTIONS } from "./ListRequests";
 import EntryModal from "modals/EntryModal";
 import ApiErrorModal from "modals/ApiErrorModal";
 import entryApi from "apis/entryApi";
 
-function RequestBody({ entries, actions, request }) {
+function RequestBody({ entries, requestActions, request }) {
   const [initialValues, setInitialValues] = useState({});
   const [apiResponse, setApiResponse] = useState({ success: true });
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
@@ -30,13 +29,13 @@ function RequestBody({ entries, actions, request }) {
   };
 
   const addEntry = (newEntry) => {
-    actions.addEntry(newEntry, request.id);
+    requestActions.addEntry(newEntry, request.id);
   };
 
   const deleteEntry = (entryId) => {
     entryApi.deleteEntry(entryId).then((response) => {
       if (response.success === true) {
-        actions.deleteEntry(entryId);
+        requestActions.deleteEntry(entryId);
       } else {
         setApiResponse(response);
         openErrorModal();
@@ -45,7 +44,7 @@ function RequestBody({ entries, actions, request }) {
   };
 
   const editEntry = (newEntry, entryId) => {
-    actions.editEntry(newEntry, entryId);
+    requestActions.editEntry(newEntry, entryId);
   };
 
   return (
@@ -58,7 +57,7 @@ function RequestBody({ entries, actions, request }) {
             setInitialValues={setInitialValues}
             openModal={openModal}
             deleteEntry={deleteEntry}
-            actions={actions}
+            requestActions={requestActions}
           />
         );
       })}

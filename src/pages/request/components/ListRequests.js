@@ -18,7 +18,7 @@ function ListRequests() {
     requestsReducer,
     location.state || []
   );
-  const actions = requestsDispatchMap(requestsDispatch);
+  const requestActions = requestsDispatchMap(requestsDispatch);
 
   const [isOpen, setIsOpen] = useState(false);
   const [apiResponse, setApiResponse] = useState({ success: true });
@@ -40,7 +40,7 @@ function ListRequests() {
   const deleteRequest = (requestId) => {
     requestApi.deleteRequest(requestId).then((response) => {
       if (response.success === true) {
-        actions.deleteRequest(requestId);
+        requestActions.deleteRequest(requestId);
       } else {
         setApiResponse(response);
         openErrorModal();
@@ -49,7 +49,7 @@ function ListRequests() {
   };
 
   const editRequest = (newRequest, requestId) => {
-    actions.editRequest(newRequest, requestId);
+    requestActions.editRequest(newRequest, requestId);
   };
 
   useEffect(() => {
@@ -127,7 +127,7 @@ function ListRequests() {
               openModal={openModal}
               setInitialValues={setInitialValues}
               deleteRequest={deleteRequest}
-              actions={actions}
+              requestActions={requestActions}
             />
           );
         })}

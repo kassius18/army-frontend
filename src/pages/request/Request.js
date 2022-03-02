@@ -14,7 +14,7 @@ function Request({
   openModal,
   setInitialValues,
   deleteRequest,
-  actions,
+  requestActions,
 }) {
   const entries = request.entries;
 
@@ -139,7 +139,11 @@ function Request({
         />
         <div className={"request " + (showRequest ? "" : "hidden")}>
           <RequestHeader />
-          <RequestBody entries={entries} request={request} actions={actions} />
+          <RequestBody
+            entries={entries}
+            request={request}
+            requestActions={requestActions}
+          />
           <button onClick={handlePrintRequest}>Αποθήκευση Αίτησης</button>
           <button onClick={handlePrintProtocol}>Αποθήκευση Πρωτόκολλου</button>
         </div>

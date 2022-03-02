@@ -45,11 +45,10 @@ const entryApi = {
               code: error.response.status,
             },
           };
-        } else if (error.response) {
+        } else if (error.request) {
           return {
             success: false,
             error: {
-              message: "server might be down or url not exist",
               code: 0,
             },
           };

@@ -18,7 +18,7 @@ const partApi = {
               code: error.response.status,
             },
           };
-        } else if (error.part) {
+        } else if (error.request) {
           return {
             success: false,
             error: {
@@ -45,7 +45,7 @@ const partApi = {
               code: error.response.status,
             },
           };
-        } else if (error.part) {
+        } else if (error.request) {
           return {
             success: false,
             error: {
@@ -72,7 +72,7 @@ const partApi = {
               code: error.response.status,
             },
           };
-        } else if (error.part) {
+        } else if (error.request) {
           return {
             success: false,
             error: {

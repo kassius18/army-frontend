@@ -8,14 +8,17 @@ import { useReactToPrint } from "react-to-print";
 import ProtocolTable from "tables/protocol/ProtocolTable";
 import RequestTable from "tables/request/RequestTable";
 import uuid from "react-uuid";
-import { reducer, dispatchMap } from "reducers/requestReducer";
+import { requestsReducer, requestsDispatchMap } from "reducers/requestReducer";
 
 function ListRequests() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [requests, dispatch] = useReducer(reducer, location.state || []);
-  const actions = dispatchMap(dispatch);
+  const [requests, requestsDispatch] = useReducer(
+    requestsReducer,
+    location.state || []
+  );
+  const actions = requestsDispatchMap(requestsDispatch);
 
   const [isOpen, setIsOpen] = useState(false);
   const [apiResponse, setApiResponse] = useState({ success: true });

@@ -9,7 +9,7 @@ const ACTIONS = {
   DELETE_PART: "deltePart",
 };
 
-export const dispatchMap = (dispatch) => {
+export const requestsDispatchMap = (dispatch) => {
   return {
     deleteRequest: (requestId) => {
       dispatch({ type: ACTIONS.DELETE_REQUEST, payload: { requestId } });
@@ -44,7 +44,7 @@ export const dispatchMap = (dispatch) => {
   };
 };
 
-export const reducer = (requests, action) => {
+export const requestsReducer = (requests, action) => {
   switch (action.type) {
     case ACTIONS.DELETE_REQUEST:
       return requests.filter((request) => {

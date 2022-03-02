@@ -4,9 +4,8 @@ import partApi from "apis/partApi";
 import OnePartRecieved from "./OnePartRecieved";
 import PartRecievedModal from "modals/PartRecievedModal";
 import ApiErrorModal from "modals/ApiErrorModal";
-import { ACTIONS } from "pages/request/components/ListRequests";
 
-export default function PartsRecievedBody({ parts, entryId, dispatch }) {
+export default function PartsRecievedBody({ parts, entryId, actions }) {
   const [initialValues, setInitialValues] = useState({});
   const [apiResponse, setApiResponse] = useState({ success: true });
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
@@ -31,13 +30,13 @@ export default function PartsRecievedBody({ parts, entryId, dispatch }) {
   };
 
   const addPart = (newPart) => {
-    dispatch({ type: ACTIONS.ADD_PART, payload: { newPart, entryId } });
+    actions.addPart(newPart, entryId);
   };
 
   const deletePart = (partId) => {
     partApi.deletePart(partId).then((response) => {
       if (response.success === true) {
-        dispatch({ type: ACTIONS.DELETE_PART, payload: { partId } });
+        actions.deletePart(partId);
       } else {
         setApiResponse(response);
         openErrorModal();
@@ -46,7 +45,7 @@ export default function PartsRecievedBody({ parts, entryId, dispatch }) {
   };
 
   const editPart = (newPart, partId) => {
-    dispatch({ type: ACTIONS.EDIT_PART, payload: { partId, newPart } });
+    actions.editPart(newPart, partId);
   };
   return (
     <>

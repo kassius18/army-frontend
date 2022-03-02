@@ -6,7 +6,7 @@ import EntryModal from "modals/EntryModal";
 import ApiErrorModal from "modals/ApiErrorModal";
 import entryApi from "apis/entryApi";
 
-function RequestBody({ entries, dispatch, request }) {
+function RequestBody({ entries, actions, request }) {
   const [initialValues, setInitialValues] = useState({});
   const [apiResponse, setApiResponse] = useState({ success: true });
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
@@ -30,16 +30,13 @@ function RequestBody({ entries, dispatch, request }) {
   };
 
   const addEntry = (newEntry) => {
-    dispatch({
-      type: ACTIONS.ADD_ENTRY,
-      payload: { newEntry, requestId: request.id },
-    });
+    actions.addEntry(newEntry, request.id);
   };
 
   const deleteEntry = (entryId) => {
     entryApi.deleteEntry(entryId).then((response) => {
       if (response.success === true) {
-        dispatch({ type: ACTIONS.DELETE_ENTRY, payload: { entryId } });
+        actions.deleteEntry(entryId);
       } else {
         setApiResponse(response);
         openErrorModal();
@@ -48,7 +45,7 @@ function RequestBody({ entries, dispatch, request }) {
   };
 
   const editEntry = (newEntry, entryId) => {
-    dispatch({ type: ACTIONS.EDIT_ENTRY, payload: { newEntry, entryId } });
+    actions.editEntry(newEntry, entryId);
   };
 
   return (
@@ -61,7 +58,7 @@ function RequestBody({ entries, dispatch, request }) {
             setInitialValues={setInitialValues}
             openModal={openModal}
             deleteEntry={deleteEntry}
-            dispatch={dispatch}
+            actions={actions}
           />
         );
       })}

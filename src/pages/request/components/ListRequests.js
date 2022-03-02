@@ -8,117 +8,14 @@ import { useReactToPrint } from "react-to-print";
 import ProtocolTable from "tables/protocol/ProtocolTable";
 import RequestTable from "tables/request/RequestTable";
 import uuid from "react-uuid";
-
-export const ACTIONS = {
-  DELETE_REQUEST: "deleteRequest",
-  EDIT_REQUEST: "editRequest",
-  ADD_ENTRY: "addEntry",
-  EDIT_ENTRY: "editEntry",
-  DELETE_ENTRY: "delteEntry",
-  ADD_PART: "addPart",
-  EDIT_PART: "editPart",
-  DELETE_PART: "deltePart",
-};
-
-const reducer = (requests, action) => {
-  switch (action.type) {
-    case ACTIONS.DELETE_REQUEST:
-      return requests.filter((request) => {
-        if (request.id !== action.payload.requestId) {
-          return request;
-        }
-      });
-    case ACTIONS.EDIT_REQUEST:
-      return requests.map((request) => {
-        if (request.id === action.payload.requestId) {
-          return action.payload.newRequest;
-        }
-        return request;
-      });
-    case ACTIONS.ADD_ENTRY:
-      return requests.map((request) => {
-        if (request.id === action.payload.requestId) {
-          return {
-            ...request,
-            entries: [...request.entries, action.payload.newEntry],
-          };
-        }
-        return request;
-      });
-    case ACTIONS.DELETE_ENTRY:
-      return requests.map((request) => {
-        return {
-          ...request,
-          entries: request.entries.filter((entry) => {
-            return entry.id !== action.payload.entryId;
-          }),
-        };
-      });
-    case ACTIONS.EDIT_ENTRY:
-      return requests.map((request) => {
-        return {
-          ...request,
-          entries: request.entries.map((entry) => {
-            if (entry.id === action.payload.entryId) {
-              return action.payload.newEntry;
-            }
-            return entry;
-          }),
-        };
-      });
-    case ACTIONS.ADD_PART:
-      return requests.map((request) => {
-        return {
-          ...request,
-          entries: request.entries.map((entry) => {
-            return {
-              ...entry,
-              parts: [...entry.parts, action.payload.newPart],
-            };
-          }),
-        };
-      });
-    case ACTIONS.DELETE_PART:
-      return requests.map((request) => {
-        return {
-          ...request,
-          entries: request.entries.map((entry) => {
-            return {
-              ...entry,
-              parts: entry.parts.filter((part) => {
-                return part.id !== action.payload.partId;
-              }),
-            };
-          }),
-        };
-      });
-    case ACTIONS.EDIT_PART:
-      return requests.map((request) => {
-        return {
-          ...request,
-          entries: request.entries.map((entry) => {
-            return {
-              ...entry,
-              parts: entry.parts.map((part) => {
-                if (part.id === action.payload.partId) {
-                  return action.payload.newPart;
-                }
-                return part;
-              }),
-            };
-          }),
-        };
-      });
-    default:
-      return requests;
-  }
-};
+import { reducer, dispatchMap } from "reducers/requestReducer";
 
 function ListRequests() {
   const location = useLocation();
   const navigate = useNavigate();
 
   const [requests, dispatch] = useReducer(reducer, location.state || []);
+  const actions = dispatchMap(dispatch);
 
   const [isOpen, setIsOpen] = useState(false);
   const [apiResponse, setApiResponse] = useState({ success: true });
@@ -140,7 +37,7 @@ function ListRequests() {
   const deleteRequest = (requestId) => {
     requestApi.deleteRequest(requestId).then((response) => {
       if (response.success === true) {
-        dispatch({ type: ACTIONS.DELETE_REQUEST, payload: { requestId } });
+        actions.deleteRequest(requestId);
       } else {
         setApiResponse(response);
         openErrorModal();
@@ -149,10 +46,7 @@ function ListRequests() {
   };
 
   const editRequest = (newRequest, requestId) => {
-    dispatch({
-      type: ACTIONS.EDIT_REQUEST,
-      payload: { newRequest, requestId },
-    });
+    actions.editRequest(newRequest, requestId);
   };
 
   useEffect(() => {
@@ -230,7 +124,7 @@ function ListRequests() {
               openModal={openModal}
               setInitialValues={setInitialValues}
               deleteRequest={deleteRequest}
-              dispatch={dispatch}
+              actions={actions}
             />
           );
         })}

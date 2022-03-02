@@ -1,6 +1,5 @@
 import "./request.scss";
 import RequestHeader from "./components/RequestHeader";
-import { ACTIONS } from "./components/ListRequests";
 import RequestBody from "./components/RequestBody";
 import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState } from "react";
@@ -15,7 +14,7 @@ function Request({
   openModal,
   setInitialValues,
   deleteRequest,
-  dispatch,
+  actions,
 }) {
   const entries = request.entries;
 
@@ -140,11 +139,7 @@ function Request({
         />
         <div className={"request " + (showRequest ? "" : "hidden")}>
           <RequestHeader />
-          <RequestBody
-            entries={entries}
-            request={request}
-            dispatch={dispatch}
-          />
+          <RequestBody entries={entries} request={request} actions={actions} />
           <button onClick={handlePrintRequest}>Αποθήκευση Αίτησης</button>
           <button onClick={handlePrintProtocol}>Αποθήκευση Πρωτόκολλου</button>
         </div>

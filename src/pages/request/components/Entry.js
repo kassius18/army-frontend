@@ -5,7 +5,7 @@ import { AiOutlineDown } from "react-icons/ai";
 import { useState } from "react";
 import DeleteModal from "modals/DeleteModal";
 
-function Entry({ entry, setInitialValues, openModal, deleteEntry, dispatch }) {
+function Entry({ entry, setInitialValues, openModal, deleteEntry, actions }) {
   const [isPartsHidden, setIsPartsHidden] = useState(true);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
@@ -63,7 +63,7 @@ function Entry({ entry, setInitialValues, openModal, deleteEntry, dispatch }) {
         parts={entry.parts}
         isHidden={isPartsHidden}
         entryId={entry.id}
-        dispatch={dispatch}
+        actions={actions}
       />
       <div className="grid-border-line">
         <DeleteModal

@@ -1,18 +1,20 @@
 import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 import uuid from "react-uuid";
+import { DELETE_ACTIONS } from "modals/DeleteModal";
 
 export default function OnePartRecieved({
   part,
-  deletePart,
   modalActions,
   requestActions,
 }) {
   const openDeleteModal = () => {
     modalActions.openDeleteModal(
       modalActions.closeModal,
-      deleteClickedPart,
-      "part"
+      modalActions,
+      requestActions,
+      part.id,
+      DELETE_ACTIONS.DELETE_PART
     );
   };
 
@@ -26,9 +28,6 @@ export default function OnePartRecieved({
     );
   };
 
-  const deleteClickedPart = () => {
-    deletePart(part.id);
-  };
   return (
     <div
       key={uuid()}

@@ -65,8 +65,10 @@ export const modalReducer = (modal, action) => {
         modalContent: MODALS.DELETE_MODAL,
         isOpen: action.payload.isOpen,
         closeModal: action.payload.closeModal,
-        deleteFcn: action.payload.deleteFcn,
-        name: action.payload.name,
+        id: action.payload.id,
+        resourceToBeDeleted: action.payload.resourceToBeDeleted,
+        modalActions: action.payload.modalActions,
+        requestActions: action.payload.requestActions,
       };
     case ACTIONS.OPEN_ERROR_MODAL:
       return {
@@ -172,10 +174,23 @@ export const modalDispatchMap = (modalDispatch) => {
         },
       });
     },
-    openDeleteModal: (closeModal, deleteFcn, name) => {
+    openDeleteModal: (
+      closeModal,
+      modalActions,
+      requestActions,
+      id,
+      resourceToBeDeleted
+    ) => {
       modalDispatch({
         type: ACTIONS.OPEN_DELETE_MODAL,
-        payload: { isOpen: true, closeModal, deleteFcn, name },
+        payload: {
+          isOpen: true,
+          closeModal,
+          id,
+          resourceToBeDeleted,
+          modalActions,
+          requestActions,
+        },
       });
     },
     openApiErrorModal: (closeModal, error) => {

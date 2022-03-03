@@ -74,8 +74,10 @@ function ModalWrapper({ modal }) {
       return (
         <DeleteModal
           closeModal={modal.closeModal}
-          deleteFcn={modal.deleteFcn}
-          name={modal.name}
+          resourceToBeDeleted={modal.resourceToBeDeleted}
+          id={modal.id}
+          modalActions={modal.modalActions}
+          requestActions={modal.requestActions}
         />
       );
 

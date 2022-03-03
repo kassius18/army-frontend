@@ -1,5 +1,4 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import requestApi from "apis/requestApi";
 import ModalWrapper from "modals/ModalWrapper";
 import Request from "../Request";
 import { useEffect, useRef, useState, useReducer } from "react";
@@ -33,16 +32,6 @@ function ListRequests() {
 
   const requestRef = useRef();
   const protocolRef = useRef();
-
-  const deleteRequest = (requestId) => {
-    requestApi.deleteRequest(requestId).then((response) => {
-      if (response.success === true) {
-        requestActions.deleteRequest(requestId);
-      } else {
-        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
-      }
-    });
-  };
 
   useEffect(() => {
     if (location.state !== requests) {
@@ -101,7 +90,6 @@ function ListRequests() {
             <Request
               request={request}
               key={request.id}
-              deleteRequest={deleteRequest}
               requestActions={requestActions}
               modalActions={modalActions}
             />

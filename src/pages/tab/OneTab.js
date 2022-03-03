@@ -1,18 +1,19 @@
 import React, {
   useState,
   useEffect,
+  useContext,
   useReducer,
   useRef,
-  useContext,
 } from "react";
+import { AppContext } from "context/AppContext";
 import { useLocation, useNavigate } from "react-router-dom";
-import tabApi from "apis/tabApi";
+import { DELETE_ACTIONS } from "modals/DeleteModal";
 import PartRow from "./PartRow";
 import TabTable from "tables/tab/TabTable";
 import { useReactToPrint } from "react-to-print";
-import { AppContext } from "context/AppContext";
 import ModalWrapper from "modals/ModalWrapper";
 import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
+import tabApi from "apis/tabApi";
 
 export default function OneTab() {
   const { setHasChanged } = useContext(AppContext);
@@ -33,7 +34,13 @@ export default function OneTab() {
   const [maxYear, setMaxYear] = useState("");
 
   const openDeleteModal = () => {
-    modalActions.openDeleteModal(modalActions.closeModal, deleteTab, "tab");
+    modalActions.openDeleteModal(
+      modalActions.closeModal,
+      modalActions,
+      {},
+      tab.id,
+      DELETE_ACTIONS.DELETE_TAB
+    );
   };
 
   useEffect(() => {
@@ -45,17 +52,6 @@ export default function OneTab() {
 
   const openModal = () => {
     modalActions.openTabModal(modalActions.closeModal, () => {}, editTab, tab);
-  };
-
-  const deleteTab = () => {
-    setHasChanged(true);
-    tabApi.deleteTab(tab.id).then((response) => {
-      if (response.success === true) {
-        navigate("/tabs");
-      } else {
-        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
-      }
-    });
   };
 
   const editTab = (newTab) => {

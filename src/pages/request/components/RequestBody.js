@@ -1,6 +1,5 @@
 import Entry from "./Entry";
 import { IoMdAdd } from "react-icons/io";
-import entryApi from "apis/entryApi";
 
 function RequestBody({ entries, requestActions, request, modalActions }) {
   const openModal = () => {
@@ -12,16 +11,6 @@ function RequestBody({ entries, requestActions, request, modalActions }) {
     );
   };
 
-  const deleteEntry = (entryId) => {
-    entryApi.deleteEntry(entryId).then((response) => {
-      if (response.success === true) {
-        requestActions.deleteEntry(entryId);
-      } else {
-        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
-      }
-    });
-  };
-
   return (
     <>
       {entries.map((entry) => {
@@ -29,7 +18,6 @@ function RequestBody({ entries, requestActions, request, modalActions }) {
           <Entry
             entry={entry}
             key={entry.id}
-            deleteEntry={deleteEntry}
             requestActions={requestActions}
             modalActions={modalActions}
           />

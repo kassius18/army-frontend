@@ -6,9 +6,10 @@ import { useEffect, useRef, useState } from "react";
 import ProtocolTable from "tables/protocol/ProtocolTable";
 import RequestTable from "tables/request/RequestTable";
 import { AiOutlineDown } from "react-icons/ai";
+import { DELETE_ACTIONS } from "modals/DeleteModal";
 import uuid from "react-uuid";
 
-function Request({ request, deleteRequest, requestActions, modalActions }) {
+function Request({ request, requestActions, modalActions }) {
   const entries = request.entries;
 
   const [showRequest, setShowRequest] = useState(false);
@@ -36,14 +37,17 @@ function Request({ request, deleteRequest, requestActions, modalActions }) {
   const openDeleteModal = () => {
     modalActions.openDeleteModal(
       modalActions.closeModal,
-      deleteClickedRequest,
-      "request"
+      modalActions,
+      requestActions,
+      request.id,
+      DELETE_ACTIONS.DELETE_REQUEST
     );
   };
 
   const copyRequest = () => {
     modalActions.openRequestModal(
       requestActions.editRequest,
+      () => {},
       modalActions.closeModal,
       { ...request, copy: true }
     );
@@ -96,10 +100,6 @@ function Request({ request, deleteRequest, requestActions, modalActions }) {
       modalActions.closeModal,
       request
     );
-  };
-
-  const deleteClickedRequest = () => {
-    deleteRequest(request.id);
   };
 
   return (

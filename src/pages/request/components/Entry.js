@@ -3,20 +3,19 @@ import { MdModeEditOutline } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 import { AiOutlineDown } from "react-icons/ai";
 import { useState } from "react";
+import { DELETE_ACTIONS } from "modals/DeleteModal";
 
-function Entry({ entry, deleteEntry, requestActions, modalActions }) {
+function Entry({ entry, requestActions, modalActions }) {
   const [isPartsHidden, setIsPartsHidden] = useState(true);
 
   const openDeleteModal = () => {
     modalActions.openDeleteModal(
       modalActions.closeModal,
-      deleteClickedEntry,
-      "entry"
+      modalActions,
+      requestActions,
+      entry.id,
+      DELETE_ACTIONS.DELETE_ENTRY
     );
-  };
-
-  const deleteClickedEntry = () => {
-    deleteEntry(entry.id);
   };
 
   const editClickedEntry = () => {

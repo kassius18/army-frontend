@@ -1,7 +1,7 @@
 import { useContext, useReducer } from "react";
-import vehicleApi from "apis/vehicleApi";
 import { useLocation, useNavigate } from "react-router";
 import { AppContext } from "context/AppContext";
+import { DELETE_ACTIONS } from "modals/DeleteModal";
 import ModalWrapper from "modals/ModalWrapper";
 import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 
@@ -17,8 +17,10 @@ export default function OneVehicle() {
   const openDeleteModal = () => {
     modalActions.openDeleteModal(
       modalActions.closeModal,
-      deleteVehicle,
-      "vehicle"
+      modalActions,
+      {},
+      vehicle.id,
+      DELETE_ACTIONS.DELETE_VEHICLE
     );
   };
 
@@ -29,17 +31,6 @@ export default function OneVehicle() {
       editVehicle,
       vehicle
     );
-  };
-
-  const deleteVehicle = () => {
-    setHasChanged(true);
-    vehicleApi.deleteVehicle(vehicle.id).then((response) => {
-      if (response.success === true) {
-        navigate("/vehicles");
-      } else {
-        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
-      }
-    });
   };
 
   const editVehicle = (newVehicle) => {

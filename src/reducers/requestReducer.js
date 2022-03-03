@@ -84,7 +84,7 @@ export const requestsReducer = (requests, action) => {
           ...request,
           entries: request.entries.map((entry) => {
             if (entry.id === action.payload.entryId) {
-              return action.payload.newEntry;
+              return { ...action.payload.newEntry, parts: entry.parts };
             }
             return entry;
           }),

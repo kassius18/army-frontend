@@ -6,7 +6,6 @@ import { useContext, useState } from "react";
 import { AppContext } from "context/AppContext";
 
 function EntryModal({
-  isOpen,
   closeModal,
   initialValues = {},
   addEntry,
@@ -75,7 +74,7 @@ function EntryModal({
 
   return (
     <div>
-      <Modal isOpen={isOpen} closeModal={closeModalAndResetContent}>
+      <Modal closeModal={closeModalAndResetContent}>
         {apiResponse.success ? (
           <form
             className="modal__inputs"

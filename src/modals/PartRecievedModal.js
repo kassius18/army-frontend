@@ -5,7 +5,6 @@ import partApi from "apis/partApi";
 import { useState } from "react";
 
 function PartRecievedModal({
-  isOpen,
   closeModal,
   addPart,
   editPart,
@@ -114,7 +113,7 @@ function PartRecievedModal({
 
   return (
     <div>
-      <Modal isOpen={isOpen} closeModal={closeModalAndResetContent}>
+      <Modal closeModal={closeModalAndResetContent}>
         <AiOutlineClose
           style={{ color: "red" }}
           className="modal__cancel"

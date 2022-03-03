@@ -1,7 +1,7 @@
 import Modal from "./Modal";
 import { AiOutlineClose } from "react-icons/ai";
 
-function DeleteModal({ isOpen, closeModal, deleteFcn, name = "" }) {
+function DeleteModal({ closeModal, deleteFcn, name = "" }) {
   const verifyDeleting = () => {
     deleteFcn();
     closeModal();
@@ -9,7 +9,7 @@ function DeleteModal({ isOpen, closeModal, deleteFcn, name = "" }) {
 
   return (
     <div>
-      <Modal isOpen={isOpen} closeModal={closeModal}>
+      <Modal closeModal={closeModal}>
         <div>
           <AiOutlineClose
             style={{ color: "red" }}

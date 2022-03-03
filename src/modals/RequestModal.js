@@ -4,7 +4,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 
 function RequestModal({
-  isOpen,
   closeModal,
   addRequest,
   editRequest,
@@ -90,7 +89,7 @@ function RequestModal({
 
   return (
     <div>
-      <Modal isOpen={isOpen} closeModal={closeModalAndResetContent}>
+      <Modal closeModal={closeModalAndResetContent}>
         <AiOutlineClose
           style={{ color: "red" }}
           className="modal__cancel"

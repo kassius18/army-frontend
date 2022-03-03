@@ -4,7 +4,6 @@ import tabApi from "apis/tabApi";
 import { useState } from "react";
 
 export default function TabModal({
-  isOpen,
   closeModal,
   addTab,
   editTab,
@@ -64,7 +63,7 @@ export default function TabModal({
 
   return (
     <div>
-      <Modal isOpen={isOpen} closeModal={closeModalAndResetContent}>
+      <Modal closeModal={closeModalAndResetContent}>
         {apiResponse.success ? (
           <form className="modal__inputs" onSubmit={submitForm}>
             <AiOutlineClose

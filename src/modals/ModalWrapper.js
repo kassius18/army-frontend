@@ -26,7 +26,6 @@ function ModalWrapper({ modal }) {
     case MODALS.REQUEST_MODAL:
       return (
         <RequestModal
-          isOpen={modal.isOpen}
           closeModal={modal.closeModal}
           editRequest={modal.editRequest}
           addRequest={modal.addRequest}
@@ -36,7 +35,6 @@ function ModalWrapper({ modal }) {
     case MODALS.ENTRY_MODAL:
       return (
         <EntryModal
-          isOpen={modal.isOpen}
           closeModal={modal.closeModal}
           addEntry={modal.addEntry}
           editEntry={modal.editEntry}
@@ -47,7 +45,6 @@ function ModalWrapper({ modal }) {
     case MODALS.PART_MODAL:
       return (
         <PartRecievedModal
-          isOpen={modal.isOpen}
           closeModal={modal.closeModal}
           addPart={modal.addPart}
           editPart={modal.editPart}
@@ -60,7 +57,6 @@ function ModalWrapper({ modal }) {
         <VehicleModal
           editVehicle={modal.editVehicle}
           addVehicle={modal.addVehicle}
-          isOpen={modal.isOpen}
           closeModal={modal.closeModal}
           initialValues={modal.initialValues}
         />
@@ -70,7 +66,6 @@ function ModalWrapper({ modal }) {
         <TabModal
           editTab={modal.editTab}
           addTab={modal.addTab}
-          isOpen={modal.isOpen}
           closeModal={modal.closeModal}
           initialValues={modal.initialValues}
         />
@@ -78,7 +73,6 @@ function ModalWrapper({ modal }) {
     case MODALS.DELETE_MODAL:
       return (
         <DeleteModal
-          isOpen={modal.isOpen}
           closeModal={modal.closeModal}
           deleteFcn={modal.deleteFcn}
           name={modal.name}
@@ -87,11 +81,7 @@ function ModalWrapper({ modal }) {
 
     case MODALS.ERROR_MODAL:
       return (
-        <ApiErrorModal
-          isOpen={modal.isOpen}
-          closeModal={modal.closeModal}
-          error={modal.error}
-        />
+        <ApiErrorModal closeModal={modal.closeModal} error={modal.error} />
       );
     default:
       return null;

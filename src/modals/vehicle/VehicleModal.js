@@ -4,7 +4,6 @@ import vehicleApi from "apis/vehicleApi";
 import { useState } from "react";
 
 export default function VehicleModal({
-  isOpen,
   closeModal,
   addVehicle,
   editVehicle,
@@ -62,7 +61,7 @@ export default function VehicleModal({
 
   return (
     <div>
-      <Modal isOpen={isOpen} closeModal={closeModalAndResetContent}>
+      <Modal closeModal={closeModalAndResetContent}>
         {apiResponse.success ? (
           <form className="modal__inputs" onSubmit={submitForm}>
             <AiOutlineClose

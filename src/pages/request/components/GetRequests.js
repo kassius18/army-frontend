@@ -1,23 +1,16 @@
-import ApiErrorModal from "modals/ApiErrorModal";
 import requestApi from "apis/requestApi";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./getRequests.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
+import ModalWrapper from "modals/ModalWrapper";
+import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 
 function GetRequests() {
   const navigate = useNavigate();
-  const [error, setError] = useState({ sucess: true });
-  const [isOpen, setIsOpen] = useState(false);
   const [content, setContent] = useState();
   const { state } = useLocation();
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
+  const [modal, modalDispatch] = useReducer(modalReducer, "");
+  const modalActions = modalDispatchMap(modalDispatch);
 
   const findByPhiYear = (event) => {
     event.preventDefault();
@@ -30,8 +23,7 @@ function GetRequests() {
           navigate("/requests/list", { state: [response.requests] });
         }
       } else {
-        setError(response.error);
-        openModal();
+        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
       }
     });
   };
@@ -57,8 +49,10 @@ function GetRequests() {
         if (response.success) {
           navigate("/requests/list", { state: response.requests });
         } else {
-          setError(response.error);
-          openModal();
+          modalActions.openApiErrorModal(
+            modalActions.closeModal,
+            response.error
+          );
         }
       });
   };
@@ -71,8 +65,7 @@ function GetRequests() {
       if (response.success) {
         navigate("/requests/list", { state: response.requests });
       } else {
-        setError(response.error);
-        openModal();
+        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
       }
     });
   };
@@ -142,11 +135,7 @@ function GetRequests() {
   return (
     <>
       <main className={"requests"}>{content}</main>
-      <ApiErrorModal
-        isModalOpen={isOpen}
-        closeModal={closeModal}
-        error={error}
-      />
+      <ModalWrapper modal={modal} />
     </>
   );
 }

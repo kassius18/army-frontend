@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import Tab from "pages/tab/Tab";
 import tabApi from "apis/tabApi";
-import TabModal from "modals/TabModal";
 import { AppContext } from "context/AppContext";
 import "./tab.scss";
+import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
+import ModalWrapper from "modals/ModalWrapper";
 
 function AllTabs() {
   const { setHasChanged } = useContext(AppContext);
   const [tabs, setTabs] = useState([]);
-  const [filteredTabs, setFilteredTabs] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [showNonEmpty, setShowNonEmpty] = useState(false);
+  const [modal, modalDispatch] = useReducer(modalReducer, "");
+  const modalActions = modalDispatchMap(modalDispatch);
 
   const compareFn = (firstPart, secondPart) => {
     const firstPartYear = firstPart.dateRecieved
@@ -43,12 +43,10 @@ function AllTabs() {
     return firstPartYear < secondPartYear ? -1 : 1;
   };
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
   const openModal = () => {
-    setIsOpen(true);
+    modalActions.openTabModal(modalActions.closeModal, addTab, () => {});
   };
+
   const addTab = (newTab) => {
     setHasChanged(true);
     setTabs([...tabs, newTab]);
@@ -67,12 +65,6 @@ function AllTabs() {
     });
   }, []);
 
-  let testTabs = tabs;
-  testTabs.map((tab) => {
-    const parts = tab.parts;
-    parts.sort(compareFn);
-    return tab;
-  });
   return (
     <>
       <div className="tab__view">
@@ -83,12 +75,12 @@ function AllTabs() {
           <p>Χρήση</p>
           <p>Παρατηρησεις</p>
         </div>
-        {(filteredTabs || tabs).map((tab) => {
+        {tabs.map((tab) => {
           return <Tab key={tab.id} tab={tab} />;
         })}
         <button onClick={openModal}>Προσθήκη</button>
       </div>
-      <TabModal addTab={addTab} isOpen={isOpen} closeModal={closeModal} />
+      <ModalWrapper modal={modal} />
     </>
   );
 }

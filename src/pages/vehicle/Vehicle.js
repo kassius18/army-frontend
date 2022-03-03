@@ -1,22 +1,26 @@
-import VehicleModal from "modals/vehicle/VehicleModal";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useReducer, useContext } from "react";
 import { useNavigate } from "react-router";
 import vehicleApi from "apis/vehicleApi";
 import "./vehicle.scss";
 import { AppContext } from "context/AppContext";
+import ModalWrapper from "modals/ModalWrapper";
+import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 
 export default function Vehicle() {
   const navigate = useNavigate();
   const { setHasChanged } = useContext(AppContext);
 
   const [vehicles, setVehicles] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  const [modal, modalDispatch] = useReducer(modalReducer, "");
+  const modalActions = modalDispatchMap(modalDispatch);
+
   const openModal = () => {
-    setIsOpen(true);
+    modalActions.openVehicleModal(
+      modalActions.closeModal,
+      addVehicle,
+      () => {}
+    );
   };
 
   const addVehicle = (newVehicle) => {
@@ -63,11 +67,7 @@ export default function Vehicle() {
         </div>
         <button onClick={openModal}>Προσθήκη Οχήματος</button>
       </div>
-      <VehicleModal
-        addVehicle={addVehicle}
-        isOpen={isOpen}
-        closeModal={closeModal}
-      />
+      <ModalWrapper modal={modal} />
     </>
   );
 }

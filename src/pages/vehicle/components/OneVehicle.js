@@ -1,43 +1,34 @@
-import { useCallback, useEffect, useState, useContext } from "react";
+import { useContext, useReducer } from "react";
 import vehicleApi from "apis/vehicleApi";
 import { useLocation, useNavigate } from "react-router";
-import VehicleModal from "modals/vehicle/VehicleModal";
-import ApiErrorModal from "modals/ApiErrorModal";
 import { AppContext } from "context/AppContext";
-import DeleteModal from "modals/DeleteModal";
+import ModalWrapper from "modals/ModalWrapper";
+import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 
 export default function OneVehicle() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { setHasChanged } = useContext(AppContext);
   const vehicle = state.vehicle;
-  const [apiResponse, setApiResponse] = useState({ success: true });
-  const [isOpen, setIsOpen] = useState(false);
-  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-  const initialValues = vehicle;
 
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-
-  const closeDeleteModal = () => {
-    setIsDeleteOpen(false);
-  };
+  const [modal, modalDispatch] = useReducer(modalReducer, "");
+  const modalActions = modalDispatchMap(modalDispatch);
 
   const openDeleteModal = () => {
-    setIsDeleteOpen(true);
+    modalActions.openDeleteModal(
+      modalActions.closeModal,
+      deleteVehicle,
+      "vehicle"
+    );
   };
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
   const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const openErrorModal = () => {
-    setIsErrorModalOpen(true);
-  };
-  const closeErrorModal = () => {
-    setIsErrorModalOpen(false);
+    modalActions.openVehicleModal(
+      modalActions.closeModal,
+      () => {},
+      editVehicle,
+      vehicle
+    );
   };
 
   const deleteVehicle = () => {
@@ -46,8 +37,7 @@ export default function OneVehicle() {
       if (response.success === true) {
         navigate("/vehicles");
       } else {
-        setApiResponse(response);
-        openErrorModal();
+        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
       }
     });
   };
@@ -68,23 +58,7 @@ export default function OneVehicle() {
         <button onClick={openModal}>Edit</button>
         <button onClick={openDeleteModal}>Delete</button>
       </div>
-      <VehicleModal
-        editVehicle={editVehicle}
-        isOpen={isOpen}
-        closeModal={closeModal}
-        initialValues={initialValues}
-      />
-      <ApiErrorModal
-        isModalOpen={isErrorModalOpen}
-        closeModal={closeErrorModal}
-        error={apiResponse.error}
-      />
-      <DeleteModal
-        isOpen={isDeleteOpen}
-        closeModal={closeDeleteModal}
-        deleteFcn={deleteVehicle}
-        name="vehicle"
-      />
+      <ModalWrapper modal={modal} />
     </div>
   );
 }

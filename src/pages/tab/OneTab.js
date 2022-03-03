@@ -1,13 +1,18 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  useRef,
+  useContext,
+} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import tabApi from "apis/tabApi";
 import PartRow from "./PartRow";
 import TabTable from "tables/tab/TabTable";
-import TabModal from "modals/TabModal";
-import ApiErrorModal from "modals/ApiErrorModal";
 import { useReactToPrint } from "react-to-print";
 import { AppContext } from "context/AppContext";
-import DeleteModal from "modals/DeleteModal";
+import ModalWrapper from "modals/ModalWrapper";
+import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 
 export default function OneTab() {
   const { setHasChanged } = useContext(AppContext);
@@ -15,11 +20,10 @@ export default function OneTab() {
   const tabRef = useRef();
   const location = useLocation();
   const tab = location.state;
-  const initialValues = tab;
   const total = tab.startingTotal;
-  const [apiResponse, setApiResponse] = useState({ success: true });
-  const [isOpen, setIsOpen] = useState(false);
-  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+
+  const [modal, modalDispatch] = useReducer(modalReducer, "");
+  const modalActions = modalDispatchMap(modalDispatch);
 
   const [allParts, setAllParts] = useState(tab.parts);
   const [partsToBePrinted, setPartsToBePrinted] = useState(allParts);
@@ -28,14 +32,8 @@ export default function OneTab() {
   const [minYear, setMinYear] = useState("");
   const [maxYear, setMaxYear] = useState("");
 
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-
-  const closeDeleteModal = () => {
-    setIsDeleteOpen(false);
-  };
-
   const openDeleteModal = () => {
-    setIsDeleteOpen(true);
+    modalActions.openDeleteModal(modalActions.closeModal, deleteTab, "tab");
   };
 
   useEffect(() => {
@@ -45,30 +43,19 @@ export default function OneTab() {
     });
   }, []);
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
   const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const openErrorModal = () => {
-    setIsErrorModalOpen(true);
-  };
-  const closeErrorModal = () => {
-    setIsErrorModalOpen(false);
+    modalActions.openTabModal(modalActions.closeModal, () => {}, editTab, tab);
   };
 
   const deleteTab = () => {
+    setHasChanged(true);
     tabApi.deleteTab(tab.id).then((response) => {
       if (response.success === true) {
         navigate("/tabs");
       } else {
-        setApiResponse(response);
-        openErrorModal();
+        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
       }
     });
-    setHasChanged(true);
   };
 
   const editTab = (newTab) => {
@@ -209,23 +196,7 @@ export default function OneTab() {
           }
         </div>
       </div>
-      <TabModal
-        editTab={editTab}
-        isOpen={isOpen}
-        closeModal={closeModal}
-        initialValues={initialValues}
-      />
-      <ApiErrorModal
-        isModalOpen={isErrorModalOpen}
-        closeModal={closeErrorModal}
-        error={apiResponse.error}
-      />
-      <DeleteModal
-        isOpen={isDeleteOpen}
-        closeModal={closeDeleteModal}
-        deleteFcn={deleteTab}
-        name="tab"
-      />
+      <ModalWrapper modal={modal} />
     </div>
   );
 }

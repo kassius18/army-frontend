@@ -4,6 +4,8 @@ const ACTIONS = {
   OPEN_REQUEST_MODAL: "OPEN_REQUEST_MODAL",
   OPEN_ENTRY_MODAL: "OPEN_ENTRY_MODAL",
   OPEN_PART_MODAL: "OPEN_PART_MODAL",
+  OPEN_VEHICLE_MODAL: "OPEN_VEHICLE_MODAL",
+  OPEN_TAB_MODAL: "OPEN_TAB_MODAL",
   OPEN_DELETE_MODAL: "OPEN_DELETE_MODAL",
   OPEN_ERROR_MODAL: "OPEN_ERROR_MODAL",
   CLOSE_MODAL: "CLOSE_MODAL",
@@ -38,6 +40,24 @@ export const modalReducer = (modal, action) => {
         addPart: action.payload.addPart,
         editPart: action.payload.editPart,
         entryId: action.payload.entryId,
+        initialValues: action.payload.initialValues,
+      };
+    case ACTIONS.OPEN_VEHICLE_MODAL:
+      return {
+        modalContent: MODALS.VEHICLE_MODAL,
+        isOpen: action.payload.isOpen,
+        closeModal: action.payload.closeModal,
+        editVehicle: action.payload.editVehicle,
+        addVehicle: action.payload.addVehicle,
+        initialValues: action.payload.initialValues,
+      };
+    case ACTIONS.OPEN_TAB_MODAL:
+      return {
+        modalContent: MODALS.TAB_MODAL,
+        isOpen: action.payload.isOpen,
+        closeModal: action.payload.closeModal,
+        editTab: action.payload.editTab,
+        addTab: action.payload.addTab,
         initialValues: action.payload.initialValues,
       };
     case ACTIONS.OPEN_DELETE_MODAL:
@@ -120,6 +140,35 @@ export const modalDispatchMap = (modalDispatch) => {
           editPart,
           closeModal,
           entryId,
+        },
+      });
+    },
+    openVehicleModal: (
+      closeModal,
+      addVehicle,
+      editVehicle,
+      initialValues = {}
+    ) => {
+      modalDispatch({
+        type: ACTIONS.OPEN_VEHICLE_MODAL,
+        payload: {
+          isOpen: true,
+          initialValues,
+          closeModal,
+          editVehicle,
+          addVehicle,
+        },
+      });
+    },
+    openTabModal: (closeModal, addTab, editTab, initialValues = {}) => {
+      modalDispatch({
+        type: ACTIONS.OPEN_TAB_MODAL,
+        payload: {
+          isOpen: true,
+          initialValues,
+          closeModal,
+          editTab,
+          addTab,
         },
       });
     },

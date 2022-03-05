@@ -135,7 +135,7 @@ function GetRequests() {
   return (
     <>
       <main className={"requests"}>{content}</main>
-      <ModalWrapper modal={modal} />
+      <ModalWrapper modal={modal} modalActions={modalActions} />
     </>
   );
 }

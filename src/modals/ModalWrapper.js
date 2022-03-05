@@ -17,7 +17,7 @@ export const MODALS = {
   ERROR_MODAL: "ERROR_MODAL",
 };
 
-function ModalWrapper({ modal }) {
+function ModalWrapper({ modal, modalActions }) {
   if (!modal.isOpen) {
     return null;
   }
@@ -30,6 +30,7 @@ function ModalWrapper({ modal }) {
           editRequest={modal.editRequest}
           addRequest={modal.addRequest}
           initialValues={modal.initialValues}
+          modalActions={modalActions}
         />
       );
     case MODALS.ENTRY_MODAL:
@@ -40,6 +41,7 @@ function ModalWrapper({ modal }) {
           editEntry={modal.editEntry}
           request={modal.request}
           initialValues={modal.initialValues}
+          modalActions={modalActions}
         />
       );
     case MODALS.PART_MODAL:
@@ -50,6 +52,7 @@ function ModalWrapper({ modal }) {
           editPart={modal.editPart}
           initialValues={modal.initialValues}
           entryId={modal.entryId}
+          modalActions={modalActions}
         />
       );
     case MODALS.VEHICLE_MODAL:
@@ -59,6 +62,7 @@ function ModalWrapper({ modal }) {
           addVehicle={modal.addVehicle}
           closeModal={modal.closeModal}
           initialValues={modal.initialValues}
+          modalActions={modalActions}
         />
       );
     case MODALS.TAB_MODAL:
@@ -68,6 +72,7 @@ function ModalWrapper({ modal }) {
           addTab={modal.addTab}
           closeModal={modal.closeModal}
           initialValues={modal.initialValues}
+          modalActions={modalActions}
         />
       );
     case MODALS.DELETE_MODAL:
@@ -76,11 +81,10 @@ function ModalWrapper({ modal }) {
           closeModal={modal.closeModal}
           resourceToBeDeleted={modal.resourceToBeDeleted}
           id={modal.id}
-          modalActions={modal.modalActions}
+          modalActions={modalActions}
           requestActions={modal.requestActions}
         />
       );
-
     case MODALS.ERROR_MODAL:
       return (
         <ApiErrorModal closeModal={modal.closeModal} error={modal.error} />

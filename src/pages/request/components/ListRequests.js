@@ -98,7 +98,7 @@ function ListRequests() {
       </div>
       <button onClick={handlePrintRequests}>Print all requests</button>
       <button onClick={handlePrintProtocols}>Print all protocols</button>
-      <ModalWrapper modal={modal} />
+      <ModalWrapper modal={modal} modalActions={modalActions} />
       <div
         style={{
           visibility: "hidden",

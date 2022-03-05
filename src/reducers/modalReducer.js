@@ -67,7 +67,6 @@ export const modalReducer = (modal, action) => {
         closeModal: action.payload.closeModal,
         id: action.payload.id,
         resourceToBeDeleted: action.payload.resourceToBeDeleted,
-        modalActions: action.payload.modalActions,
         requestActions: action.payload.requestActions,
       };
     case ACTIONS.OPEN_ERROR_MODAL:

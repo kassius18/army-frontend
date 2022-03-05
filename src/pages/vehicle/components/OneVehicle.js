@@ -49,7 +49,7 @@ export default function OneVehicle() {
         <button onClick={openModal}>Edit</button>
         <button onClick={openDeleteModal}>Delete</button>
       </div>
-      <ModalWrapper modal={modal} />
+      <ModalWrapper modal={modal} modalActions={modalActions} />
     </div>
   );
 }

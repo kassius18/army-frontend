@@ -8,7 +8,7 @@ import RequestTable from "tables/request/RequestTable";
 import { AiOutlineDown } from "react-icons/ai";
 import { DELETE_ACTIONS } from "modals/DeleteModal";
 import uuid from "react-uuid";
-
+import { IoMdAdd } from "react-icons/io";
 function Request({ request, requestActions, modalActions }) {
   const entries = request.entries;
 
@@ -33,6 +33,15 @@ function Request({ request, requestActions, modalActions }) {
       isPrintProtocol.resolve();
     }
   }, [isPrintProtocol]);
+
+  const openModal = () => {
+    modalActions.openEntryModal(
+      modalActions.closeModal,
+      requestActions.addEntry,
+      requestActions.editEntry,
+      request
+    );
+  };
 
   const openDeleteModal = () => {
     modalActions.openDeleteModal(
@@ -168,6 +177,7 @@ function Request({ request, requestActions, modalActions }) {
               <span>{request.day}</span>
             </div>
           </div>
+          <IoMdAdd className="table__button addRow" onClick={openModal} />
           <button onClick={handlePrintRequest}>Αποθήκευση Αίτησης</button>
           <button onClick={handlePrintProtocol}>Αποθήκευση Πρωτόκολλου</button>
           <button onClick={openDeleteModal}>Διαγραφή Αίτησης</button>

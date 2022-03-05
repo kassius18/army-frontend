@@ -44,7 +44,7 @@ function AllTabs() {
         })}
         <button onClick={openModal}>Προσθήκη</button>
       </div>
-      <ModalWrapper modal={modal} />
+      <ModalWrapper modal={modal} modalActions={modalActions} />
     </>
   );
 }

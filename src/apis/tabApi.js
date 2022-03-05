@@ -136,7 +136,7 @@ const tabApi = {
               code: error.response.status,
             },
           };
-        } else if (error.response) {
+        } else if (error.request) {
           return {
             success: false,
             error: {
@@ -172,7 +172,7 @@ const tabApi = {
               code: error.response.status,
             },
           };
-        } else if (error.response) {
+        } else if (error.request) {
           return {
             success: false,
             error: {

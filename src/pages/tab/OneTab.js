@@ -167,7 +167,7 @@ export default function OneTab() {
           ) : null}
         </div>
       </div>
-      <ModalWrapper modal={modal} />
+      <ModalWrapper modal={modal} modalActions={modalActions} />
     </div>
   );
 }

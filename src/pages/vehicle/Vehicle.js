@@ -67,7 +67,7 @@ export default function Vehicle() {
         </div>
         <button onClick={openModal}>Προσθήκη Οχήματος</button>
       </div>
-      <ModalWrapper modal={modal} />
+      <ModalWrapper modal={modal} modalActions={modalActions} />
     </>
   );
 }

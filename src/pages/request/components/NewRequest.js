@@ -35,7 +35,7 @@ function NewRequest() {
       <div>
         <button onClick={openModal}>Δημιουργία Νεας Αίτησης</button>
       </div>
-      <ModalWrapper modal={modal} />
+      <ModalWrapper modal={modal} modalActions={modalActions} />
     </>
   );
 }

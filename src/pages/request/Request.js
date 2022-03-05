@@ -136,40 +136,44 @@ function Request({ request, requestActions, modalActions }) {
           className="table__button"
           onClick={toggleRequestVisibility}
         />
-        <div className={"request " + (showRequest ? "" : "hidden")}>
-          <RequestHeader />
-          <RequestBody
-            entries={entries}
-            request={request}
-            requestActions={requestActions}
-            modalActions={modalActions}
-          />
+        <div className={"request-wrapper" + (showRequest ? "" : " hidden")}>
+          <div className={"request"}>
+            <RequestHeader />
+            <RequestBody
+              entries={entries}
+              request={request}
+              requestActions={requestActions}
+              modalActions={modalActions}
+            />
+          </div>
+        </div>
+        <div className={"request__body-wrapper"}>
+          <div className={"request__body"}>
+            <div className={"request__data"}>
+              <span>Φ</span>
+              <span className="firstPartOfPhi">{request.firstPartOfPhi}</span>
+              <span style={{ marginRight: "2rem" }}>Σχέδιο</span>
+              <span>{request.secondPartOfPhi}</span>
+            </div>
+            <div className={"request__data"}>
+              <span>Έτος</span>
+              <span>{request.year}</span>
+            </div>
+            <div className={"request__data"}>
+              <span>Μήνας</span>
+              <span>{request.month}</span>
+            </div>
+            <div className={"request__data"}>
+              <span>Μέρα</span>
+              <span>{request.day}</span>
+            </div>
+          </div>
           <button onClick={handlePrintRequest}>Αποθήκευση Αίτησης</button>
           <button onClick={handlePrintProtocol}>Αποθήκευση Πρωτόκολλου</button>
+          <button onClick={openDeleteModal}>Διαγραφή Αίτησης</button>
+          <button onClick={copyRequest}>Αντιγραφή Αίτησης</button>
+          <button onClick={editClickedRequest}>Τροποποίηση Αίτησης</button>
         </div>
-        <div className={"request__body"}>
-          <div className={"request__data"}>
-            <span>Φ</span>
-            <span className="firstPartOfPhi">{request.firstPartOfPhi}</span>
-            <span style={{ marginRight: "2rem" }}>Σχέδιο</span>
-            <span>{request.secondPartOfPhi}</span>
-          </div>
-          <div className={"request__data"}>
-            <span>Έτος</span>
-            <span>{request.year}</span>
-          </div>
-          <div className={"request__data"}>
-            <span>Μήνας</span>
-            <span>{request.month}</span>
-          </div>
-          <div className={"request__data"}>
-            <span>Μέρα</span>
-            <span>{request.day}</span>
-          </div>
-        </div>
-        <button onClick={openDeleteModal}>Διαγραφή Αίτησης</button>
-        <button onClick={copyRequest}>Αντιγραφή Αίτησης</button>
-        <button onClick={editClickedRequest}>Τροποποίηση Αίτησης</button>
       </div>
     </>
   );

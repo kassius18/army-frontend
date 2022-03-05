@@ -38,10 +38,6 @@
     cursor: pointer;
   }
 
-  tr:nth-child(even) {
-    // background-color: #f2f2f2;
-  }
-
   &__hidden {
     display: none;
   }
@@ -52,38 +48,19 @@
 }
 
 .request {
-  border: 3px solid red;
   padding: 2rem;
   width: 100%;
   font-size: 1.5rem;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
 
-  &__header {
-    display: contents;
-    font-size: 2rem;
-
-    & > div {
-      padding: 0 1rem;
-    }
-  }
-
-  &__entry {
-    display: contents;
-
-    &.consumable {
-      & > div {
-        color: rgba(109, 175, 79, 1);
-        padding: 0 1rem;
-      }
-    }
-  }
-
-  & button {
-    color: black;
-  }
-
-  &__form {
+  &-wrapper {
+    border: 3px solid red;
+    border-bottom: none;
+    transition: all 0.4s ease-in-out;
+    transition: max-height 0.4s ease-in-out;
+    max-height: 600px;
+    overflow: scroll;
   }
 
   &__body {
@@ -92,70 +69,30 @@
     font-size: 1.5rem;
     grid-gap: 1rem;
     padding: 2rem;
+    &-wrapper {
+      border: 3px solid red;
+      border-top: none;
+      padding-bottom: 1rem;
+      margin-bottom: 4rem;
+    }
   }
 
   &__data {
+    margin-right: 2.5rem;
+    font-size: 1.5rem;
     & > .firstPartOfPhi {
       margin: 0 2rem;
     }
     & > input {
       height: 2rem;
     }
-  }
-}
-
-.parts-recieved {
-  grid-column: span 10;
-  display: grid;
-  grid-template-columns: repeat(7, 1fr) 0.2fr;
-  margin: 0 4rem;
-  background-color: white;
-  color: black;
-  max-height: 100000px;
-  transition: all 0.4s ease-in-out;
-  overflow: hidden;
-
-  &__header {
-    display: contents;
-  }
-}
-
-.grid-border-line {
-  grid-column: 1 / -1;
-  height: 0;
-  border-top: 3px solid red;
-  margin: 1rem 0;
-}
-
-.hidden {
-  max-height: 0;
-  overflow: hidden;
-  border: none;
-  margin: 0;
-}
-
-//
-.request {
-  &__body {
-    margin-top: 4rem;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  &__data {
-    margin-right: 2.5rem;
-    font-size: 1.5rem;
     input {
       font-size: 1.5rem;
       margin: 1rem;
-      // color: black;
     }
     :first-child {
       padding-right: 1.5rem;
     }
-  }
-
-  &__form {
   }
 
   &--footer {
@@ -181,6 +118,60 @@
   button {
     color: black;
   }
+
+  &__header {
+    display: contents;
+    font-size: 2rem;
+
+    & > div {
+      padding: 0 1rem;
+    }
+  }
+
+  &__entry {
+    display: contents;
+
+    &.consumable {
+      & > div {
+        color: rgba(109, 175, 79, 1);
+      }
+    }
+  }
+
+  & button {
+    color: black;
+  }
+}
+
+.parts-recieved {
+  grid-column: span 10;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr) 0.2fr;
+  margin: 0 4rem;
+  background-color: white;
+  color: black;
+  transition: height 0.4s ease-in-out;
+  overflow: hidden;
+
+  &__header {
+    display: contents;
+  }
+}
+
+.grid-border-line {
+  grid-column: 1 / -1;
+  height: 0;
+  border-top: 3px solid red;
+  margin: 1rem 0;
+}
+
+.hidden {
+  max-height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border-bottom: none;
+  // border-top: 3px solid red;
 }
 
 @media all {

@@ -53,9 +53,7 @@ export default function OnePartRecieved({
         >
           <MdModeEditOutline
             style={{ fontSize: "2rem", fill: "red", cursor: "pointer" }}
-            onClick={() => {
-              editClickedPart(part.id);
-            }}
+            onClick={editClickedPart}
           />
           <FiDelete className="table__button" onClick={openDeleteModal} />
         </div>

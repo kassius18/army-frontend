@@ -11,7 +11,11 @@
 }
 
 .tab__table {
-  border: 2px solid black;
+  & > div {
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+  }
+  // border: 2px solid black;
 }
 
 .header__cell {
@@ -31,12 +35,9 @@
 .wrapper-1-7 {
   display: grid;
   grid-template-columns: 1.5fr 2fr 1fr;
+  border-top: 2px solid black;
 }
 
-.wrapper-1-7 {
-  display: grid;
-  grid-template-columns: 1.5fr 2fr 1fr;
-}
 .wrapper-8-11 {
   display: grid;
   grid-template-columns: 2fr 2fr 1fr 1fr;
@@ -97,7 +98,6 @@
 
   & > div {
     min-height: 0.4rem;
-    border: red;
   }
   & > .lined {
     border: 2px solid red;
@@ -115,6 +115,10 @@
   grid-template-columns: 5fr repeat(12, 1fr);
   & > div {
     padding: 0.5rem 1rem;
+  }
+
+  &:last-of-type {
+    border-bottom: 2px solid black;
   }
 }
 
@@ -148,4 +152,29 @@
 
 .span-3 {
   grid-row: 1/4;
+}
+
+@media all {
+  .page-break-tab {
+    display: none;
+    // height: 31px;
+    // border: 2px solid red;
+  }
+}
+
+@media print {
+  html,
+  body {
+    height: initial !important;
+    overflow: initial !important;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+@media print {
+  .page-break-tab {
+    margin-top: 0;
+    display: block;
+    page-break-before: always;
+  }
 }

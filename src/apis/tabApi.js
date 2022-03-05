@@ -3,7 +3,7 @@ import axios from "axios";
 const url = "http://army-backend.com/tabs";
 
 const tabApi = {
-  async getNonEmptyTabs(tabId) {
+  async getNonEmptyTabs() {
     return axios
       .get(url, { params: { showNonEmpty: true } })
       .then((response) => {
@@ -34,7 +34,6 @@ const tabApi = {
     return axios
       .get(url + `/${tabId}`)
       .then((response) => {
-        console.log(response);
         return { success: true, parts: response.data };
       })
       .catch((error) => {

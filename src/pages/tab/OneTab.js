@@ -14,24 +14,173 @@ import { useReactToPrint } from "react-to-print";
 import ModalWrapper from "modals/ModalWrapper";
 import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 import tabApi from "apis/tabApi";
+import uuid from "react-uuid";
+
+const filterFn = (year, minYear, maxYear) => {
+  if (minYear === "" && maxYear === "") {
+    return true;
+  }
+  if (minYear === "") {
+    return year <= maxYear;
+  }
+  if (maxYear === "") {
+    return year >= minYear;
+  }
+  return year >= minYear && year <= maxYear;
+};
+
+const partFilterFn = (part, minYear, maxYear) => {
+  if (part.amountRecieved !== "") {
+    const yearRecieved = parseInt(part.dateRecieved.split("-")[2]);
+    return filterFn(yearRecieved, minYear, maxYear);
+  } else {
+    const yearUsed = parseInt(part.dateUsed.split("-")[2]);
+    return filterFn(yearUsed, minYear, maxYear);
+  }
+};
+
+const TAB_ACTIONS = {
+  SET_PARTS: "SET_PARTS",
+};
+
+const FILTER_ACTIONS = {
+  SET_MIN_VALUE: "SET_MIN_VALUE",
+  SET_MAX_VALUE: "SET_MAX_VALUE",
+  SET_FILTERED_ARRAY: "SET_FILTERED_ARRAY",
+  FILTER: "FILTER",
+};
+
+const tabReducer = (tab, action) => {
+  switch (action.type) {
+    case TAB_ACTIONS.SET_PARTS:
+      const sortedParts = action.payload.parts.sort(compareFn);
+      const startingTotal = tab.startingTotal;
+      let calculatedTotalPerPart = startingTotal;
+      const partsWithTotal = sortedParts.map((part) => {
+        calculatedTotalPerPart =
+          calculatedTotalPerPart - part.amountUsed + part.amountRecieved;
+        return { ...part, partTotal: calculatedTotalPerPart };
+      });
+      return { ...tab, parts: partsWithTotal };
+    default:
+      return tab;
+  }
+};
+
+const filterReducer = (filter, action) => {
+  switch (action.type) {
+    case FILTER_ACTIONS.SET_MIN_VALUE: {
+      const parts = action.payload.parts.filter((part) => {
+        return partFilterFn(part, action.payload.minValue, filter.maxValue);
+      });
+      return {
+        ...filter,
+        filteredArray: parts,
+        minValue: action.payload.minValue,
+      };
+    }
+    case FILTER_ACTIONS.SET_MAX_VALUE: {
+      const parts = action.payload.parts.filter((part) => {
+        return partFilterFn(part, filter.minValue, action.payload.maxValue);
+      });
+      return {
+        ...filter,
+        filteredArray: parts,
+        maxValue: action.payload.maxValue,
+      };
+    }
+    case FILTER_ACTIONS.SET_FILTERED_ARRAY: {
+      return { ...filter, filteredArray: action.payload.filteredArray };
+    }
+    default: {
+      return filter;
+    }
+  }
+};
+
+const filterDispatchMap = (filterDispatch) => {
+  return {
+    setMinValue: (minValue, parts) => {
+      filterDispatch({
+        type: FILTER_ACTIONS.SET_MIN_VALUE,
+        payload: { minValue, parts },
+      });
+    },
+    setMaxValue: (maxValue, parts) => {
+      filterDispatch({
+        type: FILTER_ACTIONS.SET_MAX_VALUE,
+        payload: { maxValue, parts },
+      });
+    },
+    setFilteredArray: (filteredArray) => {
+      filterDispatch({
+        type: FILTER_ACTIONS.SET_FILTERED_ARRAY,
+        payload: { filteredArray },
+      });
+    },
+  };
+};
+
+const tabDispatchMap = (tabDispatch) => {
+  return {
+    setParts: (parts) => {
+      tabDispatch({ type: TAB_ACTIONS.SET_PARTS, payload: { parts } });
+    },
+  };
+};
+
+const compareFn = (firstPart, secondPart) => {
+  const firstPartYear = firstPart.dateRecieved
+    ? parseInt(firstPart.dateRecieved.split("-")[2])
+    : parseInt(firstPart.dateUsed.split("-")[2]);
+  const secondPartYear = secondPart.dateRecieved
+    ? parseInt(secondPart.dateRecieved.split("-")[2])
+    : parseInt(secondPart.dateUsed.split("-")[2]);
+  if (firstPartYear === secondPartYear) {
+    const firstPartMonth = firstPart.dateRecieved
+      ? parseInt(firstPart.dateRecieved.split("-")[1])
+      : parseInt(firstPart.dateUsed.split("-")[1]);
+    const secondPartMonth = secondPart.dateRecieved
+      ? parseInt(secondPart.dateRecieved.split("-")[1])
+      : parseInt(secondPart.dateUsed.split("-")[1]);
+    if (firstPartMonth === secondPartMonth) {
+      const firstPartDay = firstPart.dateRecieved
+        ? parseInt(firstPart.dateRecieved.split("-")[0])
+        : parseInt(firstPart.dateUsed.split("-")[0]);
+      const secondPartDay = secondPart.dateRecieved
+        ? parseInt(secondPart.dateRecieved.split("-")[0])
+        : parseInt(secondPart.dateUsed.split("-")[0]);
+      if (firstPartMonth === secondPartMonth) {
+        return 0;
+      }
+      return firstPartDay < secondPartDay ? -1 : 1;
+    }
+    return firstPartMonth < secondPartMonth ? -1 : 1;
+  }
+  return firstPartYear < secondPartYear ? -1 : 1;
+};
 
 export default function OneTab() {
   const { setHasChanged } = useContext(AppContext);
   const navigate = useNavigate();
   const tabRef = useRef();
   const location = useLocation();
-  const tab = location.state;
-  const total = tab.startingTotal;
 
-  const [modal, modalDispatch] = useReducer(modalReducer, "");
+  const [print, setPrint] = useState({
+    value: false,
+    resolve: undefined,
+  });
+
+  const [modal, modalDispatch] = useReducer(modalReducer, {});
+  const [tab, tabDispatch] = useReducer(tabReducer, location.state);
+  const [filter, filterDispatch] = useReducer(filterReducer, {
+    filteredArray: [],
+    minValue: "",
+    maxValue: "",
+  });
+  const tabActions = tabDispatchMap(tabDispatch);
   const modalActions = modalDispatchMap(modalDispatch);
-
-  const [allParts, setAllParts] = useState(tab.parts);
-  const [partsToBePrinted, setPartsToBePrinted] = useState(allParts);
-  const [newTotal, setNewTotal] = useState(total);
-
-  const [minYear, setMinYear] = useState("");
-  const [maxYear, setMaxYear] = useState("");
+  const filterActions = filterDispatchMap(filterDispatch);
 
   const openDeleteModal = () => {
     modalActions.openDeleteModal(
@@ -45,10 +194,21 @@ export default function OneTab() {
 
   useEffect(() => {
     tabApi.getPartsByTabId(tab.id).then((response) => {
-      setAllParts(...response.parts);
-      setPartsToBePrinted(...response.parts);
+      tabActions.setParts(response.parts);
     });
   }, []);
+
+  useEffect(() => {
+    if (tab.parts.length) {
+      filterActions.setFilteredArray(tab.parts);
+    }
+  }, [tab]);
+
+  useEffect(() => {
+    if (print.resolve) {
+      print.resolve();
+    }
+  }, [print]);
 
   const openModal = () => {
     modalActions.openTabModal(modalActions.closeModal, () => {}, editTab, tab);
@@ -65,70 +225,33 @@ export default function OneTab() {
     margin: 0.5in 0.5in 0.5in 0.5in !important; 
     size: portrait !important;
     }`,
+    onAfterPrint: () => {
+      setPrint({ value: false, resolve: undefined });
+    },
+    onBeforeGetContent: () => {
+      return new Promise((resolve) => {
+        setPrint({ value: true, resolve });
+      });
+    },
   });
 
-  const compareFn = (firstPart, secondPart) => {
-    const firstPartYearRecieved = firstPart.dateRecieved
-      ? parseInt(firstPart.dateRecieved.split("-")[2])
-      : firstPart.dateUsed.split("-")[2];
-    const secondPartYearRecieved = secondPart.dateRecieved
-      ? parseInt(secondPart.dateRecieved.split("-")[2])
-      : secondPart.dateUsed.split("-")[2];
-    if (firstPartYearRecieved === secondPart) {
-      return 0;
-    }
-    return firstPartYearRecieved < secondPartYearRecieved ? -1 : 1;
-  };
-
   const assingMinYearValue = (event) => {
-    setMinYear(parseInt(event.target.value));
+    const minValue = isNaN(parseInt(event.target.value))
+      ? ""
+      : parseInt(event.target.value);
+    filterActions.setMinValue(minValue, tab.parts);
   };
 
   const assingMaxYearValue = (event) => {
-    setMaxYear(parseInt(event.target.value));
+    const maxValue = isNaN(parseInt(event.target.value))
+      ? ""
+      : parseInt(event.target.value);
+    filterActions.setMaxValue(maxValue, tab.parts);
   };
 
-  useEffect(() => {
-    let localTotal = total;
-
-    const localMinYear = minYear || 0;
-    const localMaxYear = maxYear || 9999;
-
-    const toBePrinted = allParts.filter((part) => {
-      if (part.amountRecieved !== "") {
-        const yearRecieved = parseInt(part.dateRecieved.split("-")[2]);
-        if (yearRecieved >= localMinYear && yearRecieved <= localMaxYear) {
-          return (
-            parseInt(yearRecieved) >= localMinYear &&
-            parseInt(yearRecieved) <= localMaxYear
-          );
-        } else {
-          localTotal = localTotal + part.amountRecieved - part.amountUsed;
-        }
-      } else {
-        const yearUsed = parseInt(part.dateUsed.split("-")[2]);
-        if (yearUsed >= localMinYear && yearUsed <= localMaxYear) {
-          return (
-            parseInt(yearUsed) >= localMinYear &&
-            parseInt(yearUsed) <= localMaxYear
-          );
-        } else {
-          localTotal = localTotal + part.amountRecieved - part.amountUsed;
-        }
-      }
-    });
-
-    toBePrinted.sort(compareFn);
-
-    setPartsToBePrinted(toBePrinted);
-    setNewTotal(localTotal);
-  }, [minYear, maxYear]);
-
-  let localTotal = newTotal;
   const render = () =>
-    partsToBePrinted.sort(compareFn).map((part) => {
-      localTotal = localTotal + part.amountRecieved - part.amountUsed;
-      return <PartRow key={part.id} part={part} total={localTotal} />;
+    filter.filteredArray.map((part) => {
+      return <PartRow key={part.id} part={part} total={part.partTotal} />;
     });
 
   return (
@@ -136,14 +259,14 @@ export default function OneTab() {
       <label htmlFor="startingYear">Αρχικό Έτος</label>
       <input
         type="number"
-        value={minYear}
+        value={filter.minValue}
         onChange={assingMinYearValue}
         id="startingYear"
       />
       <label htmlFor="endingYear">Τελικό Έτος</label>
       <input
         type="number"
-        value={maxYear}
+        value={filter.maxValue}
         onChange={assingMaxYearValue}
         id="endingYear"
       />
@@ -175,21 +298,15 @@ export default function OneTab() {
       <div>{render()}</div>
       <div
         style={{
-          // display: "none",
           visibility: "hidden",
           position: "absolute",
           zIndex: "-100",
         }}
       >
         <div ref={tabRef}>
-          {
-            <TabTable
-              parts={partsToBePrinted}
-              startingTotal={total}
-              startingYear={minYear || 0}
-              endingYear={maxYear || 9999}
-            />
-          }
+          {print ? (
+            <TabTable key={uuid()} parts={filter.filteredArray} />
+          ) : null}
         </div>
       </div>
       <ModalWrapper modal={modal} />

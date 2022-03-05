@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import EmptyRow from "./EmptyRow";
-function TableFooter({ shouldRerender }) {
+function TableFooter() {
   const paperHeight = 1026;
   const emptyRowHeight = 31;
   const footerRef = useRef(0);
@@ -9,19 +9,8 @@ function TableFooter({ shouldRerender }) {
   const [emptyRowsToFillBefore, setEmptyRowsToFillBefore] = useState(-1);
 
   useEffect(() => {
-    let emptyRowsToFillBeforeNumber =
-      emptyRowsToFillBefore !== -1 ? emptyRowsToFillBefore : 0;
-    let emptyRowsToFillFullPageNumber =
-      emptyRowsToFillFullPage !== -1 ? emptyRowsToFillFullPage : 0;
-    let allEmptyRowsHeight =
-      (emptyRowsToFillFullPageNumber + emptyRowsToFillBeforeNumber) *
-      emptyRowHeight;
-
-    const offsetTop = footerRef.current.offsetTop - allEmptyRowsHeight;
+    const offsetTop = footerRef.current.offsetTop;
     const remainder = Math.abs((offsetTop % paperHeight) - paperHeight);
-    console.log("allEmptyRowsHeight is", allEmptyRowsHeight);
-    console.log("remainder is", remainder);
-    console.log("current height is", footerRef.current.offsetHeight);
     if (remainder > footerRef.current.offsetHeight) {
       setEmptyRowsToFillBefore(
         Math.floor(
@@ -37,29 +26,24 @@ function TableFooter({ shouldRerender }) {
         )
       );
     }
-  }, [shouldRerender]);
+  }, []);
 
-  console.log(
-    "empty rows",
-    Array(emptyRowsToFillBefore >= 0 ? emptyRowsToFillBefore : 0).fill(1)
-  );
-  console.log(
-    "empty rows to fill full page ",
-    Array(emptyRowsToFillFullPage >= 0 ? emptyRowsToFillFullPage : 0).fill(1)
-  );
   return (
     <>
       <EmptyRow
         iterationArray={Array(
           emptyRowsToFillBefore >= 0 ? emptyRowsToFillBefore : 0
         ).fill(1)}
+        isFillBefore={true}
+        pageOfEmptyRows={emptyRowsToFillFullPage > 0 && true}
       />
+      {emptyRowsToFillFullPage > 0 ? <div className="page-break-tab" /> : null}
       <EmptyRow
         iterationArray={Array(
           emptyRowsToFillFullPage >= 0 ? emptyRowsToFillFullPage : 0
         ).fill(1)}
+        pageOfEmptyRows={emptyRowsToFillFullPage > 0 && true}
       />
-
       <div ref={footerRef}>
         <div className="wrapper-1fr">
           <div className="table__cell">ΣΕ ΜΕΤΑΦΟΡΑ</div>

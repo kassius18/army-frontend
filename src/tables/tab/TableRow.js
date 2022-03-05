@@ -35,9 +35,7 @@ function TableRow({ part, rowNumber, currentTotal }) {
       <div className="table__cell center" style={{ width: "88.5px" }}>
         {currentTotal}
       </div>
-      <div className="table__cell center" style={{ width: "115.5px" }}>
-        {observation}
-      </div>
+      <div className="table__cell center">{observation}</div>
     </div>
   );
 }

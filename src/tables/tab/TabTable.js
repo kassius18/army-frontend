@@ -1,25 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./table_structure.scss";
 
-import TableHeader from "./TableHeader";
 import TableFooter from "./TableFooter";
 import TableRow from "./TableRow";
 import TableRowWithEnd from "./TableRowWithEnd";
+import YearClosed from "./YearClosed";
 
-function TabTable({
-  print,
-  parts,
-  startingTotal,
-  startingYear = 0,
-  endingYear = 9999,
-}) {
-  const [shouldRerender, setShouldRerender] = useState(0);
+const getYearUsedOrRevivedFromPart = (part) => {
+  return part.dateRecieved
+    ? parseInt(part.dateRecieved.split("-")[2])
+    : parseInt(part.dateUsed.split("-")[2]);
+};
 
-  useEffect(() => {
-    setShouldRerender(shouldRerender + 1);
-  }, [startingYear, endingYear]);
-
-  let localTotal = startingTotal;
+function TabTable({ parts }) {
   return (
     <div className="tab__table__layout">
       <div className="wrapper-1fr-header text-left">
@@ -149,30 +142,16 @@ function TabTable({
           <div className="table__cell">ΑΠΟ ΜΕΤΑΦΟΡΑ</div>
         </div>
         {parts.map((part, index) => {
-          localTotal = localTotal + part.amountRecieved - part.amountUsed;
           if (index > 0) {
-            const year = part.dateRecieved
-              ? parseInt(part.dateRecieved.split("-")[2])
-              : parseInt(part.dateUsed.split("-")[2]);
-            const previousYear = parts[index - 1].dateRecieved
-              ? parseInt(parts[index - 1].dateRecieved.split("-")[2])
-              : parseInt(parts[index - 1].dateUsed.split("-")[2]);
-
-            if (year < startingYear || year > endingYear) {
-              return null;
-            }
-
-            if (
-              year === previousYear ||
-              previousYear < startingYear ||
-              previousYear > endingYear
-            ) {
+            const year = getYearUsedOrRevivedFromPart(part);
+            const previousYear = getYearUsedOrRevivedFromPart(parts[index - 1]);
+            if (year === previousYear) {
               return (
-                <TableRow part={part} key={part.id} currentTotal={localTotal} />
+                <TableRow part={part} key={part.id} currentTotal={part.total} />
               );
             } else {
-              let difference = year - previousYear + 1;
-              const differenceArray = Array(difference).fill(difference);
+              let difference = year - previousYear;
+              const differenceArray = Array(difference).fill(1);
               return differenceArray.map(() => {
                 if (index === parts.length - 1 && difference === 1) {
                   return (
@@ -180,7 +159,7 @@ function TabTable({
                       part={part}
                       key={part.id}
                       year={year}
-                      currentTotal={localTotal}
+                      currentTotal={part.total}
                     />
                   );
                 }
@@ -189,36 +168,25 @@ function TabTable({
                     <TableRow
                       part={part}
                       key={part.id}
-                      currentTotal={localTotal}
+                      currentTotal={part.total}
                     />
                   );
                 }
                 difference--;
-                return (
-                  <>
-                    <div className="wrapper-end">
-                      <div className="table__cell"></div>
-                      <div className="table__cell lined"></div>
-                      <div className="table__cell"></div>
-                    </div>
-                    <div className="wrapper-start">
-                      <div className="table__cell center">
-                        ΚΛΕΙΝΕΤΑΙ ΓΙΑ ΤΟ ΕΤΟΣ {year - difference}
-                        <div className="table__cell center">
-                          ΕΤΟΣ {year - difference + 1}
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                );
+                return <YearClosed year={year - difference} />;
               });
             }
           }
           return (
-            <TableRow part={part} key={part.id} currentTotal={localTotal} />
+            <TableRow part={part} key={part.id} currentTotal={part.total} />
           );
         })}
-        <TableFooter shouldRerender={shouldRerender} />
+        {parts.length > 0 && (
+          <YearClosed
+            year={getYearUsedOrRevivedFromPart(parts[parts.length - 1])}
+          />
+        )}
+        <TableFooter />
       </div>
     </div>
   );

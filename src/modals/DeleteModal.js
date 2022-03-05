@@ -29,6 +29,7 @@ function DeleteModal({
 
   let name;
   const verifyDeleting = () => {
+    modalActions.openLoadingModal();
     switch (resourceToBeDeleted) {
       case DELETE_ACTIONS.DELETE_REQUEST:
         return requestApi.deleteRequest(id).then((response) => {

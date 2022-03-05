@@ -16,6 +16,7 @@ function EntryModal({
   const { vehicles, tabs } = useContext(AppContext);
 
   const createEntry = (newEntry, request) => {
+    modalActions.openLoadingModal();
     entryApi
       .createEntry(newEntry, request.firstPartOfPhi, request.year)
       .then((response) => {
@@ -32,6 +33,7 @@ function EntryModal({
   };
 
   const updateEntry = (newEntry, entryId) => {
+    modalActions.openLoadingModal();
     entryApi.updateEntry(newEntry, entryId).then((response) => {
       if (response.success === true && Object.keys(response.entries) !== 0) {
         closeModal();

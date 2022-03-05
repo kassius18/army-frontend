@@ -1,6 +1,8 @@
 .tab {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+  height: 100%;
+
   &__view {
     margin: 0 auto;
     width: 60%;

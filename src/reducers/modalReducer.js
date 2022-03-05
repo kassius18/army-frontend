@@ -7,6 +7,7 @@ const ACTIONS = {
   OPEN_VEHICLE_MODAL: "OPEN_VEHICLE_MODAL",
   OPEN_TAB_MODAL: "OPEN_TAB_MODAL",
   OPEN_DELETE_MODAL: "OPEN_DELETE_MODAL",
+  OPEN_LOADING_MODAL: "OPEN_LOADING_MODAL",
   OPEN_ERROR_MODAL: "OPEN_ERROR_MODAL",
   CLOSE_MODAL: "CLOSE_MODAL",
 };
@@ -68,6 +69,12 @@ export const modalReducer = (modal, action) => {
         id: action.payload.id,
         resourceToBeDeleted: action.payload.resourceToBeDeleted,
         requestActions: action.payload.requestActions,
+      };
+    case ACTIONS.OPEN_LOADING_MODAL:
+      return {
+        modalContent: MODALS.LOADING_MODAL,
+        isOpen: action.payload.isOpen,
+        portalId: action.payload.portalId,
       };
     case ACTIONS.OPEN_ERROR_MODAL:
       return {
@@ -190,6 +197,12 @@ export const modalDispatchMap = (modalDispatch) => {
           modalActions,
           requestActions,
         },
+      });
+    },
+    openLoadingModal: (portalId = "") => {
+      modalDispatch({
+        type: ACTIONS.OPEN_LOADING_MODAL,
+        payload: { isOpen: true, portalId },
       });
     },
     openApiErrorModal: (closeModal, error) => {

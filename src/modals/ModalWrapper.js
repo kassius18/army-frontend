@@ -6,6 +6,7 @@ import VehicleModal from "modals/vehicle/VehicleModal";
 import TabModal from "modals/TabModal";
 import ApiErrorModal from "modals/ApiErrorModal";
 import DeleteModal from "modals/DeleteModal";
+import LoadingModal from "modals/LoadingModal";
 
 export const MODALS = {
   REQUEST_MODAL: "REQUEST_MODAL",
@@ -14,6 +15,7 @@ export const MODALS = {
   VEHICLE_MODAL: "VEHICLE_MODAL",
   TAB_MODAL: "TAB_MODAL",
   DELETE_MODAL: "DELETE_MODAL",
+  LOADING_MODAL: "LOADING_MODAL",
   ERROR_MODAL: "ERROR_MODAL",
 };
 
@@ -21,6 +23,8 @@ function ModalWrapper({ modal, modalActions }) {
   if (!modal.isOpen) {
     return null;
   }
+
+  console.log("modal content is", modal.modalContent);
 
   switch (modal.modalContent) {
     case MODALS.REQUEST_MODAL:
@@ -85,6 +89,8 @@ function ModalWrapper({ modal, modalActions }) {
           requestActions={modal.requestActions}
         />
       );
+    case MODALS.LOADING_MODAL:
+      return <LoadingModal portalId={modal.portalId} />;
     case MODALS.ERROR_MODAL:
       return (
         <ApiErrorModal closeModal={modal.closeModal} error={modal.error} />

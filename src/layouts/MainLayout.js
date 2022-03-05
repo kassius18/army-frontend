@@ -42,7 +42,9 @@ function MainLayout() {
   return (
     <div className="main-layout">
       <Sidebar />
-      {content}
+      <div className="content-wrapper" id="portal">
+        {content}
+      </div>
     </div>
   );
 }

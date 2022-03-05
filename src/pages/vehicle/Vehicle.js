@@ -29,10 +29,15 @@ export default function Vehicle() {
   };
 
   useEffect(() => {
+    modalActions.openLoadingModal();
     vehicleApi.getAllVehicles().then((response) => {
       if (response.success === true) {
         setVehicles(response.vehicles);
-      } else setVehicles([]);
+        modalActions.closeModal("portal");
+      } else {
+        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
+        setVehicles([]);
+      }
     });
   }, []);
 

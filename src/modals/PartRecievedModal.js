@@ -15,6 +15,7 @@ function PartRecievedModal({
   const [validationPasses, setValidationPasses] = useState(true);
 
   const createPart = (newPart, entryId) => {
+    modalActions.openLoadingModal();
     partApi.createPart(newPart, entryId).then((response) => {
       if (response.success === true && Object.keys(response.parts) !== 0) {
         closeModal();
@@ -26,6 +27,7 @@ function PartRecievedModal({
   };
 
   const updatePart = (newPart, partId) => {
+    modalActions.openLoadingModal();
     partApi.updatePart(newPart, partId).then((response) => {
       if (response.success === true) {
         closeModal();

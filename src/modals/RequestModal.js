@@ -13,6 +13,7 @@ function RequestModal({
   const [feedback, setFeedback] = useState(false);
 
   const createRequest = (newRequest) => {
+    modalActions.openLoadingModal();
     requestApi.createRequest(newRequest).then((response) => {
       if (response.success === true) {
         closeModal();
@@ -24,6 +25,7 @@ function RequestModal({
   };
 
   const copyRequest = (request) => {
+    modalActions.openLoadingModal();
     requestApi.copyRequest(request).then((response) => {
       if (response.success === true) {
         closeModal();
@@ -35,6 +37,7 @@ function RequestModal({
   };
 
   const updateRequest = (newRequest, requestId) => {
+    modalActions.openLoadingModal();
     requestApi.updateRequest(newRequest, requestId).then((response) => {
       if (response.success === true) {
         closeModal();

@@ -10,6 +10,7 @@ export default function TabModal({
   modalActions,
 }) {
   const createTab = (newTab) => {
+    modalActions.openLoadingModal();
     tabApi.createTab(newTab).then((response) => {
       if (response.success === true && Object.keys(response.tabs) !== 0) {
         closeModal();
@@ -21,6 +22,7 @@ export default function TabModal({
   };
 
   const updateTab = (newTab, tabId) => {
+    modalActions.openLoadingModal();
     tabApi.updateTab(newTab, tabId).then((response) => {
       if (response.success === true) {
         closeModal();
@@ -86,7 +88,7 @@ export default function TabModal({
             <label htmlFor="tabType">Αρχικό Σύνολο</label>
             <input
               name="startingTotal"
-              type="text"
+              type="number"
               defaultValue={
                 initialValues.startingTotal !== undefined
                   ? initialValues.startingTotal

@@ -10,6 +10,7 @@ export default function VehicleModal({
   modalActions,
 }) {
   const createVehicle = (newVehicle) => {
+    modalActions.openLoadingModal();
     vehicleApi.createVehicle(newVehicle).then((response) => {
       if (response.success === true && Object.keys(response.vehicles) !== 0) {
         closeModal();
@@ -21,6 +22,7 @@ export default function VehicleModal({
   };
 
   const updateVehicle = (newVehicle, vehicleId) => {
+    modalActions.openLoadingModal();
     vehicleApi.updateVehicle(newVehicle, vehicleId).then((response) => {
       if (response.success === true) {
         closeModal();

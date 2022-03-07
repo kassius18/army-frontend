@@ -1,6 +1,6 @@
-import { MdModeEditOutline } from "react-icons/md";
-import { FiDelete } from "react-icons/fi";
 import uuid from "react-uuid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDeleteLeft, faPencil } from "@fortawesome/free-solid-svg-icons";
 import { DELETE_ACTIONS } from "modals/DeleteModal";
 
 export default function OnePartRecieved({
@@ -51,11 +51,16 @@ export default function OnePartRecieved({
           className="actions"
           style={{ display: "flex", flexDirection: "row", padding: "1rem" }}
         >
-          <MdModeEditOutline
+          <FontAwesomeIcon
+            icon={faPencil}
             style={{ fontSize: "2rem", fill: "red", cursor: "pointer" }}
             onClick={editClickedPart}
           />
-          <FiDelete className="table__button" onClick={openDeleteModal} />
+          <FontAwesomeIcon
+            icon={faDeleteLeft}
+            className="table__button"
+            onClick={openDeleteModal}
+          />
         </div>
       </div>
     </div>

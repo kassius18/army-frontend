@@ -1,5 +1,6 @@
 import React from "react";
-import { IoMdAdd } from "react-icons/io";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import OnePartRecieved from "./OnePartRecieved";
 
 export default function PartsRecievedBody({
@@ -29,7 +30,11 @@ export default function PartsRecievedBody({
           />
         );
       })}
-      <IoMdAdd className="table__button addRow" onClick={openModal} />
+      <FontAwesomeIcon
+        icon={faPlus}
+        className="table__button addRow"
+        onClick={openModal}
+      />
     </>
   );
 }

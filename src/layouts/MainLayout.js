@@ -9,8 +9,6 @@ function MainLayout() {
   const { isFailure, isLoading, setHasChanged } = useContext(AppContext);
   const [content, setContent] = useState(null);
 
-  const override = "display: block; margin: 0 auto; border-color: red;";
-
   useEffect(() => {
     if (isFailure) {
       setContent(
@@ -22,12 +20,7 @@ function MainLayout() {
     } else if (isLoading) {
       setContent(
         <div className="load-screen">
-          <ClipLoader
-            color={"#ffffff"}
-            loading={isLoading}
-            css={override}
-            size={150}
-          />
+          <ClipLoader color={"#ffffff"} loading={true} size={50} />
         </div>
       );
     } else {
@@ -42,7 +35,7 @@ function MainLayout() {
   return (
     <div className="main-layout">
       <Sidebar />
-      <div className="content-wrapper" id="portal">
+      <div className="main-content content-wrapper" id="portal">
         {content}
       </div>
     </div>

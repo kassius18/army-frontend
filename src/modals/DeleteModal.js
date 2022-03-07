@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { AppContext } from "context/AppContext";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
-import { AiOutlineClose } from "react-icons/ai";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import requestApi from "apis/requestApi";
 import entryApi from "apis/entryApi";
 import partApi from "apis/partApi";
@@ -103,7 +104,8 @@ function DeleteModal({
     <div>
       <Modal closeModal={closeModal}>
         <div>
-          <AiOutlineClose
+          <FontAwesomeIcon
+            icon={faXmark}
             style={{ color: "red" }}
             className="modal__cancel"
             onClick={closeModal}

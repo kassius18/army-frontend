@@ -24,8 +24,6 @@ function ModalWrapper({ modal, modalActions }) {
     return null;
   }
 
-  console.log("modal content is", modal.modalContent);
-
   switch (modal.modalContent) {
     case MODALS.REQUEST_MODAL:
       return (

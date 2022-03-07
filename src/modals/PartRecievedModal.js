@@ -1,8 +1,9 @@
 import Modal from "./Modal";
-import { AiOutlineClose } from "react-icons/ai";
 import uuid from "react-uuid";
 import partApi from "apis/partApi";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function PartRecievedModal({
   closeModal,
@@ -109,7 +110,8 @@ function PartRecievedModal({
   return (
     <div>
       <Modal closeModal={closeModalAndResetContent}>
-        <AiOutlineClose
+        <FontAwesomeIcon
+          icon={faXmark}
           style={{ color: "red" }}
           className="modal__cancel"
           onClick={closeModal}

@@ -1,7 +1,10 @@
 import PartsRecieved from "./PartsRecieved";
-import { MdModeEditOutline } from "react-icons/md";
-import { FiDelete } from "react-icons/fi";
-import { AiOutlineDown } from "react-icons/ai";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAngleDown,
+  faDeleteLeft,
+  faPencil,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { DELETE_ACTIONS } from "modals/DeleteModal";
 
@@ -50,12 +53,18 @@ function Entry({ entry, requestActions, modalActions }) {
         <div>{entry.consumableId}</div>
         <div>{entry.observations}</div>
         <div className="edit">
-          <MdModeEditOutline
+          <FontAwesomeIcon
+            icon={faPencil}
             className="table__button"
             onClick={editClickedEntry}
           />
-          <FiDelete className="table__button" onClick={openDeleteModal} />
-          <AiOutlineDown
+          <FontAwesomeIcon
+            icon={faDeleteLeft}
+            className="table__button"
+            onClick={openDeleteModal}
+          />
+          <FontAwesomeIcon
+            icon={faAngleDown}
             className="table__button"
             onClick={togglePartsVisibility}
           />

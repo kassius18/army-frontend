@@ -26,9 +26,9 @@ function AllTabs() {
     tabApi.getAllTabs().then((response) => {
       if (response.success === true) {
         setTabs(response.tabs);
-        // modalActions.closeModal();
+        modalActions.closeModal();
       } else {
-        // modalActions.openApiErrorModal(modalActions.closeModal, response.error);
+        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
         setTabs([]);
       }
     });

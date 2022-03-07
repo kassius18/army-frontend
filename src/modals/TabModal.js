@@ -1,5 +1,6 @@
 import Modal from "./Modal";
-import { AiOutlineClose } from "react-icons/ai";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import tabApi from "apis/tabApi";
 
 export default function TabModal({
@@ -57,7 +58,8 @@ export default function TabModal({
     <div>
       <Modal closeModal={closeModalAndResetContent}>
         <form className="modal__inputs" onSubmit={submitForm}>
-          <AiOutlineClose
+          <FontAwesomeIcon
+            icon={faXmark}
             color="red"
             className="modal__cancel"
             onClick={closeModal}

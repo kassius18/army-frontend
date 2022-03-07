@@ -5,10 +5,10 @@ import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState } from "react";
 import ProtocolTable from "tables/protocol/ProtocolTable";
 import RequestTable from "tables/request/RequestTable";
-import { AiOutlineDown } from "react-icons/ai";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { DELETE_ACTIONS } from "modals/DeleteModal";
 import uuid from "react-uuid";
-import { IoMdAdd } from "react-icons/io";
 function Request({ request, requestActions, modalActions }) {
   const entries = request.entries;
 
@@ -141,7 +141,8 @@ function Request({ request, requestActions, modalActions }) {
             ) : null}
           </div>
         </div>
-        <AiOutlineDown
+        <FontAwesomeIcon
+          icon={faAngleDown}
           className="table__button"
           onClick={toggleRequestVisibility}
         />
@@ -177,7 +178,11 @@ function Request({ request, requestActions, modalActions }) {
               <span>{request.day}</span>
             </div>
           </div>
-          <IoMdAdd className="table__button addRow" onClick={openModal} />
+          <FontAwesomeIcon
+            icon={faPlus}
+            className="table__button addRow"
+            onClick={openModal}
+          />
           <button onClick={handlePrintRequest}>Αποθήκευση Αίτησης</button>
           <button onClick={handlePrintProtocol}>Αποθήκευση Πρωτόκολλου</button>
           <button onClick={openDeleteModal}>Διαγραφή Αίτησης</button>

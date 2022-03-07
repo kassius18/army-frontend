@@ -1,5 +1,6 @@
 import Modal from "./Modal";
-import { AiOutlineClose } from "react-icons/ai";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import uuid from "react-uuid";
 import entryApi from "apis/entryApi";
 import { useContext } from "react";
@@ -73,7 +74,8 @@ function EntryModal({
     <div>
       <Modal closeModal={closeModalAndResetContent}>
         <form className="modal__inputs" onSubmit={submitForm} id="entry__form">
-          <AiOutlineClose
+          <FontAwesomeIcon
+            icon={faXmark}
             style={{ color: "red" }}
             className="modal__cancel"
             onClick={closeModal}

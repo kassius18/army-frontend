@@ -84,6 +84,8 @@ function ListRequests() {
 
   return (
     <>
+      <button onClick={handlePrintRequests}>Print all requests</button>
+      <button onClick={handlePrintProtocols}>Print all protocols</button>
       <div className="request-list">
         {requests.map((request) => {
           return (
@@ -96,8 +98,6 @@ function ListRequests() {
           );
         })}
       </div>
-      <button onClick={handlePrintRequests}>Print all requests</button>
-      <button onClick={handlePrintProtocols}>Print all protocols</button>
       <ModalWrapper modal={modal} modalActions={modalActions} />
       <div
         style={{

@@ -8,8 +8,8 @@
 
 .table {
   &__button {
-    font-size: 2rem;
-    color: red;
+    font-size: 1.5rem;
+    color: #3d9970;
     cursor: pointer;
   }
 
@@ -25,7 +25,7 @@
 .request {
   padding: 2rem;
   width: 100%;
-  font-size: 1.5rem;
+  font-size: 1rem;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
 
@@ -35,12 +35,12 @@
     display: flex;
 
     &:hover {
-      color: red;
+      color: #3d9970;
     }
   }
 
   &-wrapper {
-    border: 3px solid red;
+    border: 3px solid #3d9970;
     border-bottom: none;
     transition: all 0.4s ease-in-out;
     transition: max-height 0.4s ease-in-out;
@@ -55,7 +55,7 @@
     grid-gap: 1rem;
     padding: 2rem;
     &-wrapper {
-      border: 3px solid red;
+      border: 3px solid #3d9970;
       border-top: none;
       padding-bottom: 1rem;
       margin-bottom: 4rem;
@@ -106,7 +106,9 @@
 
   &__header {
     display: contents;
-    font-size: 2rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: grey;
 
     & > div {
       padding: 0 1rem;
@@ -146,7 +148,7 @@
 .grid-border-line {
   grid-column: 1 / -1;
   height: 0;
-  border-top: 3px solid red;
+  border-top: 3px solid #3d9970;
   margin: 1rem 0;
 }
 
@@ -156,7 +158,7 @@
   margin: 0;
   padding: 0;
   border-bottom: none;
-  // border-top: 3px solid red;
+  // border-top: 3px solid #3D9970 ;
 }
 
 @media all {

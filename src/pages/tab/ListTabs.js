@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useReducer, useContext } from "react";
-import Tab from "pages/tab/Tab";
+import Tab from "pages/tab/components/Tab";
 import tabApi from "apis/tabApi";
 import { AppContext } from "context/AppContext";
 import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 import ModalWrapper from "modals/ModalWrapper";
 
-function AllTabs() {
+function ListTabs() {
   const { setHasChanged } = useContext(AppContext);
   const [tabs, setTabs] = useState([]);
   const [modal, modalDispatch] = useReducer(modalReducer, "");
@@ -65,4 +65,4 @@ function AllTabs() {
   );
 }
 
-export default AllTabs;
+export default ListTabs;

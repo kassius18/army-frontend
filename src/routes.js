@@ -1,10 +1,10 @@
 import MainLayout from "./layouts/MainLayout";
-import GetRequests from "./pages/request/components/GetRequests";
-import NewRequest from "./pages/request/components/NewRequest";
-import ListRequests from "./pages/request/components/ListRequests";
-import Vehicle from "pages/vehicle/Vehicle";
-import OneVehicle from "pages/vehicle/components/OneVehicle";
-import AllTabs from "pages/tab/AllTabs";
+import GetRequests from "./pages/request/GetRequests";
+import NewRequest from "./pages/request/NewRequest";
+import ListRequests from "./pages/request/ListRequests";
+import ListVehicles from "pages/vehicle/ListVehicles";
+import OneVehicle from "pages/vehicle/OneVehicle";
+import ListTabs from "pages/tab/ListTabs";
 import OneTab from "pages/tab/OneTab";
 
 const routes = [
@@ -17,10 +17,10 @@ const routes = [
       { path: "requests/:phi/:year", element: <ListRequests /> },
       { path: "requests/list", element: <ListRequests /> },
 
-      { path: "tabs", element: <AllTabs /> },
+      { path: "tabs", element: <ListTabs /> },
       { path: "tabs/:id", element: <OneTab /> },
 
-      { path: "vehicles", element: <Vehicle /> },
+      { path: "vehicles", element: <ListVehicles /> },
       { path: "vehicles/:id", element: <OneVehicle /> },
     ],
   },

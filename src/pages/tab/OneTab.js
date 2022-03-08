@@ -8,7 +8,7 @@ import React, {
 import { AppContext } from "context/AppContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { DELETE_ACTIONS } from "modals/DeleteModal";
-import PartRow from "./PartRow";
+import PartRow from "./components/PartRow";
 import TabTable from "tables/tab/TabTable";
 import { useReactToPrint } from "react-to-print";
 import ModalWrapper from "modals/ModalWrapper";
@@ -18,7 +18,7 @@ import { filterReducer, filterDispatchMap } from "reducers/filterReducer";
 import tabApi from "apis/tabApi";
 import uuid from "react-uuid";
 
-export default function OneTab() {
+function OneTab() {
   const { setHasChanged } = useContext(AppContext);
   const navigate = useNavigate();
   const tabRef = useRef();
@@ -172,3 +172,4 @@ export default function OneTab() {
     </div>
   );
 }
+export default OneTab;

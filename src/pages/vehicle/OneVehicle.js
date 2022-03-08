@@ -5,7 +5,7 @@ import { DELETE_ACTIONS } from "modals/DeleteModal";
 import ModalWrapper from "modals/ModalWrapper";
 import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 
-export default function OneVehicle() {
+function OneVehicle() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { setHasChanged } = useContext(AppContext);
@@ -53,3 +53,4 @@ export default function OneVehicle() {
     </div>
   );
 }
+export default OneVehicle;

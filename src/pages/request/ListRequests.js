@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import ModalWrapper from "modals/ModalWrapper";
-import Request from "../Request";
+import Request from "./components/Request";
 import { useEffect, useRef, useState, useReducer } from "react";
 import { useReactToPrint } from "react-to-print";
 import ProtocolTable from "tables/protocol/ProtocolTable";

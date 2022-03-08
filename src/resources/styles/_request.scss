@@ -47,6 +47,10 @@
     transition: max-height 0.4s ease-in-out;
     max-height: 600px;
     overflow-y: scroll;
+
+    &.hidden {
+      overflow-y: scroll;
+    }
   }
 
   &__body {

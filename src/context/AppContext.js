@@ -4,7 +4,7 @@ import vehicleApi from "apis/vehicleApi";
 
 export const AppContext = createContext();
 
-export default function Context({ children }) {
+function Context({ children }) {
   const [vehicles, setVehicles] = useState([]);
   const [tabs, setTabs] = useState([]);
   const [hasChanged, setHasChanged] = useState(true);
@@ -62,3 +62,4 @@ export default function Context({ children }) {
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;
 }
+export default AppContext;

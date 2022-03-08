@@ -1,6 +1,5 @@
 import requestApi from "apis/requestApi";
 import { useNavigate, useLocation } from "react-router-dom";
-import "./getRequests.scss";
 import { useEffect, useState, useReducer } from "react";
 import ModalWrapper from "modals/ModalWrapper";
 import { modalReducer, modalDispatchMap } from "reducers/modalReducer";

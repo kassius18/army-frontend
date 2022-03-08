@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import tabApi from "apis/tabApi";
 
-export default function TabModal({
+function TabModal({
   closeModal,
   addTab,
   editTab,
@@ -132,3 +132,4 @@ export default function TabModal({
     </div>
   );
 }
+export default TabModal;

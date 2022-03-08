@@ -5,7 +5,7 @@ import { AppContext } from "context/AppContext";
 import ModalWrapper from "modals/ModalWrapper";
 import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 
-export default function Vehicle() {
+function ListVehicles() {
   const navigate = useNavigate();
   const { setHasChanged } = useContext(AppContext);
 
@@ -87,3 +87,4 @@ export default function Vehicle() {
     </>
   );
 }
+export default ListVehicles;

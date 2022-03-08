@@ -3,7 +3,7 @@ import vehicleApi from "apis/vehicleApi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-export default function VehicleModal({
+function VehicleModal({
   closeModal,
   addVehicle,
   editVehicle,
@@ -104,3 +104,4 @@ export default function VehicleModal({
     </div>
   );
 }
+export default VehicleModal;

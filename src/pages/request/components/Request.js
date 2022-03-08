@@ -1,5 +1,5 @@
-import RequestHeader from "./components/RequestHeader";
-import RequestBody from "./components/RequestBody";
+import RequestHeader from "./RequestHeader";
+import RequestBody from "./RequestBody";
 import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState } from "react";
 import ProtocolTable from "tables/protocol/ProtocolTable";

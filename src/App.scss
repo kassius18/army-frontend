@@ -1,10 +1,16 @@
+@use "resources/styles/_mainLayout";
+@use "resources/styles/_modal";
+@use "resources/styles/_protocol_table_structure";
+@use "resources/styles/_request_table_structure";
+@use "resources/styles/_request";
+@use "resources/styles/_tab_table_structure";
+@use "resources/styles/_tab";
+@use "resources/styles/_vehicle";
+
 .App {
   text-align: center;
   background-color: black;
   color: white;
-}
-
-.App-header {
 }
 
 .App-link {

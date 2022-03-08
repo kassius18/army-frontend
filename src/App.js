@@ -1,4 +1,4 @@
-import "./App.scss";
+import "App.scss";
 import { useRoutes } from "react-router-dom";
 import routes from "./routes";
 import Context from "context/AppContext";

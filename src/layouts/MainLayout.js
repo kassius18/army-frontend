@@ -1,4 +1,3 @@
-import "./mainLayout.scss";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
 import { AppContext } from "context/AppContext";

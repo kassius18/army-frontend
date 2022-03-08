@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./tab.scss";
 
 function Tab({ tab }) {
   const navigate = useNavigate();

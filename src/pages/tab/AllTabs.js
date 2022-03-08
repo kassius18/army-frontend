@@ -2,7 +2,6 @@ import React, { useState, useEffect, useReducer, useContext } from "react";
 import Tab from "pages/tab/Tab";
 import tabApi from "apis/tabApi";
 import { AppContext } from "context/AppContext";
-import "./tab.scss";
 import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 import ModalWrapper from "modals/ModalWrapper";
 

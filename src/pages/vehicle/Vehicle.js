@@ -1,7 +1,6 @@
 import { useEffect, useState, useReducer, useContext } from "react";
 import { useNavigate } from "react-router";
 import vehicleApi from "apis/vehicleApi";
-import "./vehicle.scss";
 import { AppContext } from "context/AppContext";
 import ModalWrapper from "modals/ModalWrapper";
 import { modalReducer, modalDispatchMap } from "reducers/modalReducer";

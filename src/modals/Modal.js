@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
-import "./modal.scss";
-
 function Modal({ closeModal, children }) {
   const portalDiv = document.getElementById("modal-root");
   const modalRef = useRef();

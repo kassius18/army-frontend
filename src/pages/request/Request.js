@@ -1,4 +1,3 @@
-import "./request.scss";
 import RequestHeader from "./components/RequestHeader";
 import RequestBody from "./components/RequestBody";
 import { useReactToPrint } from "react-to-print";

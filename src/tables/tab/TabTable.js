@@ -1,6 +1,4 @@
 import React from "react";
-import "./table_structure.scss";
-
 import TableFooter from "./TableFooter";
 import TableRow from "./TableRow";
 import TableRowWithEnd from "./TableRowWithEnd";

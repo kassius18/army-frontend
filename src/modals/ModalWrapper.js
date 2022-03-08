@@ -2,7 +2,7 @@ import React from "react";
 import RequestModal from "modals/RequestModal";
 import EntryModal from "modals/EntryModal";
 import PartRecievedModal from "modals/PartRecievedModal";
-import VehicleModal from "modals/vehicle/VehicleModal";
+import VehicleModal from "modals/VehicleModal";
 import TabModal from "modals/TabModal";
 import ApiErrorModal from "modals/ApiErrorModal";
 import DeleteModal from "modals/DeleteModal";

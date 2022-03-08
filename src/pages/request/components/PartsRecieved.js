@@ -9,10 +9,7 @@ function PartsRecieved({
   modalActions,
 }) {
   return (
-    <div
-      className="parts-recieved"
-      style={{ height: isHidden ? "0" : (parts.length + 2) * 60 }}
-    >
+    <div className={"parts-recieved" + (isHidden ? " hidden" : "")}>
       <PartsRecievedHeader />
       <PartsRecievedBody
         parts={parts}

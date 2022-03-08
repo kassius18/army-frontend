@@ -4,10 +4,12 @@
   height: 100%;
 
   &__view {
-    margin: 0 auto;
     width: 60%;
-    margin-top: 7rem;
+    & div:first-child {
+      font-size: 2rem;
+    }
   }
+
   &__list {
     display: grid;
     grid-template-columns: repeat(5, 1fr);

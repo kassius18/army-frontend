@@ -53,7 +53,7 @@ export default function OnePartRecieved({
         >
           <FontAwesomeIcon
             icon={faPencil}
-            style={{ fontSize: "2rem", fill: "red", cursor: "pointer" }}
+            className="table__button"
             onClick={editClickedPart}
           />
           <FontAwesomeIcon

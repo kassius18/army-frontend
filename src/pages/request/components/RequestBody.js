@@ -1,6 +1,6 @@
 import Entry from "./Entry";
 
-function RequestBody({ entries, requestActions, request, modalActions }) {
+function RequestBody({ entries, requestActions, modalActions }) {
   return (
     <>
       {entries.map((entry) => {

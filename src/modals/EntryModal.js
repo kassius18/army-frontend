@@ -61,7 +61,7 @@ function EntryModal({
       reasonOfOrder: event.target.reasonOfOrder.value,
       priorityOfOrder: parseInt(event.target.priorityOfOrder.value),
       consumableId: event.target.consumableId.value,
-      observations: event.target.observations.value,
+      observations: parseInt(event.target.observations.value),
     };
     if (Object.keys(initialValues).length === 0) {
       createEntry(newEntry, request);
@@ -169,10 +169,9 @@ function EntryModal({
             />
           </div>
           <div className="modal__input">
-            <label htmlFor="observations">Όχήμα</label>
+            <label htmlFor="observations">Όχημα</label>
             <select
               name="observations"
-              type="text"
               defaultValue={
                 Object.keys(initialValues).length !== 0
                   ? initialValues.observations
@@ -181,7 +180,7 @@ function EntryModal({
             >
               {vehicles.map((vehicle) => {
                 return (
-                  <option key={vehicle.id} value={vehicles.plate}>
+                  <option key={vehicle.id} value={vehicles.id}>
                     {vehicle.plate}
                   </option>
                 );
@@ -193,7 +192,6 @@ function EntryModal({
             <label htmlFor="consumableId">Καρτέλα</label>
             <select
               name="consumableId"
-              type="text"
               defaultValue={
                 Object.keys(initialValues).length !== 0
                   ? initialValues.consumableId

@@ -82,6 +82,8 @@ function ListRequests() {
     },
   });
 
+  console.log("requst is", requests);
+
   return (
     <>
       <button onClick={handlePrintRequests}>Print all requests</button>

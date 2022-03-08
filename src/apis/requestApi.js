@@ -143,7 +143,7 @@ const requestApi = {
       .get(url, {
         params: {
           findBy: "phi",
-          phi: phi,
+          phi,
         },
       })
       .then((response) => {
@@ -175,7 +175,7 @@ const requestApi = {
       .get(url, {
         params: {
           findBy: "phi-year",
-          phi: phi,
+          phi,
           year: year,
         },
       })
@@ -240,6 +240,36 @@ const requestApi = {
       });
   },
 
-  //
+  async getRequestByVehicle(vehicleId) {
+    return axios
+      .get(url, {
+        params: {
+          findBy: "vehicle",
+          vehicleId,
+        },
+      })
+      .then((response) => {
+        return { success: true, requests: response.data };
+      })
+      .catch((error) => {
+        if (error.response) {
+          return {
+            success: false,
+            error: {
+              message: error.response.data,
+              code: error.response.status,
+            },
+          };
+        } else if (error.request) {
+          return {
+            success: false,
+            error: {
+              message: "server might be down or url not exist",
+              code: 0,
+            },
+          };
+        }
+      });
+  },
 };
 export default requestApi;

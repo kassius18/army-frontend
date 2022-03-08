@@ -8,9 +8,10 @@
 
 .table {
   &__button {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: #3d9970;
     cursor: pointer;
+    margin: 0.2rem;
   }
 
   &__hidden {
@@ -50,7 +51,7 @@
 
   &__body {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     font-size: 1.5rem;
     grid-gap: 1rem;
     padding: 2rem;
@@ -65,9 +66,6 @@
   &__data {
     margin-right: 2.5rem;
     font-size: 1.5rem;
-    & > .firstPartOfPhi {
-      margin: 0 2rem;
-    }
     & > input {
       height: 2rem;
     }
@@ -134,14 +132,37 @@
   grid-column: span 10;
   display: grid;
   grid-template-columns: repeat(7, 1fr) 0.2fr;
-  margin: 0 4rem;
+  margin: 1rem 4rem;
   background-color: white;
   color: black;
-  transition: height 0.4s ease-in-out;
+  transition: max-height 0.4s ease-in-out, margin 0.4s 0.4s;
   overflow: hidden;
+  max-height: 500px;
+  overflow-y: scroll;
+
+  &.hidden {
+    margin: 0 4rem;
+    overflow-y: scroll;
+  }
 
   &__header {
     display: contents;
+    > div {
+      vertical-align: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-left: 1rem;
+      padding: 1rem 0;
+    }
+  }
+
+  &__row {
+    > div {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-direction: column;
+    }
   }
 }
 
@@ -158,7 +179,6 @@
   margin: 0;
   padding: 0;
   border-bottom: none;
-  // border-top: 3px solid #3D9970 ;
 }
 
 @media all {

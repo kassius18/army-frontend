@@ -3,6 +3,8 @@ import Modal from "./Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { useContext } from "react";
+import { AppContext } from "context/AppContext";
 
 function RequestModal({
   closeModal,
@@ -12,6 +14,7 @@ function RequestModal({
   modalActions,
 }) {
   const [feedback, setFeedback] = useState(false);
+  const { vehicles } = useContext(AppContext);
 
   const createRequest = (newRequest) => {
     modalActions.openLoadingModal();
@@ -62,6 +65,7 @@ function RequestModal({
       year: parseInt(e.target.year.value),
       month: parseInt(e.target.month.value),
       day: parseInt(e.target.day.value),
+      vehicleId: parseInt(e.target.vehicleId.value),
     };
     if (Object.keys(initialValues).length === 0) {
       createRequest(newRequest);
@@ -154,6 +158,26 @@ function RequestModal({
                     : undefined
                 }
               />
+            </div>
+            <div className="modal__input">
+              <label htmlFor="vehicleId">Όχημα</label>
+              <select
+                name="vehicleId"
+                defaultValue={
+                  Object.keys(initialValues).length !== 0
+                    ? initialValues.vehicleId
+                    : ""
+                }
+              >
+                {vehicles.map((vehicle) => {
+                  return (
+                    <option key={vehicle.id} value={vehicles.id}>
+                      {vehicle.plate}
+                    </option>
+                  );
+                })}
+                <option value="">none</option>
+              </select>
             </div>
           </div>
           <button type="submit" className="modal__button" form="requestForm">

@@ -4,6 +4,8 @@ import "./getRequests.scss";
 import { useEffect, useState, useReducer } from "react";
 import ModalWrapper from "modals/ModalWrapper";
 import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
+import { useContext } from "react";
+import { AppContext } from "context/AppContext";
 
 function GetRequests() {
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ function GetRequests() {
   const { state } = useLocation();
   const [modal, modalDispatch] = useReducer(modalReducer, "");
   const modalActions = modalDispatchMap(modalDispatch);
+  const { vehicles } = useContext(AppContext);
 
   const findByPhiYear = (event) => {
     event.preventDefault();
@@ -21,6 +24,21 @@ function GetRequests() {
       if (response.success) {
         if (Object.keys(response.requests).length) {
           navigate("/requests/list", { state: [response.requests] });
+        }
+      } else {
+        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
+      }
+    });
+  };
+
+  const findByVehicle = (event) => {
+    event.preventDefault();
+    const vehicleId = parseInt(event.target.vehicleId.value) || null;
+
+    requestApi.getRequestByVehicle(vehicleId).then((response) => {
+      if (response.success) {
+        if (Object.keys(response.requests).length) {
+          navigate("/requests/list", { state: response.requests });
         }
       } else {
         modalActions.openApiErrorModal(modalActions.closeModal, response.error);
@@ -126,7 +144,29 @@ function GetRequests() {
           </form>
         );
         break;
-
+      case "vehicle":
+        setContent(
+          <form
+            onSubmit={findByVehicle}
+            className={"requests--byVehicle"}
+            id={"requests--byVehicle"}
+          >
+            <h1>Αναζήτηση με Όχημα</h1>
+            <label htmlFor="vehicleId">Όχημα</label>
+            <select name="vehicleId" defaultValue="">
+              {vehicles.map((vehicle) => {
+                return (
+                  <option key={vehicle.id} value={vehicles.id}>
+                    {vehicle.plate}
+                  </option>
+                );
+              })}
+              <option value="">none</option>
+            </select>
+            <button type="submit">Αναζήτηση</button>
+          </form>
+        );
+        break;
       default:
         break;
     }

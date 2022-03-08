@@ -20,8 +20,13 @@ export const MODALS = {
 };
 
 function ModalWrapper({ modal, modalActions }) {
+  const mainContent = document.querySelector("#portal");
+  const height = mainContent.scrollTop;
   if (!modal.isOpen) {
+    mainContent.style.overflowY = "scroll";
     return null;
+  } else {
+    mainContent.style.overflowY = "hidden";
   }
 
   switch (modal.modalContent) {
@@ -88,7 +93,7 @@ function ModalWrapper({ modal, modalActions }) {
         />
       );
     case MODALS.LOADING_MODAL:
-      return <LoadingModal portalId={modal.portalId} />;
+      return <LoadingModal portalId={modal.portalId} height={height} />;
     case MODALS.ERROR_MODAL:
       return (
         <ApiErrorModal closeModal={modal.closeModal} error={modal.error} />

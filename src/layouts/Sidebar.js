@@ -35,26 +35,26 @@ function Sidebar() {
       <div className="sidebar__title">96 ΤΜΧΕΘ</div>
       <nav className="sidebar__navbar">
         <div className="sidebar__request">
-          <a onClick={toggleRequestMenu} className="dropdown-button">
+          <button onClick={toggleRequestMenu} className="dropdown-button link">
             <div className="left">
               <FontAwesomeIcon icon={faFileInvoice} />
               <span>Αiτήσεις</span>
             </div>
             <FontAwesomeIcon icon={faCaretDown} />
-          </a>
+          </button>
           <RequestDropdown
             isFindOpen={isFindOpen}
             isOpen={isRequestOpen}
             toggleFindMenu={toggleFindMenu}
           />
         </div>
-        <NavLink to="/tabs">
+        <NavLink to="/tabs" className="link">
           <div className="left">
             <FontAwesomeIcon icon={faClipboardList} />
             <span>Καρτελες</span>
           </div>
         </NavLink>
-        <NavLink to="/vehicles">
+        <NavLink to="/vehicles" className="link">
           <div className="left">
             <FontAwesomeIcon icon={faCar} />
             <span>Οχήματα</span>

@@ -97,7 +97,6 @@ function PartRecievedModal({
               "-" +
               event.target.yearUsed.value
             : "",
-        amountUsed: parseInt(event.target.amountUsed.value) || "",
       };
       if (Object.keys(initialValues).length === 0) {
         createPart(newPart, entryId);
@@ -162,7 +161,7 @@ function PartRecievedModal({
               type="number"
               defaultValue={
                 initialValues.amountRecieved !== undefined
-                  ? initialValues.amountRecieved
+                  ? parseInt(initialValues.amountRecieved)
                   : ""
               }
             />

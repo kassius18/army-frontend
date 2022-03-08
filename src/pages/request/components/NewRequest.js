@@ -16,7 +16,7 @@ function NewRequest() {
         state: [request],
       });
     }
-  }, [request]);
+  }, [request, navigate]);
 
   const openModal = () => {
     modalActions.openRequestModal(

@@ -22,16 +22,28 @@ function AllTabs() {
   };
 
   useEffect(() => {
+    const modalActions = modalDispatchMap(modalDispatch);
+    let isMounted = true;
     modalActions.openLoadingModal();
     tabApi.getAllTabs().then((response) => {
       if (response.success === true) {
-        setTabs(response.tabs);
-        modalActions.closeModal();
+        if (isMounted) {
+          setTabs(response.tabs);
+          modalActions.closeModal();
+        }
       } else {
-        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
-        setTabs([]);
+        if (isMounted) {
+          modalActions.openApiErrorModal(
+            modalActions.closeModal,
+            response.error
+          );
+          setTabs([]);
+        }
       }
     });
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

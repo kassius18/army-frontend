@@ -6,10 +6,15 @@ import React, { useContext, useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
 function MainLayout() {
-  const { isFailure, isLoading, setHasChanged } = useContext(AppContext);
+  const context = useContext(AppContext);
+  const { isFailure, isLoading } = context;
   const [content, setContent] = useState(null);
 
   useEffect(() => {
+    const { setHasChanged } = context;
+    const retryLoadingData = () => {
+      setHasChanged(true);
+    };
     if (isFailure) {
       setContent(
         <div className="error-screen">
@@ -26,11 +31,7 @@ function MainLayout() {
     } else {
       setContent(<Outlet />);
     }
-  }, [isLoading, isFailure]);
-
-  const retryLoadingData = () => {
-    setHasChanged(true);
-  };
+  }, [isLoading, isFailure, context]);
 
   return (
     <div className="main-layout">

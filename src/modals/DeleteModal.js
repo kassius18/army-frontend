@@ -71,7 +71,6 @@ function DeleteModal({
             );
           }
         });
-
       case DELETE_ACTIONS.DELETE_TAB:
         return tabApi.deleteTab(id).then((response) => {
           if (response.success === true) {
@@ -84,7 +83,6 @@ function DeleteModal({
             );
           }
         });
-
       case DELETE_ACTIONS.DELETE_VEHICLE:
         return vehicleApi.deleteVehicle(id).then((response) => {
           if (response.success === true) {
@@ -97,6 +95,8 @@ function DeleteModal({
             );
           }
         });
+      default:
+        return null;
     }
   };
 

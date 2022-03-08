@@ -29,16 +29,28 @@ export default function Vehicle() {
   };
 
   useEffect(() => {
+    let isMounted = true;
+    const modalActions = modalDispatchMap(modalDispatch);
     modalActions.openLoadingModal();
     vehicleApi.getAllVehicles().then((response) => {
       if (response.success === true) {
-        setVehicles(response.vehicles);
-        modalActions.closeModal("portal");
+        if (isMounted) {
+          setVehicles(response.vehicles);
+          modalActions.closeModal("portal");
+        }
       } else {
-        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
-        setVehicles([]);
+        if (isMounted) {
+          modalActions.openApiErrorModal(
+            modalActions.closeModal,
+            response.error
+          );
+          setVehicles([]);
+        }
       }
     });
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const navigateToVehicle = (vehicle) => {

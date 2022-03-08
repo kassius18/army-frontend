@@ -15,55 +15,80 @@ function GetRequests() {
   const modalActions = modalDispatchMap(modalDispatch);
   const { vehicles } = useContext(AppContext);
 
-  const findByPhiYear = (event) => {
-    event.preventDefault();
-    const year = parseInt(event.target.year.value) || null;
-    const phi = parseInt(event.target.phi.value) || null;
+  useEffect(() => {
+    const modalActions = modalDispatchMap(modalDispatch);
+    const findByPhiYear = (event) => {
+      event.preventDefault();
+      const year = parseInt(event.target.year.value) || null;
+      const phi = parseInt(event.target.phi.value) || null;
 
-    requestApi.getRequestByPhiYear(year, phi).then((response) => {
-      if (response.success) {
-        if (Object.keys(response.requests).length) {
-          navigate("/requests/list", { state: [response.requests] });
+      requestApi.getRequestByPhiYear(year, phi).then((response) => {
+        if (response.success) {
+          if (Object.keys(response.requests).length) {
+            navigate("/requests/list", { state: [response.requests] });
+          }
+        } else {
+          modalActions.openApiErrorModal(
+            modalActions.closeModal,
+            response.error
+          );
         }
-      } else {
-        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
-      }
-    });
-  };
+      });
+    };
 
-  const findByVehicle = (event) => {
-    event.preventDefault();
-    const vehicleId = parseInt(event.target.vehicleId.value) || null;
+    const findByVehicle = (event) => {
+      event.preventDefault();
+      const vehicleId = parseInt(event.target.vehicleId.value) || null;
 
-    requestApi.getRequestByVehicle(vehicleId).then((response) => {
-      if (response.success) {
-        if (Object.keys(response.requests).length) {
-          navigate("/requests/list", { state: response.requests });
+      requestApi.getRequestByVehicle(vehicleId).then((response) => {
+        if (response.success) {
+          if (Object.keys(response.requests).length) {
+            navigate("/requests/list", { state: response.requests });
+          }
+        } else {
+          modalActions.openApiErrorModal(
+            modalActions.closeModal,
+            response.error
+          );
         }
-      } else {
-        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
-      }
-    });
-  };
+      });
+    };
 
-  const findByDate = (event) => {
-    event.preventDefault();
-    const getHttpRequestParams = {};
-    getHttpRequestParams.startYear =
-      parseInt(event.target.startYear.value) || parseInt(0);
-    getHttpRequestParams.startMonth =
-      parseInt(event.target.startMonth.value) || null;
-    getHttpRequestParams.startDay =
-      parseInt(event.target.startDay.value) || null;
-    getHttpRequestParams.endYear = parseInt(event.target.endYear.value) || null;
-    getHttpRequestParams.endMonth =
-      parseInt(event.target.endMonth.value) || null;
-    getHttpRequestParams.endDay = parseInt(event.target.endDay.value) || null;
-    getHttpRequestParams.findBy = "date";
+    const findByDate = (event) => {
+      event.preventDefault();
+      const getHttpRequestParams = {};
+      getHttpRequestParams.startYear =
+        parseInt(event.target.startYear.value) || parseInt(0);
+      getHttpRequestParams.startMonth =
+        parseInt(event.target.startMonth.value) || null;
+      getHttpRequestParams.startDay =
+        parseInt(event.target.startDay.value) || null;
+      getHttpRequestParams.endYear =
+        parseInt(event.target.endYear.value) || null;
+      getHttpRequestParams.endMonth =
+        parseInt(event.target.endMonth.value) || null;
+      getHttpRequestParams.endDay = parseInt(event.target.endDay.value) || null;
+      getHttpRequestParams.findBy = "date";
 
-    requestApi
-      .getRequestByDateInterval(getHttpRequestParams)
-      .then((response) => {
+      requestApi
+        .getRequestByDateInterval(getHttpRequestParams)
+        .then((response) => {
+          if (response.success) {
+            navigate("/requests/list", { state: response.requests });
+          } else {
+            modalActions.openApiErrorModal(
+              modalActions.closeModal,
+              response.error
+            );
+          }
+        });
+    };
+
+    const findByPhi = (event) => {
+      event.preventDefault();
+      const firstPartOfPhi = parseInt(event.target.firstPartOfPhi.value);
+
+      requestApi.getRequestByPhi(firstPartOfPhi).then((response) => {
         if (response.success) {
           navigate("/requests/list", { state: response.requests });
         } else {
@@ -73,22 +98,7 @@ function GetRequests() {
           );
         }
       });
-  };
-
-  const findByPhi = (event) => {
-    event.preventDefault();
-    const firstPartOfPhi = parseInt(event.target.firstPartOfPhi.value);
-
-    requestApi.getRequestByPhi(firstPartOfPhi).then((response) => {
-      if (response.success) {
-        navigate("/requests/list", { state: response.requests });
-      } else {
-        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
-      }
-    });
-  };
-
-  useEffect(() => {
+    };
     switch (state.findBy) {
       case "phi":
         setContent(
@@ -170,7 +180,7 @@ function GetRequests() {
       default:
         break;
     }
-  }, [state]);
+  }, [state, navigate, vehicles]);
 
   return (
     <>

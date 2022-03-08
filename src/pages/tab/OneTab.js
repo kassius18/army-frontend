@@ -36,7 +36,6 @@ export default function OneTab() {
     minValue: "",
     maxValue: "",
   });
-  const tabActions = tabDispatchMap(tabDispatch);
   const modalActions = modalDispatchMap(modalDispatch);
   const filterActions = filterDispatchMap(filterDispatch);
 
@@ -51,16 +50,18 @@ export default function OneTab() {
   };
 
   useEffect(() => {
+    const tabActions = tabDispatchMap(tabDispatch);
     tabApi.getPartsByTabId(tab.id).then((response) => {
       tabActions.setParts(response.parts);
     });
-  }, []);
+  }, [tab.id]);
 
   useEffect(() => {
+    const filterActions = filterDispatchMap(filterDispatch);
     if (tab.parts.length) {
       filterActions.setFilteredArray(tab.parts);
     }
-  }, [tab]);
+  }, [tab, filterActions]);
 
   useEffect(() => {
     if (print.resolve) {

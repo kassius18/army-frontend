@@ -12,17 +12,17 @@ function RequestDropdown({ isOpen, isFindOpen, toggleFindMenu }) {
   return (
     <ul className={"dropdown-list" + (isOpen ? "" : " hidden")}>
       <li>
-        <a className="dropdown-button" onClick={toggleFindMenu}>
+        <button className="dropdown-button link" onClick={toggleFindMenu}>
           <div className="left">
             <FontAwesomeIcon icon={faMagnifyingGlass} />
             <span>Αναζήτηση</span>
           </div>
           <FontAwesomeIcon icon={faCaretDown} />
-        </a>
+        </button>
         <FindDropdown isOpen={isFindOpen} />
       </li>
       <li>
-        <NavLink to="/requests/new">
+        <NavLink to="/requests/new" className="link">
           <div className="left">
             <FontAwesomeIcon icon={faFolderPlus} />
             <span>Καινούργια</span>

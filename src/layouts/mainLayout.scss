@@ -69,9 +69,14 @@ body {
   }
 
   .dropdown-button {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    &.link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      border: none;
+      background: inherit;
+    }
   }
 
   .dropdown-list {
@@ -80,7 +85,7 @@ body {
     display: block;
 
     &.sublist {
-      a {
+      .link {
         margin: 0;
         padding: 0;
         text-align: left;
@@ -108,7 +113,7 @@ body {
     }
   }
 
-  a {
+  .link {
     text-decoration: none;
     padding: 2rem;
     font-size: 1rem;

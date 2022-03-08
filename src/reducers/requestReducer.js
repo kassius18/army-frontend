@@ -48,9 +48,7 @@ export const requestsReducer = (requests, action) => {
   switch (action.type) {
     case ACTIONS.DELETE_REQUEST:
       return requests.filter((request) => {
-        if (request.id !== action.payload.requestId) {
-          return request;
-        }
+        return request.id !== action.payload.requestId;
       });
     case ACTIONS.EDIT_REQUEST:
       return requests.map((request) => {

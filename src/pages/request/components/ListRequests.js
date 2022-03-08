@@ -37,7 +37,7 @@ function ListRequests() {
     if (location.state !== requests) {
       navigate("", { state: requests });
     }
-  }, [requests]);
+  }, [requests, navigate, location.state]);
 
   useEffect(() => {
     if (isPrintRequest.resolve) {
@@ -81,8 +81,6 @@ function ListRequests() {
       });
     },
   });
-
-  console.log("requst is", requests);
 
   return (
     <>

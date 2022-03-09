@@ -62,4 +62,4 @@ function Context({ children }) {
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;
 }
-export default AppContext;
+export default Context;

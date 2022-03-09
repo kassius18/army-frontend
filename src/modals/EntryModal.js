@@ -14,7 +14,7 @@ function EntryModal({
   request,
   modalActions,
 }) {
-  const { vehicles, tabs } = useContext(AppContext);
+  const { tabs } = useContext(AppContext);
 
   const createEntry = (newEntry, request) => {
     modalActions.openLoadingModal();
@@ -61,7 +61,6 @@ function EntryModal({
       reasonOfOrder: event.target.reasonOfOrder.value,
       priorityOfOrder: parseInt(event.target.priorityOfOrder.value),
       consumableId: event.target.consumableId.value,
-      observations: parseInt(event.target.observations.value),
     };
     if (Object.keys(initialValues).length === 0) {
       createEntry(newEntry, request);
@@ -167,26 +166,6 @@ function EntryModal({
                   : 50
               }
             />
-          </div>
-          <div className="modal__input">
-            <label htmlFor="observations">Όχημα</label>
-            <select
-              name="observations"
-              defaultValue={
-                Object.keys(initialValues).length !== 0
-                  ? initialValues.observations
-                  : ""
-              }
-            >
-              {vehicles.map((vehicle) => {
-                return (
-                  <option key={vehicle.id} value={vehicles.id}>
-                    {vehicle.plate}
-                  </option>
-                );
-              })}
-              <option value="">none</option>
-            </select>
           </div>
           <div className="modal__input">
             <label htmlFor="consumableId">Καρτέλα</label>

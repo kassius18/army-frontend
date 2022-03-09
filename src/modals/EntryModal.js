@@ -180,7 +180,7 @@ function EntryModal({
               {tabs.map((tab) => {
                 return (
                   <option key={tab.id} value={tab.id}>
-                    {tab.name}
+                    {tab.id}: {tab.name}
                   </option>
                 );
               })}

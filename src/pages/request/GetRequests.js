@@ -165,8 +165,8 @@ function GetRequests() {
             <select name="vehicleId" defaultValue="">
               {vehicles.map((vehicle) => {
                 return (
-                  <option key={vehicle.id} value={vehicles.id}>
-                    {vehicle.plate}
+                  <option key={vehicle.id} value={vehicle.id}>
+                    {vehicle.id}: {vehicle.plate}
                   </option>
                 );
               })}

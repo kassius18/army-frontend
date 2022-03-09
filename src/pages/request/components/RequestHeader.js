@@ -10,7 +10,6 @@ function RequestHeader() {
         <div>Αιτολογια</div>
         <div>Προτεραιοτητα</div>
         <div>Καρτελα</div>
-        <div>Οχήμα</div>
         <div></div>
         <div className="grid-border-line"></div>
       </div>

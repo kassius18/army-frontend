@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-function TableRow({ row }) {
+function TableRow({ row, vehicle = { plate: "" } }) {
   const rowRef = useRef(-1);
 
   const {
@@ -11,7 +11,6 @@ function TableRow({ row }) {
     unitOfOrder,
     reasonOfOrder,
     priorityOfOrder,
-    observations,
   } = row;
 
   return (
@@ -38,7 +37,7 @@ function TableRow({ row }) {
         <td>
           <br />
         </td>
-        <td> {observations} </td>
+        <td> {vehicle.plate} </td>
       </tr>
     </>
   );

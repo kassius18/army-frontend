@@ -24,7 +24,6 @@ const routes = [
       { path: "vehicles/:id", element: <OneVehicle /> },
     ],
   },
-  {},
 ];
 
 export default routes;

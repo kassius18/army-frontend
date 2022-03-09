@@ -41,6 +41,7 @@ function RequestModal({
   };
 
   const updateRequest = (newRequest, requestId) => {
+    console.log("upding request with :", newRequest, requestId);
     modalActions.openLoadingModal();
     requestApi.updateRequest(newRequest, requestId).then((response) => {
       if (response.success === true) {
@@ -171,8 +172,8 @@ function RequestModal({
               >
                 {vehicles.map((vehicle) => {
                   return (
-                    <option key={vehicle.id} value={vehicles.id}>
-                      {vehicle.plate}
+                    <option key={vehicle.id} value={vehicle.id}>
+                      {vehicle.id}: {vehicle.plate}
                     </option>
                   );
                 })}

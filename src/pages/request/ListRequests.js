@@ -34,7 +34,7 @@ function ListRequests() {
   const protocolRef = useRef();
 
   useEffect(() => {
-    if (location.state !== requests) {
+    if (JSON.stringify(location.state || []) !== JSON.stringify(requests)) {
       navigate("", { state: requests });
     }
   }, [requests, navigate, location.state]);
@@ -118,7 +118,7 @@ function ListRequests() {
                     <div>
                       <RequestTable
                         print={isPrintRequest}
-                        key={uuid()}
+                        key={request.id}
                         request={request}
                       />
                     </div>
@@ -140,7 +140,7 @@ function ListRequests() {
                     <div>
                       <ProtocolTable
                         print={isPrintProtocol}
-                        key={uuid()}
+                        key={request.id}
                         request={request}
                       />
                     </div>

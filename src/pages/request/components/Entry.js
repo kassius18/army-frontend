@@ -51,7 +51,6 @@ function Entry({ entry, requestActions, modalActions }) {
         <div>{entry.reasonOfOrder}</div>
         <div>{entry.priorityOfOrder}</div>
         <div>{entry.consumableId}</div>
-        <div>{entry.observations}</div>
         <div className="edit">
           <FontAwesomeIcon
             icon={faPencil}

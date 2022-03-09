@@ -1,11 +1,16 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 import TableFoter from "./TableFooter";
 import uuid from "react-uuid";
+import { AppContext } from "context/AppContext";
 
 function RequestTable({ print, request }) {
   const entries = request.entries || [];
+  const { vehicles } = useContext(AppContext);
+  const vehicle = vehicles.find((vehicle) => {
+    return vehicle.id === request.vehicleId;
+  });
   const tableRef = useRef(null);
 
   return (
@@ -30,8 +35,7 @@ function RequestTable({ print, request }) {
         </tbody>
         <tbody className="table__body rows">
           {entries.map((entry) => {
-            const page = 1;
-            return <TableRow row={entry} key={uuid()} page={page} />;
+            return <TableRow row={entry} key={uuid()} vehicle={vehicle} />;
           })}
         </tbody>
         <TableFoter request={request} print={print} />

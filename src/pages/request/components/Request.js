@@ -124,20 +124,12 @@ function Request({ request, requestActions, modalActions }) {
         >
           <div ref={requestRef}>
             {isPrintRequest ? (
-              <RequestTable
-                key={uuid()}
-                print={isPrintRequest}
-                request={request}
-              />
+              <RequestTable print={isPrintRequest} request={request} />
             ) : null}
           </div>
           <div ref={protocolRef}>
             {isPrintProtocol ? (
-              <ProtocolTable
-                print={isPrintProtocol}
-                key={uuid()}
-                request={request}
-              />
+              <ProtocolTable print={isPrintProtocol} request={request} />
             ) : null}
           </div>
         </div>

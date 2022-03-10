@@ -17,7 +17,6 @@ function PartRecievedModal({
   initialValues = {},
   modalActions,
 }) {
-  console.log("initialValues are", initialValues);
   const [validationPasses, setValidationPasses] = useState(true);
   const { tabs } = useContext(AppContext);
 
@@ -50,7 +49,6 @@ function PartRecievedModal({
     entryApi.updateEntry(newEntry, entryId).then((response) => {
       if (response.success === true && Object.keys(response.entries) !== 0) {
         closeModal();
-        console.log(editEntry);
         editEntry(...response.entries, entryId);
       } else {
         modalActions.openApiErrorModal(modalActions.closeModal, response.error);

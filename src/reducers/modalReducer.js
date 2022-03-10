@@ -141,7 +141,6 @@ export const modalDispatchMap = (modalDispatch) => {
       editEntry,
       initialValues = {}
     ) => {
-      console.log("inside reducer the editEntry is", editEntry);
       modalDispatch({
         type: ACTIONS.OPEN_PART_MODAL,
         payload: {

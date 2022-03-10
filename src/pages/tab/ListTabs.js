@@ -25,13 +25,11 @@ function ListTabs() {
     let isMounted = true;
     modalActions.openLoadingModal();
     tabApi.getAllTabs().then((response) => {
-      if (response.success === true) {
-        if (isMounted) {
+      if (isMounted) {
+        if (response.success === true) {
           setTabs(response.tabs);
           modalActions.closeModal();
-        }
-      } else {
-        if (isMounted) {
+        } else {
           modalActions.openApiErrorModal(
             modalActions.closeModal,
             response.error

@@ -51,9 +51,15 @@ function OneTab() {
 
   useEffect(() => {
     const tabActions = tabDispatchMap(tabDispatch);
+    let isMounted = true;
     tabApi.getPartsByTabId(tab.id).then((response) => {
-      tabActions.setParts(response.parts);
+      if (isMounted && response.success === true) {
+        tabActions.setParts(response.parts);
+      }
     });
+    return () => {
+      isMounted = false;
+    };
   }, [tab.id]);
 
   useEffect(() => {

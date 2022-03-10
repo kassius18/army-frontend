@@ -32,13 +32,11 @@ function ListVehicles() {
     const modalActions = modalDispatchMap(modalDispatch);
     modalActions.openLoadingModal();
     vehicleApi.getAllVehicles().then((response) => {
-      if (response.success === true) {
-        if (isMounted) {
+      if (isMounted) {
+        if (response.success === true) {
           setVehicles(response.vehicles);
           modalActions.closeModal("portal");
-        }
-      } else {
-        if (isMounted) {
+        } else {
           modalActions.openApiErrorModal(
             modalActions.closeModal,
             response.error

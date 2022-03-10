@@ -1,10 +1,13 @@
 .tab {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  height: 100%;
 
   &__view {
-    width: 60%;
+    width: 90%;
+    .form {
+      width: 40%;
+      margin: 0 auto;
+    }
     & div:first-child {
       font-size: 2rem;
     }
@@ -30,13 +33,17 @@
   &.header {
     font-size: 1.5rem;
     padding: 2rem 0rem;
+    overflow-x: scroll;
+    > div {
+      padding: 1rem;
+    }
   }
   &.row {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    display: contents;
 
     & > div {
       border: 1px solid darkslateblue;
+      padding: 1rem;
     }
   }
 }

@@ -4,7 +4,8 @@ import PartsRecievedBody from "./PartsRecievedBody";
 function PartsRecieved({
   parts,
   isHidden,
-  entryId,
+  entry,
+  editEntry,
   requestActions,
   modalActions,
 }) {
@@ -13,7 +14,8 @@ function PartsRecieved({
       <PartsRecievedHeader />
       <PartsRecievedBody
         parts={parts}
-        entryId={entryId}
+        entry={entry}
+        editEntry={editEntry}
         requestActions={requestActions}
         modalActions={modalActions}
       />

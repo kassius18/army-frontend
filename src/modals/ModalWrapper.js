@@ -52,13 +52,15 @@ function ModalWrapper({ modal, modalActions }) {
         />
       );
     case MODALS.PART_MODAL:
+      console.log("in the modal it is", modal.editEntry);
       return (
         <PartRecievedModal
           closeModal={modal.closeModal}
           addPart={modal.addPart}
           editPart={modal.editPart}
+          editEntry={modal.editEntry}
           initialValues={modal.initialValues}
-          entryId={modal.entryId}
+          entry={modal.entry}
           modalActions={modalActions}
         />
       );

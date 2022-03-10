@@ -115,23 +115,25 @@ function OneTab() {
 
   return (
     <div className="tab__view">
-      <label htmlFor="startingYear">Αρχικό Έτος</label>
-      <input
-        type="number"
-        value={filter.minValue}
-        onChange={assingMinYearValue}
-        id="startingYear"
-      />
-      <label htmlFor="endingYear">Τελικό Έτος</label>
-      <input
-        type="number"
-        value={filter.maxValue}
-        onChange={assingMaxYearValue}
-        id="endingYear"
-      />
-      <button onClick={handlePrintTab}>Αποθήκευση</button>
-      <button onClick={openModal}>Τροποποίηση</button>
-      <button onClick={openDeleteModal}>Διαγραφή</button>
+      <div className="form">
+        <label htmlFor="startingYear">Αρχικό Έτος</label>
+        <input
+          type="number"
+          value={filter.minValue}
+          onChange={assingMinYearValue}
+          id="startingYear"
+        />
+        <label htmlFor="endingYear">Τελικό Έτος</label>
+        <input
+          type="number"
+          value={filter.maxValue}
+          onChange={assingMaxYearValue}
+          id="endingYear"
+        />
+        <button onClick={handlePrintTab}>Αποθήκευση</button>
+        <button onClick={openModal}>Τροποποίηση</button>
+        <button onClick={openDeleteModal}>Διαγραφή</button>
+      </div>
       <div className="tab__properties">
         <div>A/A</div>
         <div>Ονομασία Υλικού</div>
@@ -153,8 +155,8 @@ function OneTab() {
         <div>ΕΞΑΓΩΓΕΣ.</div>
         <div>ΥΠΟΛΟΙΟΠΟ</div>
         <div>ΠΑΡΑΤΗΡΗΣΕΙΣ</div>
+        {render()}
       </div>
-      <div>{render()}</div>
       <div
         style={{
           visibility: "hidden",

@@ -14,6 +14,16 @@ function Sidebar() {
   const [isRequestOpen, setIsRequestOpen] = useState(false);
   const [isFindOpen, setIsFindOpen] = useState(false);
 
+  const allActiveLinks = Array.from(
+    document.querySelectorAll(".dropdown-list.sublist a")
+  );
+  const handleClick = () => {
+    allActiveLinks.map((el) => {
+      el.classList.remove("active");
+      return el;
+    });
+  };
+
   const toggleRequestMenu = () => {
     setIsRequestOpen((oldValue) => {
       return !oldValue;
@@ -48,13 +58,13 @@ function Sidebar() {
             toggleFindMenu={toggleFindMenu}
           />
         </div>
-        <NavLink to="/tabs" className="link">
+        <NavLink onClick={handleClick} to="/tabs" className="link">
           <div className="left">
             <FontAwesomeIcon icon={faClipboardList} />
             <span>Καρτελες</span>
           </div>
         </NavLink>
-        <NavLink to="/vehicles" className="link">
+        <NavLink onClick={handleClick} to="/vehicles" className="link">
           <div className="left">
             <FontAwesomeIcon icon={faCar} />
             <span>Οχήματα</span>

@@ -1,19 +1,25 @@
 import Modal from "./Modal";
 import uuid from "react-uuid";
 import partApi from "apis/partApi";
+import entryApi from "apis/entryApi";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
+import { AppContext } from "context/AppContext";
 
 function PartRecievedModal({
   closeModal,
   addPart,
   editPart,
-  entryId,
+  editEntry,
+  entry,
   initialValues = {},
   modalActions,
 }) {
+  console.log("initialValues are", initialValues);
   const [validationPasses, setValidationPasses] = useState(true);
+  const { tabs } = useContext(AppContext);
 
   const createPart = (newPart, entryId) => {
     modalActions.openLoadingModal();
@@ -39,6 +45,19 @@ function PartRecievedModal({
     });
   };
 
+  const updateEntry = (newEntry, entryId) => {
+    modalActions.openLoadingModal();
+    entryApi.updateEntry(newEntry, entryId).then((response) => {
+      if (response.success === true && Object.keys(response.entries) !== 0) {
+        closeModal();
+        console.log(editEntry);
+        editEntry(...response.entries, entryId);
+      } else {
+        modalActions.openApiErrorModal(modalActions.closeModal, response.error);
+      }
+    });
+  };
+
   const closeModalAndResetContent = () => {
     setValidationPasses(true);
     closeModal();
@@ -46,7 +65,6 @@ function PartRecievedModal({
 
   const submitForm = (event) => {
     event.preventDefault();
-
     if (
       event.target.amountRecieved.value === "" &&
       event.target.amountUsed.value === ""
@@ -98,8 +116,14 @@ function PartRecievedModal({
               event.target.yearUsed.value
             : "",
       };
+
+      const consumableId = event.target.consumableId.value;
+      if (entry.consumableId !== consumableId) {
+        const newEntry = { ...entry, consumableId };
+        updateEntry(newEntry, entry.id);
+      }
       if (Object.keys(initialValues).length === 0) {
-        createPart(newPart, entryId);
+        createPart(newPart, entry.id);
       } else {
         updatePart(newPart, initialValues.id);
       }
@@ -117,7 +141,7 @@ function PartRecievedModal({
         />
         <form className="modal__inputs" onSubmit={submitForm} id="part__form">
           <div className="modal__inputs-dateRecieved">
-            {validationPasses === 3 ? (
+            {validationPasses === 2 ? (
               <div>Date cannot be empty if amount used is set</div>
             ) : null}
             <label htmlFor="dayRecieved">Ημέρα εισαγωγής</label>
@@ -125,7 +149,8 @@ function PartRecievedModal({
               name="dayRecieved"
               type="number"
               defaultValue={
-                initialValues.dateRecieved !== undefined
+                initialValues.dateRecieved !== undefined &&
+                initialValues.dateRecieved !== ""
                   ? parseInt(initialValues.dateRecieved.split("-")[0])
                   : ""
               }
@@ -135,7 +160,8 @@ function PartRecievedModal({
               name="monthRecieved"
               type="number"
               defaultValue={
-                initialValues.dateRecieved !== undefined
+                initialValues.dateRecieved !== undefined &&
+                initialValues.dateRecieved !== ""
                   ? parseInt(initialValues.dateRecieved.split("-")[1])
                   : ""
               }
@@ -145,7 +171,8 @@ function PartRecievedModal({
               name="yearRecieved"
               type="number"
               defaultValue={
-                initialValues.dateRecieved !== undefined
+                initialValues.dateRecieved !== undefined &&
+                initialValues.dateRecieved !== ""
                   ? parseInt(initialValues.dateRecieved.split("-")[2])
                   : ""
               }
@@ -160,7 +187,8 @@ function PartRecievedModal({
               name="amountRecieved"
               type="number"
               defaultValue={
-                initialValues.amountRecieved !== undefined
+                initialValues.amountRecieved !== undefined &&
+                initialValues.amountRecieved !== ""
                   ? parseInt(initialValues.amountRecieved)
                   : ""
               }
@@ -199,7 +227,8 @@ function PartRecievedModal({
               name="dayUsed"
               type="number"
               defaultValue={
-                initialValues.dateUsed !== undefined
+                initialValues.dateUsed !== undefined &&
+                initialValues.dateUsed !== ""
                   ? parseInt(initialValues.dateUsed.split("-")[0])
                   : ""
               }
@@ -209,7 +238,8 @@ function PartRecievedModal({
               name="monthUsed"
               type="number"
               defaultValue={
-                initialValues.dateUsed !== undefined
+                initialValues.dateUsed !== undefined &&
+                initialValues.dateUsed !== ""
                   ? parseInt(initialValues.dateUsed.split("-")[1])
                   : ""
               }
@@ -219,7 +249,8 @@ function PartRecievedModal({
               name="yearUsed"
               type="number"
               defaultValue={
-                initialValues.dateUsed !== undefined
+                initialValues.dateUsed !== undefined &&
+                initialValues.dateUsed !== ""
                   ? parseInt(initialValues.dateUsed.split("-")[2])
                   : ""
               }
@@ -234,7 +265,8 @@ function PartRecievedModal({
               name="amountUsed"
               type="number"
               defaultValue={
-                initialValues.amountUsed !== undefined
+                initialValues.amountUsed !== undefined &&
+                initialValues.amountUsed !== ""
                   ? parseInt(initialValues.amountUsed)
                   : ""
               }
@@ -252,7 +284,21 @@ function PartRecievedModal({
               }
             />
           </div>
+          <div className="modal__input">
+            <label htmlFor="consumableId">Καρτέλα</label>
+            <select name="consumableId" defaultValue={entry.consumableId}>
+              {tabs.map((tab) => {
+                return (
+                  <option key={tab.id} value={tab.id}>
+                    {tab.id}: {tab.name}
+                  </option>
+                );
+              })}
+              <option value="">none</option>
+            </select>
+          </div>
         </form>
+
         <button type="submit" className="modal__button" form="part__form">
           {Object.keys(initialValues).length === 0 ? "Add" : "Edit"}
         </button>

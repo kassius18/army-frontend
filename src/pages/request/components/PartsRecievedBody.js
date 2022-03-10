@@ -5,7 +5,7 @@ import OnePartRecieved from "./OnePartRecieved";
 
 export default function PartsRecievedBody({
   parts,
-  entryId,
+  entry,
   requestActions,
   modalActions,
 }) {
@@ -14,7 +14,8 @@ export default function PartsRecievedBody({
       modalActions.closeModal,
       requestActions.addPart,
       requestActions.editPart,
-      entryId
+      entry,
+      requestActions.editEntry
     );
   };
 
@@ -27,6 +28,8 @@ export default function PartsRecievedBody({
             key={part.id}
             modalActions={modalActions}
             requestActions={requestActions}
+            entry={entry}
+            editEntry={requestActions.editEntry}
           />
         );
       })}

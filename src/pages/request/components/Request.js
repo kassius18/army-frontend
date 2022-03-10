@@ -7,7 +7,6 @@ import RequestTable from "tables/request/RequestTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { DELETE_ACTIONS } from "modals/DeleteModal";
-import uuid from "react-uuid";
 
 function Request({ request, requestActions, modalActions }) {
   const entries = request.entries;

@@ -5,7 +5,6 @@ import { useEffect, useRef, useState, useReducer } from "react";
 import { useReactToPrint } from "react-to-print";
 import ProtocolTable from "tables/protocol/ProtocolTable";
 import RequestTable from "tables/request/RequestTable";
-import uuid from "react-uuid";
 import { requestsReducer, requestsDispatchMap } from "reducers/requestReducer";
 import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 

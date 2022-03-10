@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import uuid from "react-uuid";
 import entryApi from "apis/entryApi";
-import { useContext } from "react";
-import { AppContext } from "context/AppContext";
 
 function EntryModal({
   closeModal,
@@ -14,8 +12,6 @@ function EntryModal({
   request,
   modalActions,
 }) {
-  const { tabs } = useContext(AppContext);
-
   const createEntry = (newEntry, request) => {
     modalActions.openLoadingModal();
     entryApi
@@ -33,12 +29,16 @@ function EntryModal({
       });
   };
 
-  const updateEntry = (newEntry, entryId) => {
+  const updateEntry = (newEntry, entryId, action = null) => {
     modalActions.openLoadingModal();
     entryApi.updateEntry(newEntry, entryId).then((response) => {
       if (response.success === true && Object.keys(response.entries) !== 0) {
         closeModal();
-        editEntry(...response.entries, entryId);
+        if (action) {
+          action(...response.entries, entryId);
+        } else {
+          editEntry(...response.entries, entryId);
+        }
       } else {
         modalActions.openApiErrorModal(modalActions.closeModal, response.error);
       }
@@ -60,7 +60,6 @@ function EntryModal({
       unitOfOrder: event.target.unitOfOrder.value,
       reasonOfOrder: event.target.reasonOfOrder.value,
       priorityOfOrder: parseInt(event.target.priorityOfOrder.value),
-      consumableId: event.target.consumableId.value,
     };
     if (Object.keys(initialValues).length === 0) {
       createEntry(newEntry, request);
@@ -166,26 +165,6 @@ function EntryModal({
                   : 50
               }
             />
-          </div>
-          <div className="modal__input">
-            <label htmlFor="consumableId">Καρτέλα</label>
-            <select
-              name="consumableId"
-              defaultValue={
-                Object.keys(initialValues).length !== 0
-                  ? initialValues.consumableId
-                  : ""
-              }
-            >
-              {tabs.map((tab) => {
-                return (
-                  <option key={tab.id} value={tab.id}>
-                    {tab.id}: {tab.name}
-                  </option>
-                );
-              })}
-              <option value="">none</option>
-            </select>
           </div>
         </form>
         <button type="submit" className="modal__button" form="entry__form">

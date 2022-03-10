@@ -5,6 +5,8 @@ import { DELETE_ACTIONS } from "modals/DeleteModal";
 
 export default function OnePartRecieved({
   part,
+  entry,
+  editEntry,
   modalActions,
   requestActions,
 }) {
@@ -23,7 +25,8 @@ export default function OnePartRecieved({
       modalActions.closeModal,
       requestActions.addPart,
       requestActions.editPart,
-      {},
+      entry,
+      editEntry,
       part
     );
   };

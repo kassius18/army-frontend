@@ -40,7 +40,8 @@ export const modalReducer = (modal, action) => {
         closeModal: action.payload.closeModal,
         addPart: action.payload.addPart,
         editPart: action.payload.editPart,
-        entryId: action.payload.entryId,
+        entry: action.payload.entry,
+        editEntry: action.payload.editEntry,
         initialValues: action.payload.initialValues,
       };
     case ACTIONS.OPEN_VEHICLE_MODAL:
@@ -136,9 +137,11 @@ export const modalDispatchMap = (modalDispatch) => {
       closeModal,
       addPart,
       editPart,
-      entryId,
+      entry,
+      editEntry,
       initialValues = {}
     ) => {
+      console.log("inside reducer the editEntry is", editEntry);
       modalDispatch({
         type: ACTIONS.OPEN_PART_MODAL,
         payload: {
@@ -147,7 +150,8 @@ export const modalDispatchMap = (modalDispatch) => {
           addPart,
           editPart,
           closeModal,
-          entryId,
+          entry,
+          editEntry,
         },
       });
     },

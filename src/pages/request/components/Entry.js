@@ -72,7 +72,8 @@ function Entry({ entry, requestActions, modalActions }) {
       <PartsRecieved
         parts={entry.parts}
         isHidden={isPartsHidden}
-        entryId={entry.id}
+        entry={entry}
+        editEntry={requestActions.editEntry}
         requestActions={requestActions}
         modalActions={modalActions}
       />

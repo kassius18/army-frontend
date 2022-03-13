@@ -7,11 +7,13 @@
 @use "resources/styles/_tab";
 @use "resources/styles/_vehicle";
 @use "resources/styles/getRequests";
+@use "resources/styles/colors";
+@use "resources/styles/button";
 
 .App {
   text-align: center;
   background-color: black;
-  color: white;
+  color: colors.$text;
 }
 
 .App-link {

@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.78d4bdf0.chunk.css",
-    "main.js": "/static/js/main.3920cd5c.chunk.js",
-    "main.js.map": "/static/js/main.3920cd5c.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.ff5b8ea4.js",
-    "runtime-main.js.map": "/static/js/runtime-main.ff5b8ea4.js.map",
-    "static/js/2.792dcf3d.chunk.js": "/static/js/2.792dcf3d.chunk.js",
-    "static/js/2.792dcf3d.chunk.js.map": "/static/js/2.792dcf3d.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.78d4bdf0.chunk.css.map": "/static/css/main.78d4bdf0.chunk.css.map",
-    "static/js/2.792dcf3d.chunk.js.LICENSE.txt": "/static/js/2.792dcf3d.chunk.js.LICENSE.txt"
+    "main.css": "/army-frontend/static/css/main.fe80cbca.chunk.css",
+    "main.js": "/army-frontend/static/js/main.0dd32393.chunk.js",
+    "main.js.map": "/army-frontend/static/js/main.0dd32393.chunk.js.map",
+    "runtime-main.js": "/army-frontend/static/js/runtime-main.79ffde8d.js",
+    "runtime-main.js.map": "/army-frontend/static/js/runtime-main.79ffde8d.js.map",
+    "static/js/2.d291e6d5.chunk.js": "/army-frontend/static/js/2.d291e6d5.chunk.js",
+    "static/js/2.d291e6d5.chunk.js.map": "/army-frontend/static/js/2.d291e6d5.chunk.js.map",
+    "index.html": "/army-frontend/index.html",
+    "static/css/main.fe80cbca.chunk.css.map": "/army-frontend/static/css/main.fe80cbca.chunk.css.map",
+    "static/js/2.d291e6d5.chunk.js.LICENSE.txt": "/army-frontend/static/js/2.d291e6d5.chunk.js.LICENSE.txt",
+    "static/media/96tmxeth.f8f45f53.png": "/army-frontend/static/media/96tmxeth.f8f45f53.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.ff5b8ea4.js",
-    "static/js/2.792dcf3d.chunk.js",
-    "static/css/main.78d4bdf0.chunk.css",
-    "static/js/main.3920cd5c.chunk.js"
+    "static/js/runtime-main.79ffde8d.js",
+    "static/js/2.d291e6d5.chunk.js",
+    "static/css/main.fe80cbca.chunk.css",
+    "static/js/main.0dd32393.chunk.js"
   ]
 }

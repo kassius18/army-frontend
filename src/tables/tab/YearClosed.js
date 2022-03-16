@@ -1,6 +1,6 @@
 import React from "react";
 
-function YearClosed({ year }) {
+function YearClosed({ year, start = true }) {
   return (
     <>
       <div className="wrapper-end">
@@ -10,7 +10,7 @@ function YearClosed({ year }) {
       </div>
       <div className="wrapper-start">
         <div className="table__cell center">ΚΛΕΙΝΕΤΑΙ ΓΙΑ ΤΟ ΕΤΟΣ {year}</div>
-        <div className="table__cell center">ΕΤΟΣ {year + 1}</div>
+        {start && <div className="table__cell center">ΕΤΟΣ {year + 1}</div>}
       </div>
     </>
   );

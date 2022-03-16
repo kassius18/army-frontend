@@ -4,6 +4,12 @@
 
 .protocol__table {
   max-width: 290mm;
+
+  .table__body td {
+    border: 1px solid #33cccc;
+    height: 14px;
+    text-align: center;
+  }
 }
 
 .protocol__table * {
@@ -47,9 +53,4 @@ input {
     font-weight: 700;
     font-size: 0.8rem;
   }
-}
-
-.table__body td {
-  border: 1px solid #33cccc;
-  height: "33";
 }

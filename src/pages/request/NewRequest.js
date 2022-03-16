@@ -7,10 +7,18 @@ function NewRequest() {
   const [modal, modalDispatch] = useReducer(modalReducer, "");
   const [request, setRequest] = useState({});
   const navigate = useNavigate();
-
   const modalActions = modalDispatchMap(modalDispatch);
 
   useEffect(() => {
+    const modalActions = modalDispatchMap(modalDispatch);
+    const openModal = () => {
+      modalActions.openRequestModal(
+        () => {},
+        addRequest,
+        modalActions.closeModal
+      );
+    };
+    openModal();
     if (request.firstPartOfPhi && request.year) {
       navigate("/requests/" + request.firstPartOfPhi + "/" + request.year, {
         state: [request],
@@ -18,23 +26,12 @@ function NewRequest() {
     }
   }, [request, navigate]);
 
-  const openModal = () => {
-    modalActions.openRequestModal(
-      () => {},
-      addRequest,
-      modalActions.closeModal
-    );
-  };
-
   const addRequest = (newRequest) => {
     setRequest(newRequest);
   };
 
   return (
     <>
-      <div>
-        <button onClick={openModal}>Δημιουργία Νεας Αίτησης</button>
-      </div>
       <ModalWrapper modal={modal} modalActions={modalActions} />
     </>
   );

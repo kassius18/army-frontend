@@ -113,16 +113,15 @@ function ListRequests() {
           {isPrintRequest.value
             ? requests.map((request) => {
                 return (
-                  <>
+                  <div key={request.id}>
                     <div>
                       <RequestTable
-                        print={isPrintRequest}
-                        key={request.id}
+                        print={isPrintRequest.value}
                         request={request}
                       />
                     </div>
                     <div className="page-break" />
-                  </>
+                  </div>
                 );
               })
             : null}
@@ -135,16 +134,15 @@ function ListRequests() {
           {isPrintProtocol.value
             ? requests.map((request) => {
                 return (
-                  <>
+                  <div key={request.id}>
                     <div>
                       <ProtocolTable
                         print={isPrintProtocol}
-                        key={request.id}
                         request={request}
                       />
                     </div>
                     <div className="page-break" />
-                  </>
+                  </div>
                 );
               })
             : null}

@@ -1,7 +1,5 @@
 import requestApi from "apis/requestApi";
 import Modal from "./Modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useContext } from "react";
 import { AppContext } from "context/AppContext";
@@ -41,7 +39,6 @@ function RequestModal({
   };
 
   const updateRequest = (newRequest, requestId) => {
-    console.log("upding request with :", newRequest, requestId);
     modalActions.openLoadingModal();
     requestApi.updateRequest(newRequest, requestId).then((response) => {
       if (response.success === true) {
@@ -89,104 +86,90 @@ function RequestModal({
   return (
     <div>
       <Modal closeModal={closeModalAndResetContent}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          style={{ color: "red" }}
-          className="modal__cancel"
-          onClick={closeModal}
-        />
-        <form
-          onSubmit={submitForm}
-          className={"request__form"}
-          id="requestForm"
-        >
+        <form onSubmit={submitForm} className={"modal__form"} id="requestForm">
           {feedback && <span>Το Φ η το Έτος πρεπει να μην είναι ίδια</span>}
-          <div className={"request__body"}>
-            <div className={"request__data"}>
-              <span>Φ</span>
-              <input
-                type="number"
-                name="firstPartOfPhi"
-                defaultValue={
-                  initialValues.firstPartOfPhi !== undefined
-                    ? initialValues.firstPartOfPhi
-                    : undefined
-                }
-              />
-              <span>Σχέδιο</span>
-              <input
-                type="number"
-                name="secondPartOfPhi"
-                defaultValue={
-                  initialValues.secondPartOfPhi !== undefined
-                    ? initialValues.secondPartOfPhi
-                    : undefined
-                }
-              />
-            </div>
-            <div className={"request__data"}>
-              <span>Έτος</span>
-              <input
-                type="number"
-                name="year"
-                defaultValue={
-                  initialValues.year !== undefined
-                    ? initialValues.year
-                    : undefined
-                }
-              />
-            </div>
-            <div className={"request__data"}>
-              <span>Μήνας</span>
-              <input
-                type="number"
-                name="month"
-                defaultValue={
-                  initialValues.month !== undefined
-                    ? initialValues.month
-                    : undefined
-                }
-              />
-            </div>
-            <div className={"request__data"}>
-              <span>Μέρα</span>
-              <input
-                type="number"
-                name="day"
-                defaultValue={
-                  initialValues.day !== undefined
-                    ? initialValues.day
-                    : undefined
-                }
-              />
-            </div>
-            <div className="modal__input">
-              <label htmlFor="vehicleId">Όχημα</label>
-              <select
-                name="vehicleId"
-                defaultValue={
-                  Object.keys(initialValues).length !== 0
-                    ? initialValues.vehicleId
-                    : ""
-                }
-              >
-                {vehicles.map((vehicle) => {
-                  return (
-                    <option key={vehicle.id} value={vehicle.id}>
-                      {vehicle.id}: {vehicle.plate}
-                    </option>
-                  );
-                })}
-                <option value="">none</option>
-              </select>
-            </div>
+          <div className={"modal__input"}>
+            <label htmlFor="firstPartOfPhi">Φ</label>
+            <input
+              type="number"
+              name="firstPartOfPhi"
+              defaultValue={
+                initialValues.firstPartOfPhi !== undefined
+                  ? initialValues.firstPartOfPhi
+                  : undefined
+              }
+            />
           </div>
-          <button type="submit" className="modal__button" form="requestForm">
-            {Object.keys(initialValues).length === 0
-              ? "Προσθήκη"
-              : "Επεξεργασία"}
-          </button>
+          <div className={"modal__input"}>
+            <label htmlFor="secondPartOfPhi">Σχέδιο</label>
+            <input
+              type="number"
+              name="secondPartOfPhi"
+              defaultValue={
+                initialValues.secondPartOfPhi !== undefined
+                  ? initialValues.secondPartOfPhi
+                  : undefined
+              }
+            />
+          </div>
+          <div className={"modal__input"}>
+            <label htmlFor="year">Έτος</label>
+            <input
+              type="number"
+              name="year"
+              defaultValue={
+                initialValues.year !== undefined
+                  ? initialValues.year
+                  : undefined
+              }
+            />
+          </div>
+          <div className={"modal__input"}>
+            <label htmlFor="month">Μήνας</label>
+            <input
+              type="number"
+              name="month"
+              defaultValue={
+                initialValues.month !== undefined
+                  ? initialValues.month
+                  : undefined
+              }
+            />
+          </div>
+          <div className={"modal__input"}>
+            <label htmlFor="day">Μέρα</label>
+            <input
+              type="number"
+              name="day"
+              defaultValue={
+                initialValues.day !== undefined ? initialValues.day : undefined
+              }
+            />
+          </div>
+          <div className="modal__input">
+            <label htmlFor="vehicleId">Όχημα</label>
+            <select
+              name="vehicleId"
+              defaultValue={
+                Object.keys(initialValues).length !== 0
+                  ? initialValues.vehicleId
+                  : ""
+              }
+            >
+              {vehicles.map((vehicle) => {
+                return (
+                  <option key={vehicle.id} value={vehicle.id}>
+                    {vehicle.id}: {vehicle.plate}
+                  </option>
+                );
+              })}
+              <option value="">none</option>
+            </select>
+          </div>
         </form>
+        <button type="submit" className="modal__button" form="requestForm">
+          {Object.keys(initialValues).length === 0 ? "Προσθήκη" : "Επεξεργασία"}
+        </button>
       </Modal>
     </div>
   );

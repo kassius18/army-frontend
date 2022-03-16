@@ -17,8 +17,6 @@ function EmptyRow({ iterationArray }) {
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
           </tr>
         );
       })}

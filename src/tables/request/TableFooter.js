@@ -40,7 +40,7 @@ function TableFooter({ request, print }) {
   const { day, month, year, firstPartOfPhi, secondPartOfPhi } = request;
   return (
     <>
-      <tbody className="table__body">{renderEmptyRows()}</tbody>
+      <tbody className="table__body rows empty">{renderEmptyRows()}</tbody>
       <tbody ref={footerRef}>
         <tr>
           <td height="66" align="center">

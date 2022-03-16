@@ -1,6 +1,4 @@
 import Modal from "./Modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import uuid from "react-uuid";
 import entryApi from "apis/entryApi";
 
@@ -62,9 +60,12 @@ function EntryModal({
       priorityOfOrder: parseInt(event.target.priorityOfOrder.value),
     };
     if (Object.keys(initialValues).length === 0) {
-      createEntry(newEntry, request);
+      createEntry({ ...newEntry, consumableId: "" }, request);
     } else {
-      updateEntry(newEntry, initialValues.id);
+      updateEntry(
+        { ...newEntry, consumableId: initialValues.consumableId },
+        initialValues.id
+      );
     }
   };
 
@@ -72,13 +73,6 @@ function EntryModal({
     <div>
       <Modal closeModal={closeModalAndResetContent}>
         <form className="modal__inputs" onSubmit={submitForm} id="entry__form">
-          <FontAwesomeIcon
-            icon={faXmark}
-            style={{ color: "red" }}
-            className="modal__cancel"
-            onClick={closeModal}
-          />
-
           <div className="modal__input">
             <label htmlFor="nameNumber">Αριθμός Ονομαστικού</label>
             <input

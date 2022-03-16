@@ -1,6 +1,7 @@
 import axios from "axios";
+import { BASE_URL } from "./url";
 
-const url = "http://army-backend.com/parts";
+const url = BASE_URL + "/parts";
 
 const partApi = {
   async createPart(part, entryId) {

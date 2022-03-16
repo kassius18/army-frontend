@@ -1,4 +1,4 @@
-// $primary-color: #f8c4d6;
+@use "resources/styles/colors";
 $primary-color: #d424b3;
 $secondary-color: #fce719;
 
@@ -12,12 +12,13 @@ $secondary-color: #fce719;
   text-align: center;
   height: 100%;
   z-index: 2;
+  overflow-y: scroll;
 
   &__content {
+    border: 1px solid white;
     position: absolute;
-    background-color: rgba(148, 163, 255, 1);
-    background-color: $primary-color;
-    background-color: #3d9970;
+    background-color: colors.$modal;
+    color: colors.$modal-text;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -30,36 +31,46 @@ $secondary-color: #fce719;
     }
   }
 
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__confirmation {
+    color: red;
+    margin: 2rem;
+    font-size: 2rem;
+  }
+
   &__close {
     cursor: pointer;
   }
 
-  &__inputs {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 2rem;
-    margin: 2rem;
-    font-size: 2rem;
-
-    & * {
-      font-size: 2rem;
-    }
-  }
-
   &__input {
+    text-align: left;
     font-size: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin: 1rem;
+    & > label {
+      margin-bottom: 1rem;
+    }
     & > input {
+      background-color: colors.$modal-input;
       font-size: 1.5rem;
       height: 2rem;
+      border: 1px solid colors.$modal-input-border;
+      padding-left: 0.75rem;
     }
     & > select {
+      background-color: colors.$modal-input;
       font-size: 1.5rem;
       height: 2rem;
+      border: 1px solid colors.$modal-input-border;
+      padding-left: 0.75rem;
       width: 100%;
-      border: none;
+      border-radius: none;
     }
   }
 }

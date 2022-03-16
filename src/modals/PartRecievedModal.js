@@ -3,8 +3,6 @@ import uuid from "react-uuid";
 import partApi from "apis/partApi";
 import entryApi from "apis/entryApi";
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 import { AppContext } from "context/AppContext";
 
@@ -131,169 +129,185 @@ function PartRecievedModal({
   return (
     <div>
       <Modal closeModal={closeModalAndResetContent}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          style={{ color: "red" }}
-          className="modal__cancel"
-          onClick={closeModal}
-        />
-        <form className="modal__inputs" onSubmit={submitForm} id="part__form">
-          <div className="modal__inputs-dateRecieved">
-            {validationPasses === 2 ? (
-              <div>Date cannot be empty if amount used is set</div>
-            ) : null}
-            <label htmlFor="dayRecieved">Ημέρα εισαγωγής</label>
-            <input
-              name="dayRecieved"
-              type="number"
-              defaultValue={
-                initialValues.dateRecieved !== undefined &&
-                initialValues.dateRecieved !== ""
-                  ? parseInt(initialValues.dateRecieved.split("-")[0])
-                  : ""
-              }
-            />
-            <label htmlFor="monthRecieved">Μήνας εισαγωγής</label>
-            <input
-              name="monthRecieved"
-              type="number"
-              defaultValue={
-                initialValues.dateRecieved !== undefined &&
-                initialValues.dateRecieved !== ""
-                  ? parseInt(initialValues.dateRecieved.split("-")[1])
-                  : ""
-              }
-            />
-            <label htmlFor="yearRecieved">Ετός εισαγωγής</label>
-            <input
-              name="yearRecieved"
-              type="number"
-              defaultValue={
-                initialValues.dateRecieved !== undefined &&
-                initialValues.dateRecieved !== ""
-                  ? parseInt(initialValues.dateRecieved.split("-")[2])
-                  : ""
-              }
-            />
+        <form
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+          }}
+          className="modal__form"
+          onSubmit={submitForm}
+          id="part__form"
+        >
+          <div className="modal__input-left">
+            <div className="modal__input">
+              {validationPasses === 2 ? (
+                <div>Date cannot be empty if amount used is set</div>
+              ) : null}
+              <label htmlFor="dayRecieved">Ημέρα εισαγωγής</label>
+              <input
+                name="dayRecieved"
+                type="number"
+                defaultValue={
+                  initialValues.dateRecieved !== undefined &&
+                  initialValues.dateRecieved !== ""
+                    ? parseInt(initialValues.dateRecieved.split("-")[0])
+                    : ""
+                }
+              />
+            </div>
+            <div className="modal__input">
+              <label htmlFor="monthRecieved">Μήνας εισαγωγής</label>
+              <input
+                name="monthRecieved"
+                type="number"
+                defaultValue={
+                  initialValues.dateRecieved !== undefined &&
+                  initialValues.dateRecieved !== ""
+                    ? parseInt(initialValues.dateRecieved.split("-")[1])
+                    : ""
+                }
+              />
+            </div>
+            <div className="modal__input">
+              <label htmlFor="yearRecieved">Ετός εισαγωγής</label>
+              <input
+                name="yearRecieved"
+                type="number"
+                defaultValue={
+                  initialValues.dateRecieved !== undefined &&
+                  initialValues.dateRecieved !== ""
+                    ? parseInt(initialValues.dateRecieved.split("-")[2])
+                    : ""
+                }
+              />
+            </div>
+            <div className="modal__input">
+              {validationPasses === 1 ? (
+                <div>One of these fields must be filled</div>
+              ) : null}
+              <label htmlFor="amountRecieved">Ποσότητα εισαγωγής</label>
+              <input
+                name="amountRecieved"
+                type="number"
+                defaultValue={
+                  initialValues.amountRecieved !== undefined &&
+                  initialValues.amountRecieved !== ""
+                    ? parseInt(initialValues.amountRecieved)
+                    : ""
+                }
+              />
+            </div>
           </div>
-          <div className="modal__inputs-amountRecieved">
-            {validationPasses === 1 ? (
-              <div>One of these fields must be filled</div>
-            ) : null}
-            <label htmlFor="amountRecieved">Ποσότητα εισαγωγής</label>
-            <input
-              name="amountRecieved"
-              type="number"
-              defaultValue={
-                initialValues.amountRecieved !== undefined &&
-                initialValues.amountRecieved !== ""
-                  ? parseInt(initialValues.amountRecieved)
-                  : ""
-              }
-            />
+          <div className="modal__input-right">
+            <div className="modal__input">
+              {validationPasses === 2 ? (
+                <div>Date cannot be empty if amount used is set</div>
+              ) : null}
+              <label htmlFor="dayUsed">Ημέρα εξαγωγής</label>
+              <input
+                name="dayUsed"
+                type="number"
+                defaultValue={
+                  initialValues.dateUsed !== undefined &&
+                  initialValues.dateUsed !== ""
+                    ? parseInt(initialValues.dateUsed.split("-")[0])
+                    : ""
+                }
+              />
+            </div>
+            <div className="modal__input">
+              <label htmlFor="monthUsed">Μηνας εξαγωγής</label>
+              <input
+                name="monthUsed"
+                type="number"
+                defaultValue={
+                  initialValues.dateUsed !== undefined &&
+                  initialValues.dateUsed !== ""
+                    ? parseInt(initialValues.dateUsed.split("-")[1])
+                    : ""
+                }
+              />
+            </div>
+            <div className="modal__input">
+              <label htmlFor="yearUsed">Ετός εξαγωγής</label>
+              <input
+                name="yearUsed"
+                type="number"
+                defaultValue={
+                  initialValues.dateUsed !== undefined &&
+                  initialValues.dateUsed !== ""
+                    ? parseInt(initialValues.dateUsed.split("-")[2])
+                    : ""
+                }
+              />
+            </div>
+            <div className="modal__input">
+              {validationPasses === 1 ? (
+                <div>One of these fields must be filled</div>
+              ) : null}
+              <label htmlFor="amountUsed">Ποσότητα εξαγωγής</label>
+              <input
+                name="amountUsed"
+                type="number"
+                defaultValue={
+                  initialValues.amountUsed !== undefined &&
+                  initialValues.amountUsed !== ""
+                    ? parseInt(initialValues.amountUsed)
+                    : ""
+                }
+              />
+            </div>
           </div>
-          <div className="modal__inputs-pieNumber">
-            <label htmlFor="pieNumber">Αριθμός Π</label>
-            <input
-              name="pieNumber"
-              type="text"
-              defaultValue={
-                initialValues.pieNumber !== undefined
-                  ? initialValues.pieNumber
-                  : undefined
-              }
-            />
-          </div>
-          <div className="modal__inputs-tabUsed">
-            <label htmlFor="tabUsed">Αριθμός Εργασίας</label>
-            <input
-              name="tabUsed"
-              type="text"
-              defaultValue={
-                initialValues.tabUsed !== undefined
-                  ? initialValues.tabUsed
-                  : undefined
-              }
-            />
-          </div>
-          <div className="modal__inputs-dateUsed">
-            {validationPasses === 2 ? (
-              <div>Date cannot be empty if amount used is set</div>
-            ) : null}
-            <label htmlFor="dayUsed">Ημέρα εξαγωγής</label>
-            <input
-              name="dayUsed"
-              type="number"
-              defaultValue={
-                initialValues.dateUsed !== undefined &&
-                initialValues.dateUsed !== ""
-                  ? parseInt(initialValues.dateUsed.split("-")[0])
-                  : ""
-              }
-            />
-            <label htmlFor="monthUsed">Μηνας εξαγωγής</label>
-            <input
-              name="monthUsed"
-              type="number"
-              defaultValue={
-                initialValues.dateUsed !== undefined &&
-                initialValues.dateUsed !== ""
-                  ? parseInt(initialValues.dateUsed.split("-")[1])
-                  : ""
-              }
-            />
-            <label htmlFor="yearUsed">Ετός εξαγωγής</label>
-            <input
-              name="yearUsed"
-              type="number"
-              defaultValue={
-                initialValues.dateUsed !== undefined &&
-                initialValues.dateUsed !== ""
-                  ? parseInt(initialValues.dateUsed.split("-")[2])
-                  : ""
-              }
-            />
-          </div>
-          <div className="modal__inputs-amountUsed">
-            {validationPasses === 1 ? (
-              <div>One of these fields must be filled</div>
-            ) : null}
-            <label htmlFor="modal__inputs-amountUsed">Ποσότητα εξαγωγής</label>
-            <input
-              name="amountUsed"
-              type="number"
-              defaultValue={
-                initialValues.amountUsed !== undefined &&
-                initialValues.amountUsed !== ""
-                  ? parseInt(initialValues.amountUsed)
-                  : ""
-              }
-            />
-          </div>
-          <div className="modal__inputs-observation">
-            <label htmlFor="modal__inputs-observation">Παρατηρησεις</label>
-            <input
-              name="observation"
-              type="text"
-              defaultValue={
-                initialValues.observation !== undefined
-                  ? initialValues.observation
-                  : undefined
-              }
-            />
-          </div>
-          <div className="modal__input">
-            <label htmlFor="consumableId">Καρτέλα</label>
-            <select name="consumableId" defaultValue={entry.consumableId}>
-              {tabs.map((tab) => {
-                return (
-                  <option key={tab.id} value={tab.id}>
-                    {tab.id}: {tab.name}
-                  </option>
-                );
-              })}
-              <option value="">none</option>
-            </select>
+          <div className="modal__input-bottom" style={{ gridColumn: "-1/1" }}>
+            <div className="modal__input">
+              <label htmlFor="pieNumber">Αριθμός Π</label>
+              <input
+                name="pieNumber"
+                type="text"
+                defaultValue={
+                  initialValues.pieNumber !== undefined
+                    ? initialValues.pieNumber
+                    : undefined
+                }
+              />
+            </div>
+            <div className="modal__input">
+              <label htmlFor="tabUsed">Αριθμός Εργασίας</label>
+              <input
+                name="tabUsed"
+                type="text"
+                defaultValue={
+                  initialValues.tabUsed !== undefined
+                    ? initialValues.tabUsed
+                    : undefined
+                }
+              />
+            </div>
+            <div className="modal__input">
+              <label htmlFor="observation">Παρατηρησεις</label>
+              <input
+                name="observation"
+                type="text"
+                defaultValue={
+                  initialValues.observation !== undefined
+                    ? initialValues.observation
+                    : undefined
+                }
+              />
+            </div>
+            <div className="modal__input">
+              <label htmlFor="consumableId">Καρτέλα</label>
+              <select name="consumableId" defaultValue={entry.consumableId}>
+                {tabs.map((tab) => {
+                  return (
+                    <option key={tab.id} value={tab.id}>
+                      {tab.id}: {tab.name}
+                    </option>
+                  );
+                })}
+                <option value="">none</option>
+              </select>
+            </div>
           </div>
         </form>
 

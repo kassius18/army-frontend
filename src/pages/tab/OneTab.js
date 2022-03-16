@@ -16,7 +16,6 @@ import { modalReducer, modalDispatchMap } from "reducers/modalReducer";
 import { tabReducer, tabDispatchMap } from "reducers/tabReducer";
 import { filterReducer, filterDispatchMap } from "reducers/filterReducer";
 import tabApi from "apis/tabApi";
-import uuid from "react-uuid";
 
 function OneTab() {
   const { setHasChanged } = useContext(AppContext);
@@ -67,7 +66,7 @@ function OneTab() {
     if (tab.parts.length) {
       filterActions.setFilteredArray(tab.parts);
     }
-  }, [tab, filterActions]);
+  }, [tab]);
 
   useEffect(() => {
     if (print.resolve) {
@@ -171,8 +170,8 @@ function OneTab() {
         }}
       >
         <div ref={tabRef}>
-          {print ? (
-            <TabTable key={uuid()} parts={filter.filteredArray} />
+          {print.value ? (
+            <TabTable parts={filter.filteredArray} print={print.value} />
           ) : null}
         </div>
       </div>

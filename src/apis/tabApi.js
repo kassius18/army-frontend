@@ -1,6 +1,7 @@
 import axios from "axios";
+import { BASE_URL } from "./url";
 
-const url = "http://army-backend.com/tabs";
+const url = BASE_URL + "/tabs";
 
 const tabApi = {
   async getNonEmptyTabs() {

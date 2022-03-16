@@ -1,7 +1,7 @@
 import React, { useRef, useContext } from "react";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
-import TableFoter from "./TableFooter";
+import TableFooter from "./TableFooter";
 import uuid from "react-uuid";
 import { AppContext } from "context/AppContext";
 
@@ -38,7 +38,7 @@ function RequestTable({ print, request }) {
             return <TableRow row={entry} key={uuid()} vehicle={vehicle} />;
           })}
         </tbody>
-        <TableFoter request={request} print={print} />
+        <TableFooter request={request} print={print} />
       </table>
     </div>
   );

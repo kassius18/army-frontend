@@ -122,12 +122,12 @@ function Request({ request, requestActions, modalActions }) {
           }}
         >
           <div ref={requestRef}>
-            {isPrintRequest ? (
-              <RequestTable print={isPrintRequest} request={request} />
+            {isPrintRequest.value ? (
+              <RequestTable print={isPrintRequest.value} request={request} />
             ) : null}
           </div>
           <div ref={protocolRef}>
-            {isPrintProtocol ? (
+            {isPrintProtocol.value ? (
               <ProtocolTable print={isPrintProtocol} request={request} />
             ) : null}
           </div>

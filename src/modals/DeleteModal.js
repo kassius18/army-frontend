@@ -2,8 +2,6 @@ import React, { useContext } from "react";
 import { AppContext } from "context/AppContext";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import requestApi from "apis/requestApi";
 import entryApi from "apis/entryApi";
 import partApi from "apis/partApi";
@@ -28,7 +26,6 @@ function DeleteModal({
   const { setHasChanged } = useContext(AppContext);
   const navigate = useNavigate();
 
-  let name;
   const verifyDeleting = () => {
     modalActions.openLoadingModal();
     switch (resourceToBeDeleted) {
@@ -36,7 +33,6 @@ function DeleteModal({
         return requestApi.deleteRequest(id).then((response) => {
           if (response.success === true) {
             requestActions.deleteRequest(id);
-            name = "request";
             closeModal();
           } else {
             modalActions.openApiErrorModal(
@@ -49,7 +45,6 @@ function DeleteModal({
         return entryApi.deleteEntry(id).then((response) => {
           if (response.success === true) {
             requestActions.deleteEntry(id);
-            name = "entry";
             closeModal();
           } else {
             modalActions.openApiErrorModal(
@@ -62,7 +57,6 @@ function DeleteModal({
         return partApi.deletePart(id).then((response) => {
           if (response.success === true) {
             requestActions.deletePart(id);
-            name = "part";
             closeModal();
           } else {
             modalActions.openApiErrorModal(
@@ -104,13 +98,7 @@ function DeleteModal({
     <div>
       <Modal closeModal={closeModal}>
         <div>
-          <FontAwesomeIcon
-            icon={faXmark}
-            style={{ color: "red" }}
-            className="modal__cancel"
-            onClick={closeModal}
-          />
-          <div>Are you sure you want to delete this {name}</div>
+          <div className="modal__confirmation">Είστε σίγουροι;</div>
           <button onClick={verifyDeleting}>Confirm</button>
         </div>
       </Modal>

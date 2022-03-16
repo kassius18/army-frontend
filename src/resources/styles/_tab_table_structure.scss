@@ -1,8 +1,3 @@
-// html,
-// .App {
-//   background-color: white !important;
-// }
-
 .tab__table__layout {
   overflow: hidden;
   max-width: 185mm;
@@ -15,7 +10,6 @@
     border-left: 2px solid black;
     border-right: 2px solid black;
   }
-  // border: 2px solid black;
 }
 
 .header__cell {
@@ -143,11 +137,6 @@
   &.border-bottom-none {
     border-bottom: none;
   }
-
-  &.text-vertical {
-    // writing-mode: vertical-rl;
-    // transform: rotate(180deg);
-  }
 }
 
 .span-3 {
@@ -157,8 +146,6 @@
 @media all {
   .page-break-tab {
     display: none;
-    // height: 31px;
-    // border: 2px solid red;
   }
 }
 

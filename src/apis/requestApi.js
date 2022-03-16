@@ -1,6 +1,7 @@
 import axios from "axios";
+import { BASE_URL } from "./url";
 
-const url = "http://army-backend.com/requests";
+const url = BASE_URL + "/requests";
 
 const requestApi = {
   async createRequest(request) {

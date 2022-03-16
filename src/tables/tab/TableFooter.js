@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import EmptyRow from "./EmptyRow";
-function TableFooter() {
+function TableFooter({ print }) {
   const paperHeight = 1026;
   const emptyRowHeight = 31;
   const footerRef = useRef(0);
@@ -26,7 +26,7 @@ function TableFooter() {
         )
       );
     }
-  }, []);
+  }, [print]);
 
   return (
     <>

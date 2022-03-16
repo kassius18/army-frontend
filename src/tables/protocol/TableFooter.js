@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import EmptyRow from "./EmptyRow";
 function TableFooter(print) {
   const paperHeight = 697;
-  const emptyRowHeight = 26.45;
+  const emptyRowHeight = 14;
   const footerRef = useRef(0);
 
   const [emptyRowsToFillFullPage, setEmptyRowsToFillFullPage] = useState(-1);

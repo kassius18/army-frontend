@@ -10,6 +10,16 @@
 @use "resources/styles/colors";
 @use "resources/styles/button";
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .App {
   text-align: center;
   background-color: black;

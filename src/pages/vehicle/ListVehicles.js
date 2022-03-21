@@ -56,17 +56,18 @@ function ListVehicles() {
 
   return (
     <>
-      <div className="vehicle__all">
-        <div className="vehicle__list">
-          <div className="vehicle__list-header">
-            <div>Αρ Οχήματος</div>
-            <div>Πινακίδα Οχήματος</div>
-            <div>Τυπος Οχήματος</div>
-          </div>
-          {vehicles.map((vehicle) => {
+      <div className="vehicle__view">
+        <div className="vehicle__list header">
+          <div>Αρ Οχήματος</div>
+          <div>Πινακίδα Οχήματος</div>
+          <div>Τυπος Οχήματος</div>
+        </div>
+        <div className="vehicle__body">
+          {vehicles.map((vehicle, index) => {
+            const stripped = index % 2 === 0 ? true : false;
             return (
               <div
-                className="vehicle__list-item"
+                className={"vehicle__list" + (stripped ? " stripped" : "")}
                 key={vehicle.id}
                 onClick={() => {
                   navigateToVehicle(vehicle);

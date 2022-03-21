@@ -120,6 +120,18 @@ function OneTab() {
 
   return (
     <div className="tab__view">
+      <div className="tab__properties">
+        <div>A/A</div>
+        <div>Ονομασία Υλικού</div>
+        <div>Αρχικό Σύνολο</div>
+        <div>Χρήση</div>
+        <div>Παρατηρησεις</div>
+        <div>{tab.id}</div>
+        <div>{tab.name}</div>
+        <div>{tab.startingTotal}</div>
+        <div>{tab.usage}</div>
+        <div>{tab.observations}</div>
+      </div>
       <div className="form">
         <label htmlFor="startingYear">Αρχικό Έτος</label>
         <input
@@ -138,18 +150,6 @@ function OneTab() {
         <button onClick={handlePrintTab}>Αποθήκευση</button>
         <button onClick={openModal}>Τροποποίηση</button>
         <button onClick={openDeleteModal}>Διαγραφή</button>
-      </div>
-      <div className="tab__properties">
-        <div>A/A</div>
-        <div>Ονομασία Υλικού</div>
-        <div>Αρχικό Σύνολο</div>
-        <div>Χρήση</div>
-        <div>Παρατηρησεις</div>
-        <div>{tab.id}</div>
-        <div>{tab.name}</div>
-        <div>{tab.startingTotal}</div>
-        <div>{tab.usage}</div>
-        <div>{tab.observations}</div>
       </div>
       <div className="tab header">
         <div>Α/Α</div>

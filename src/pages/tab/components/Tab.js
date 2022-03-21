@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function Tab({ tab }) {
+function Tab({ tab, stripped }) {
   const navigate = useNavigate();
 
   const navigateToTab = () => {
@@ -9,7 +9,10 @@ function Tab({ tab }) {
   };
 
   return (
-    <div onClick={navigateToTab} className={"tab__list"}>
+    <div
+      onClick={navigateToTab}
+      className={"tab__list" + (stripped ? " stripped" : "")}
+    >
       <p>{tab.id}</p>
       <p>{tab.name}</p>
       <p>{tab.startingTotal}</p>

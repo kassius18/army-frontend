@@ -1,3 +1,4 @@
+@use "resources/styles/colors";
 *,
 ::before,
 ::after {
@@ -180,6 +181,60 @@
   margin: 0;
   padding: 0;
   border-bottom: none;
+}
+
+.requests__find {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  margin: 3rem 1rem;
+  .input {
+    text-align: left;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 1rem;
+    & > label {
+      margin-bottom: 1rem;
+    }
+    & > input {
+      background-color: colors.$modal-input;
+      font-size: 1.5rem;
+      height: 2rem;
+      border: 1px solid colors.$modal-input-border;
+      padding-left: 0.75rem;
+    }
+    & > select {
+      background-color: colors.$modal-input;
+      font-size: 1.5rem;
+      height: 2rem;
+      border: 1px solid colors.$modal-input-border;
+      padding-left: 0.75rem;
+      width: 100%;
+      border-radius: none;
+    }
+  }
+  form {
+    background-color: colors.$background;
+    display: grid;
+    align-content: space-between;
+    border: 1px solid colors.$modal-input-border;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+  }
+
+  .input__bottom {
+    grid-column: -1/1;
+  }
+
+  .requests--byDate {
+    grid-template-columns: 1fr 1fr;
+    h1 {
+      grid-column: -1/1;
+    }
+  }
 }
 
 @media all {

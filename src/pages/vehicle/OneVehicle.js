@@ -40,7 +40,7 @@ function OneVehicle() {
 
   return (
     <div className="vehicle">
-      <div className="vehicle__body">
+      <div className="one__vehicle">
         <h1 className="vehicle__id"> Id : {vehicle.id}</h1>
         <h1 className="vehicle__plate"> Plate : {vehicle.plate}</h1>
         <h1 className="vehicle__type">Car : {vehicle.vehicleType}</h1>

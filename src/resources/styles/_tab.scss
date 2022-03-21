@@ -1,33 +1,65 @@
+@use "resources/styles/colors";
+
 .tab {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
 
   &__view {
+    margin-top: 2rem;
     width: 90%;
     .form {
       width: 40%;
       margin: 0 auto;
+
+      > label {
+        font-size: 1.4rem;
+      }
     }
     > div:first-child {
       font-size: 2rem;
     }
   }
 
+  &__body {
+    margin-right: -12px;
+    max-height: 80vh;
+    overflow-y: scroll;
+    padding-bottom: 1rem;
+  }
+
   &__list {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    margin: 2rem 0;
-    background-color: teal;
     cursor: pointer;
-    color: black;
+    color: white;
+    border: 1px solid colors.$text;
+    border-bottom: none;
+    font-size: 1.5rem;
+    padding: 0.3rem;
+    background-color: colors.$background;
+
+    &:last-of-type {
+      border-bottom: 1px solid colors.$text;
+    }
+
+    &.header {
+      padding: 2rem 0;
+      border: 2px solid colors.$text;
+    }
+
+    &.stripped {
+      background-color: colors.$background-stripped;
+    }
   }
 
   &__properties {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     margin: 4rem 0rem;
-    background-color: darkslateblue;
+    background-color: colors.$background;
     gap: 2rem;
+    padding: 1rem;
+    border: 2px solid;
   }
 
   &.header {
@@ -36,13 +68,14 @@
     overflow-x: scroll;
     > div {
       padding: 1rem;
+      border: 2px solid colors.$request-border;
     }
   }
   &.row {
     display: contents;
 
     & > div {
-      border: 1px solid darkslateblue;
+      border: 1px solid colors.$request-border;
       padding: 1rem;
     }
   }

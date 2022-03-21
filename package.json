@@ -1,7 +1,6 @@
 {
   "name": "army-frontend",
   "version": "0.1.0",
-  "homepage": "https://kassius18.github.io/army-frontend",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.3.0",

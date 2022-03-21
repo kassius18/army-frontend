@@ -1,5 +1,4 @@
-$primary-color: #f8c4d6;
-$secondary-color: #fce719;
+@use "resources/styles/colors";
 
 body {
   background-color: #181a1b;
@@ -123,9 +122,10 @@ body {
     color: white;
     text-align: left;
     transition: color 0.2s ease-in-out;
+    letter-spacing: 0.1rem;
 
     &.active {
-      color: red;
+      color: colors.$active;
     }
     .left {
       display: flex;
@@ -136,7 +136,7 @@ body {
     }
 
     &:hover {
-      color: red;
+      color: colors.$hover;
     }
   }
 }

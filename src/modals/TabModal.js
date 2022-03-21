@@ -1,6 +1,4 @@
 import Modal from "./Modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import tabApi from "apis/tabApi";
 
 function TabModal({
@@ -58,13 +56,7 @@ function TabModal({
     <div>
       <Modal closeModal={closeModalAndResetContent}>
         <form className="modal__inputs" onSubmit={submitForm}>
-          <FontAwesomeIcon
-            icon={faXmark}
-            color="red"
-            className="modal__cancel"
-            onClick={closeModal}
-          />
-          <div className="modal__inputs-id">
+          <div className="modal__input">
             <label htmlFor="id">A/A</label>
             <input
               name="id"
@@ -74,7 +66,7 @@ function TabModal({
               }
             />
           </div>
-          <div className="modal__inputs-name">
+          <div className="modal__input">
             <label htmlFor="plate">Ονομασία Υλικού</label>
             <input
               name="name"
@@ -86,7 +78,7 @@ function TabModal({
               }
             />
           </div>
-          <div className="modal__inputs-startingTotal">
+          <div className="modal__input">
             <label htmlFor="tabType">Αρχικό Σύνολο</label>
             <input
               name="startingTotal"
@@ -98,7 +90,7 @@ function TabModal({
               }
             />
           </div>
-          <div className="modal__inputs-usage">
+          <div className="modal__input">
             <label htmlFor="usage">Χρήση</label>
             <input
               name="usage"
@@ -110,7 +102,7 @@ function TabModal({
               }
             />
           </div>
-          <div className="modal__inputs-observations">
+          <div className="modal__input">
             <label htmlFor="observations">Παρατηρησεις</label>
             <input
               name="observations"

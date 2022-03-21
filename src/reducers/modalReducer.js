@@ -10,6 +10,7 @@ const ACTIONS = {
   OPEN_LOADING_MODAL: "OPEN_LOADING_MODAL",
   OPEN_ERROR_MODAL: "OPEN_ERROR_MODAL",
   CLOSE_MODAL: "CLOSE_MODAL",
+  OPEN_NOT_FOUND_MODAL: "OPEN_NOT_FOUND_MODAL",
 };
 
 export const modalReducer = (modal, action) => {
@@ -70,6 +71,12 @@ export const modalReducer = (modal, action) => {
         id: action.payload.id,
         resourceToBeDeleted: action.payload.resourceToBeDeleted,
         requestActions: action.payload.requestActions,
+      };
+    case ACTIONS.OPEN_NOT_FOUND_MODAL:
+      return {
+        modalContent: MODALS.NOT_FOUND_MODAL,
+        isOpen: action.payload.isOpen,
+        closeModal: action.payload.closeModal,
       };
     case ACTIONS.OPEN_LOADING_MODAL:
       return {
@@ -212,6 +219,12 @@ export const modalDispatchMap = (modalDispatch) => {
       modalDispatch({
         type: ACTIONS.OPEN_ERROR_MODAL,
         payload: { isOpen: true, closeModal, error },
+      });
+    },
+    openNotFoundModal: (closeModal) => {
+      modalDispatch({
+        type: ACTIONS.OPEN_NOT_FOUND_MODAL,
+        payload: { isOpen: true, closeModal },
       });
     },
     closeModal: () => {

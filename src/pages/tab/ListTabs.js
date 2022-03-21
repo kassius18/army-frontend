@@ -46,16 +46,19 @@ function ListTabs() {
   return (
     <>
       <div className="tab__view">
-        <div className={"tab__list"}>
+        <div className="tab__list header">
           <p>A/A</p>
           <p>Ονομασία Υλικού</p>
           <p>Αρχικό Σύνολο</p>
           <p>Χρήση</p>
           <p>Παρατηρησεις</p>
         </div>
-        {tabs.map((tab) => {
-          return <Tab key={tab.id} tab={tab} />;
-        })}
+        <div className="tab__body">
+          {tabs.map((tab, index) => {
+            const stripped = index % 2 === 0 ? true : false;
+            return <Tab key={tab.id} tab={tab} stripped={stripped} />;
+          })}
+        </div>
         <button onClick={openModal}>Προσθήκη</button>
       </div>
       <ModalWrapper modal={modal} modalActions={modalActions} />

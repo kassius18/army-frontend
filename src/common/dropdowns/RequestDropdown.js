@@ -1,25 +1,18 @@
 import React from "react";
-import FindDropdown from "./FindDropdown";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCaretDown,
-  faFolderPlus,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
+import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 
-function RequestDropdown({ isOpen, isFindOpen, toggleFindMenu }) {
+function RequestDropdown({ isOpen }) {
   return (
     <ul className={"dropdown-list" + (isOpen ? "" : " hidden")}>
       <li>
-        <button className="dropdown-button link" onClick={toggleFindMenu}>
+        <NavLink to="/requests/" className="link">
           <div className="left">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
+            <FontAwesomeIcon icon={faFolderPlus} />
             <span>Αναζήτηση</span>
           </div>
-          <FontAwesomeIcon icon={faCaretDown} />
-        </button>
-        <FindDropdown isOpen={isFindOpen} />
+        </NavLink>
       </li>
       <li>
         <NavLink to="/requests/new" className="link">

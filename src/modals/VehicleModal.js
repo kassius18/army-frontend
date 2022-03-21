@@ -1,7 +1,5 @@
 import Modal from "modals/Modal";
 import vehicleApi from "apis/vehicleApi";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function VehicleModal({
   closeModal,
@@ -56,13 +54,7 @@ function VehicleModal({
     <div>
       <Modal closeModal={closeModalAndResetContent}>
         <form className="modal__inputs" onSubmit={submitForm}>
-          <FontAwesomeIcon
-            icon={faXmark}
-            color="red"
-            className="modal__cancel"
-            onClick={closeModal}
-          />
-          <div className="modal__inputs-id">
+          <div className="modal__input">
             <label htmlFor="id">Id</label>
             <input
               name="id"
@@ -72,7 +64,7 @@ function VehicleModal({
               }
             />
           </div>
-          <div className="modal__inputs-plate">
+          <div className="modal__input">
             <label htmlFor="plate">Πινακίδα</label>
             <input
               name="plate"
@@ -84,7 +76,7 @@ function VehicleModal({
               }
             />
           </div>
-          <div className="modal__inputs-vehicleType">
+          <div className="modal__input">
             <label htmlFor="vehicleType">Είδoς Οχήματος</label>
             <input
               name="vehicleType"

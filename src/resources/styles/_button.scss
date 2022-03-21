@@ -4,5 +4,7 @@ button {
   margin: 1rem;
   background-color: colors.$button;
   border-radius: 5px;
-  color: colors.$text;
+  color: colors.$button-text;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
 }

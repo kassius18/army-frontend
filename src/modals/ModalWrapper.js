@@ -7,6 +7,7 @@ import TabModal from "modals/TabModal";
 import ApiErrorModal from "modals/ApiErrorModal";
 import DeleteModal from "modals/DeleteModal";
 import LoadingModal from "modals/LoadingModal";
+import NotFoundModal from "modals/NotFoundModal";
 
 export const MODALS = {
   REQUEST_MODAL: "REQUEST_MODAL",
@@ -14,6 +15,7 @@ export const MODALS = {
   PART_MODAL: "PART_MODAL",
   VEHICLE_MODAL: "VEHICLE_MODAL",
   TAB_MODAL: "TAB_MODAL",
+  NOT_FOUND_MODAL: "NOT_FOUND_MODAL",
   DELETE_MODAL: "DELETE_MODAL",
   LOADING_MODAL: "LOADING_MODAL",
   ERROR_MODAL: "ERROR_MODAL",
@@ -83,6 +85,8 @@ function ModalWrapper({ modal, modalActions }) {
           modalActions={modalActions}
         />
       );
+    case MODALS.NOT_FOUND_MODAL:
+      return <NotFoundModal closeModal={modal.closeModal} />;
     case MODALS.DELETE_MODAL:
       return (
         <DeleteModal
